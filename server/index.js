@@ -1,6 +1,7 @@
 import express from 'express';
 import 'dotenv/config'
 import mongoose from 'mongoose';
+import AuthRoute from './routes/AuthRoute.js'
 import booksRoute from './routes/booksRoute.js';
 import cors from 'cors';
 
@@ -10,12 +11,8 @@ app.use(express.json());
 
 app.use(cors());
 
+app.use("/", AuthRoute);
 app.use('/books', booksRoute);
-
-app.get('/', (request, response) => {
-    console.log(request);
-    return response.status(234).send('Welcome To MERN Stack Tutorial');
-});
 
 mongoose
     .connect(process.env.ATLAS_URI)
