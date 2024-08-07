@@ -1,9 +1,9 @@
 import express from 'express';
 import 'dotenv/config'
 import mongoose from 'mongoose';
-import AuthRoute from './routes/AuthRoute.js'
-import booksRoute from './routes/booksRoute.js';
 import cors from 'cors';
+import AuthRoute from './routes/AuthRoute.js'
+import CollectionRoute from './routes/CollectionRoute.js'
 
 const app = express();
 
@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/", AuthRoute);
-app.use('/books', booksRoute);
+app.use('/api/collections', CollectionRoute);
 
 mongoose
     .connect(process.env.ATLAS_URI)
