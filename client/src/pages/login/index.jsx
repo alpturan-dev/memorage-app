@@ -4,8 +4,10 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { apiRequest } from "@/api/config"
+import { useAuth } from "@/context/AuthContext"
 
 const Login = () => {
+    const { setToken } = useAuth();
     const navigate = useNavigate();
     const [credentials, setCredentials] = useState({
         email: "",
@@ -19,6 +21,7 @@ const Login = () => {
             if (response.status === 201) {
                 localStorage.setItem('user', JSON.stringify(response.data.user));
                 localStorage.setItem('token', response.data.token);
+                setToken(response.data.token);
                 navigate("/")
             }
         } catch (error) {
