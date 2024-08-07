@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 const Schema = mongoose.Schema;
 
-const CollectionSchema = new Schema({
+const WordCollectionSchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -20,4 +20,4 @@ const CollectionSchema = new Schema({
     { timestamps: true }
 );
 
-export const Collection = mongoose.model('Collection', CollectionSchema);
+export const WordCollection = mongoose.model('WordCollection', WordCollectionSchema);

@@ -3,7 +3,8 @@ import 'dotenv/config'
 import mongoose from 'mongoose';
 import cors from 'cors';
 import AuthRoute from './routes/AuthRoute.js'
-import CollectionRoute from './routes/CollectionRoute.js'
+import WordCollectionRoute from './routes/WordCollectionRoute.js'
+import WordRoute from './routes/WordRoute.js'
 
 const app = express();
 
@@ -12,7 +13,8 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/", AuthRoute);
-app.use('/api/collections', CollectionRoute);
+app.use('/api/wordCollections', WordCollectionRoute);
+app.use('/api/words', WordRoute);
 
 mongoose
     .connect(process.env.ATLAS_URI)
