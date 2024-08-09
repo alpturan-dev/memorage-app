@@ -1,7 +1,10 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom"
 import AuthContextProvider from "./context/AuthContext"
+import Layout from "./components/layout"
 import Login from "./pages/login"
 import SignUp from "./pages/signup"
+import Dashboard from "./pages/dashboard"
+import Collections from "./pages/collections"
 
 const ProviderLayout = () => {
   return (
@@ -16,7 +19,13 @@ const router = createBrowserRouter(
     {
       element: <ProviderLayout />,
       children: [
-        { path: '/', element: <>dashboard</> },
+        {
+          element: <Layout />,
+          children: [
+            { path: '/', element: <Dashboard /> },
+            { path: '/collections', element: <Collections /> },
+          ]
+        },
         { path: '/login', element: <Login /> },
         { path: '/signup', element: <SignUp /> },
       ]

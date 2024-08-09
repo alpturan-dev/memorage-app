@@ -4,7 +4,7 @@ function Navbar() {
     return (
         <nav>
             <NavLink to="/">Dashboard</NavLink>
-            <NavLink to="/about">About</NavLink>
+            <NavLink to="/collections">Collections</NavLink>
         </nav>
     )
 }
