@@ -2,9 +2,10 @@ import { WordCollection } from "../models/WordCollectionModel.js";
 
 export const createWordCollection = async (req, res) => {
   try {
-    const { name, targetLanguage } = req.body;
+    const { name, nativeLanguage, targetLanguage } = req.body;
     const newWordCollection = new WordCollection({
       name,
+      nativeLanguage,
       targetLanguage,
       user: req.user.id
     });
@@ -38,10 +39,10 @@ export const getWordCollectionById = async (req, res) => {
 
 export const updateWordCollection = async (req, res) => {
   try {
-    const { name, targetLanguage } = req.body;
+    const { name, nativeLanguage, targetLanguage } = req.body;
     const updatedWordCollection = await WordCollection.findOneAndUpdate(
       { _id: req.params.id, user: req.user.id },
-      { name, targetLanguage },
+      { name, nativeLanguage, targetLanguage },
       { new: true }
     );
     if (!updatedWordCollection) {

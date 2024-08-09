@@ -12,6 +12,10 @@ const WordCollectionSchema = new Schema({
         ref: 'User',
         required: true
     },
+    nativeLanguage: {
+        type: String,
+        required: true
+    },
     targetLanguage: {
         type: String,
         required: true
