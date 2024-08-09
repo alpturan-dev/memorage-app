@@ -3,8 +3,39 @@ import { Input } from "@/components/ui/input"
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuCheckboxItem } from "@/components/ui/dropdown-menu"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { Link } from "react-router-dom"
+import { AddCollectionDialog } from "./components/add-collection-dialog"
+import { useEffect, useState } from "react"
+import { apiRequest } from "@/api/config"
 
 const Collections = () => {
+    const [wordCollections, setWordCollections] = useState([]);
+
+    const getAllWordCollections = async () => {
+        try {
+            const response = await apiRequest.get('/api/wordCollections');
+            if (response.status === 200) {
+                setWordCollections(response.data);
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    };
+
+    const handleDeleteWordCollection = async (id) => {
+        try {
+            const response = await apiRequest.delete(`/api/wordCollections/${id}`);
+            if (response.status === 200) {
+                setWordCollections(wordCollections.filter((item) => item._id !== id));
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    };
+
+    useEffect(() => {
+        getAllWordCollections();
+    }, []);
+
     return (
         <div className="flex flex-col min-h-screen bg-muted/40">
             <header className="bg-background border-b shadow-sm sticky top-0 z-10">
@@ -13,10 +44,7 @@ const Collections = () => {
                         <BookOpenIcon className="w-6 h-6" />
                         <span>Word Collections</span>
                     </Link>
-                    <Button size="sm">
-                        <PlusIcon className="w-4 h-4 mr-2" />
-                        New Collection
-                    </Button>
+                    <AddCollectionDialog getAllWordCollections={getAllWordCollections} />
                 </div>
             </header>
             <main className="flex-1 container px-4 md:px-6 py-8">
@@ -41,106 +69,36 @@ const Collections = () => {
                         </div>
                     </div>
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>English to Spanish</CardTitle>
-                                <CardDescription>Collection for learning Spanish vocabulary</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-2">
-                                        <FlagIcon className="w-5 h-5" />
-                                        <span>English</span>
-                                        <ArrowRightIcon className="w-5 h-5" />
-                                        <FlagIcon className="w-5 h-5" />
-                                        <span>Spanish</span>
+                        {wordCollections.length > 0 && wordCollections.map((item) => (
+                            <Card key={item._id}>
+                                <CardHeader>
+                                    <CardTitle>{item.nativeLanguage} to {item.targetLanguage}</CardTitle>
+                                    <CardDescription>Collection for learning {item.targetLanguage}</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex items-center gap-2">
+                                            <FlagIcon className="w-5 h-5" />
+                                            <span>{item.nativeLanguage}</span>
+                                            <ArrowRightIcon className="w-5 h-5" />
+                                            <FlagIcon className="w-5 h-5" />
+                                            <span>{item.targetLanguage}</span>
+                                        </div>
                                     </div>
-                                </div>
-                            </CardContent>
-                            <CardFooter className="justify-between">
-                                <Button variant="outline" size="sm">
-                                    View Words
-                                </Button>
-                                <Button variant="destructive" size="sm">
-                                    Delete
-                                </Button>
-                            </CardFooter>
-                        </Card>
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>French Vocabulary</CardTitle>
-                                <CardDescription>Collection for learning French vocabulary</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-2">
-                                        <FlagIcon className="w-5 h-5" />
-                                        <span>French</span>
-                                        <ArrowRightIcon className="w-5 h-5" />
-                                        <FlagIcon className="w-5 h-5" />
-                                        <span>English</span>
-                                    </div>
-                                </div>
-                            </CardContent>
-                            <CardFooter className="justify-between">
-                                <Button variant="outline" size="sm">
-                                    View Words
-                                </Button>
-                                <Button variant="destructive" size="sm">
-                                    Delete
-                                </Button>
-                            </CardFooter>
-                        </Card>
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Japanese Kanji</CardTitle>
-                                <CardDescription>Collection for learning Japanese Kanji characters</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-2">
-                                        <FlagIcon className="w-5 h-5" />
-                                        <span>Japanese</span>
-                                        <ArrowRightIcon className="w-5 h-5" />
-                                        <FlagIcon className="w-5 h-5" />
-                                        <span>English</span>
-                                    </div>
-                                </div>
-                            </CardContent>
-                            <CardFooter className="justify-between">
-                                <Button variant="outline" size="sm">
-                                    View Words
-                                </Button>
-                                <Button variant="destructive" size="sm">
-                                    Delete
-                                </Button>
-                            </CardFooter>
-                        </Card>
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>German Vocabulary</CardTitle>
-                                <CardDescription>Collection for learning German vocabulary</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-2">
-                                        <FlagIcon className="w-5 h-5" />
-                                        <span>German</span>
-                                        <ArrowRightIcon className="w-5 h-5" />
-                                        <FlagIcon className="w-5 h-5" />
-                                        <span>English</span>
-                                    </div>
-                                </div>
-                            </CardContent>
-                            <CardFooter className="justify-between">
-                                <Button variant="outline" size="sm">
-                                    View Words
-                                </Button>
-                                <Button variant="destructive" size="sm">
-                                    Delete
-                                </Button>
-                            </CardFooter>
-                        </Card>
+                                </CardContent>
+                                <CardFooter className="justify-between">
+                                    <Button variant="outline" size="sm">
+                                        View Words
+                                    </Button>
+                                    <Button variant="destructive" size="sm"
+                                        onClick={() => {
+                                            handleDeleteWordCollection(item._id)
+                                        }}>
+                                        Delete
+                                    </Button>
+                                </CardFooter>
+                            </Card>
+                        ))}
                     </div>
                 </div>
             </main>
@@ -232,23 +190,3 @@ function FlagIcon(props) {
     )
 }
 
-
-function PlusIcon(props) {
-    return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M5 12h14" />
-            <path d="M12 5v14" />
-        </svg>
-    )
-}
