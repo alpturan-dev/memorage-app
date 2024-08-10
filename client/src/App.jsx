@@ -5,6 +5,7 @@ import Login from "./pages/login"
 import SignUp from "./pages/signup"
 import Dashboard from "./pages/dashboard"
 import Collections from "./pages/collections"
+import Collection from "./pages/collection"
 
 const ProviderLayout = () => {
   return (
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
           children: [
             { path: '/', element: <Dashboard /> },
             { path: '/collections', element: <Collections /> },
+            { path: '/collection/:id', element: <Collection /> },
           ]
         },
         { path: '/login', element: <Login /> },
