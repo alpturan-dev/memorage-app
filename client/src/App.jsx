@@ -6,6 +6,8 @@ import SignUp from "./pages/signup"
 import Dashboard from "./pages/dashboard"
 import Collections from "./pages/collections"
 import Collection from "./pages/collection"
+import Exercises from "./pages/exercises"
+import Flashcards from "./pages/exercises/components/flashcards"
 
 const ProviderLayout = () => {
   return (
@@ -26,6 +28,8 @@ const router = createBrowserRouter(
             { path: '/', element: <Dashboard /> },
             { path: '/collections', element: <Collections /> },
             { path: '/collection/:id', element: <Collection /> },
+            { path: '/exercises', element: <Exercises /> },
+            { path: '/exercises/flashcards', element: <Flashcards /> },
           ]
         },
         { path: '/login', element: <Login /> },

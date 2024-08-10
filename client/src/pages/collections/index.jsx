@@ -73,7 +73,7 @@ const Collections = () => {
                         {wordCollections.length > 0 && wordCollections.map((item) => (
                             <Card key={item._id}>
                                 <CardHeader>
-                                    <CardTitle>{item.nativeLanguage} to {item.targetLanguage}</CardTitle>
+                                    <CardTitle>{item.name}</CardTitle>
                                     <CardDescription>Collection for learning {item.targetLanguage}</CardDescription>
                                 </CardHeader>
                                 <CardContent>

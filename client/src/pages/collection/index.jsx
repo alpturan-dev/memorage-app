@@ -15,12 +15,25 @@ const Collection = () => {
     };
     const [newWord, setNewWord] = useState(wordInitialState);
     const [formAction, setFormAction] = useState("add");
+    const [selectedCollection, setSelectedCollection] = useState({});
 
     const getAllWordsByCollection = async () => {
         try {
             const response = await apiRequest.get(`/api/words/wordCollection/${params.id}`);
             if (response.status === 200) {
                 setWords(response.data);
+                await getCollectionById(params.id);
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    };
+
+    const getCollectionById = async (id) => {
+        try {
+            const collectionRes = await apiRequest.get(`/api/wordCollections/${id}`);
+            if (collectionRes.status === 200) {
+                setSelectedCollection(collectionRes.data);
             }
         } catch (error) {
             console.error(error)
@@ -40,13 +53,14 @@ const Collection = () => {
                 const response = await apiRequest.put(`/api/words/${newWord.id}`, newWord);
                 if (response.status === 200) {
                     await getAllWordsByCollection();
-                    console.log("yeni kelime eklendi.");
+                    console.log("kelime guncellendi.");
                 }
             }
         } catch (error) {
             console.error(error);
         } finally {
             setNewWord(wordInitialState);
+            setFormAction("add");
         }
     }
 
@@ -69,7 +83,7 @@ const Collection = () => {
         <div className="bg-background text-foreground p-4 sm:p-6">
             <div className="grid gap-4">
                 <div className="flex items-center justify-between">
-                    <h1 className="text-2xl font-bold">Word Collection</h1>
+                    <h1 className="text-xl font-bold">{selectedCollection.name}</h1>
                 </div>
                 <div className="grid gap-3">
                     <div className="flex items-center gap-2">
