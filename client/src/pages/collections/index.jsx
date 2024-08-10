@@ -57,16 +57,16 @@ const Collections = () => {
                             }}>
                                 <CardHeader>
                                     <CardTitle>{item.name}</CardTitle>
-                                    <CardDescription>Collection for learning {item.targetLanguage}</CardDescription>
+                                    <CardDescription>Collection for learning {item.targetLanguage.name}</CardDescription>
                                 </CardHeader>
                                 <CardContent>
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center gap-2">
                                             <FlagIcon className="w-5 h-5" />
-                                            <span>{item.nativeLanguage}</span>
+                                            <span>{item.nativeLanguage.name}</span>
                                             <ArrowRightIcon className="w-5 h-5" />
                                             <FlagIcon className="w-5 h-5" />
-                                            <span>{item.targetLanguage}</span>
+                                            <span>{item.targetLanguage.name}</span>
                                         </div>
                                     </div>
                                 </CardContent>

@@ -13,11 +13,11 @@ const WordCollectionSchema = new Schema({
         required: true
     },
     nativeLanguage: {
-        type: String,
+        type: Object,
         required: true
     },
     targetLanguage: {
-        type: String,
+        type: Object,
         required: true
     },
 },

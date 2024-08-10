@@ -12,11 +12,13 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useState } from "react"
+import { languages } from "@/constants/constants"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 const initialState = {
     name: "",
-    nativeLanguage: "",
-    targetLanguage: ""
+    nativeLanguage: {},
+    targetLanguage: {}
 }
 
 export const AddCollectionDialog = ({ getAllWordCollections }) => {
@@ -70,33 +72,61 @@ export const AddCollectionDialog = ({ getAllWordCollections }) => {
                                 })}
                             />
                         </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
+                        <div className="flex items-center gap-4">
                             <Label htmlFor="nativeLanguage" className="text-right">
                                 Native Language
                             </Label>
-                            <Input
+                            <Select
                                 id="nativeLanguage"
+                                value={newCollection.nativeLanguage.code}
+                                onValueChange={(value) => {
+                                    const lang = languages.find((item) => item.code === value);
+                                    setNewCollection({
+                                        ...newCollection,
+                                        nativeLanguage: lang
+                                    })
+                                }}
                                 className="col-span-3"
-                                value={newCollection.nativeLanguage}
-                                onChange={(e) => setNewCollection({
-                                    ...newCollection,
-                                    nativeLanguage: e.target.value
-                                })}
-                            />
+                            >
+                                <SelectTrigger className="w-full">
+                                    <SelectValue placeholder="Select a language" />
+                                </SelectTrigger>
+                                <SelectContent className="h-56">
+                                    {languages.map((language) => {
+                                        if (newCollection.targetLanguage.code !== language.code) return (
+                                            <SelectItem key={language.code} value={language.code}>{language.name}</SelectItem>
+                                        )
+                                    })}
+                                </SelectContent>
+                            </Select>
                         </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
+                        <div className="flex items-center gap-4">
                             <Label htmlFor="targetLanguage" className="text-right">
-                                Target Language
+                                Native Language
                             </Label>
-                            <Input
+                            <Select
                                 id="targetLanguage"
+                                value={newCollection.targetLanguage.code}
+                                onValueChange={(value) => {
+                                    const lang = languages.find((item) => item.code === value);
+                                    setNewCollection({
+                                        ...newCollection,
+                                        targetLanguage: lang
+                                    })
+                                }}
                                 className="col-span-3"
-                                value={newCollection.targetLanguage}
-                                onChange={(e) => setNewCollection({
-                                    ...newCollection,
-                                    targetLanguage: e.target.value
-                                })}
-                            />
+                            >
+                                <SelectTrigger className="w-full">
+                                    <SelectValue placeholder="Select a language" />
+                                </SelectTrigger>
+                                <SelectContent className="h-56">
+                                    {languages.map((language) => {
+                                        if (newCollection.nativeLanguage.code !== language.code) return (
+                                            <SelectItem key={language.code} value={language.code}>{language.name}</SelectItem>
+                                        )
+                                    })}
+                                </SelectContent>
+                            </Select>
                         </div>
                     </div>
                     <DialogFooter>
@@ -104,8 +134,7 @@ export const AddCollectionDialog = ({ getAllWordCollections }) => {
                     </DialogFooter>
                 </form>
             </DialogContent>
-
-        </Dialog >
+        </Dialog>
     )
 }
 
