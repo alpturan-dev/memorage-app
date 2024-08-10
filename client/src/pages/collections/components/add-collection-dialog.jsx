@@ -44,7 +44,7 @@ export const AddCollectionDialog = ({ getAllWordCollections }) => {
             <DialogTrigger asChild>
                 <Button size="sm">
                     <PlusIcon className="w-4 h-4 mr-2" />
-                    New Word Collection
+                    New Collection
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[545px]">

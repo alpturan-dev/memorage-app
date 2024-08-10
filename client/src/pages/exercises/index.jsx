@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { exercises } from "@/constants/constants";
 import { apiRequest } from "@/api/config"
 
@@ -30,67 +30,71 @@ const Exercises = () => {
     }, []);
 
     return (
-        <div className="container mx-auto pb-12 px-4 md:px-6">
-            <h1 className="text-3xl font-bold mb-8">Word Exercises</h1>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                {exercises.map((exercise, index) => (
-                    <Dialog key={index}>
-                        <DialogTrigger asChild>
-                            <Card onClick={() => setSelectedExercise(exercise)}>
-                                <CardHeader>
-                                    <CardTitle>{exercise.name}</CardTitle>
-                                    <CardDescription>{exercise.description}</CardDescription>
-                                </CardHeader>
-                                <CardContent className="flex items-center justify-center h-40">
-                                    <div className="text-primary hover:text-primary-foreground">
-                                        <PlayIcon className="w-8 h-8" />
-                                        <span className="sr-only">Start {exercise.name}</span>
+        <div className="flex flex-col min-h-screen bg-muted/40">
+            <main className="flex-1 container px-4 md:px-6 py-2">
+                <Link to="/exercises" className="py-4 flex items-center gap-2 text-2xl font-semibold">
+                    <span>Exercises</span>
+                </Link>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                    {exercises.map((exercise, index) => (
+                        <Dialog key={index}>
+                            <DialogTrigger asChild>
+                                <Card onClick={() => setSelectedExercise(exercise)}>
+                                    <CardHeader>
+                                        <CardTitle>{exercise.name}</CardTitle>
+                                        <CardDescription>{exercise.description}</CardDescription>
+                                    </CardHeader>
+                                    <CardContent className="flex items-center justify-center h-40">
+                                        <div className="text-primary hover:text-primary-foreground">
+                                            <PlayIcon className="w-8 h-8" />
+                                            <span className="sr-only">Start {exercise.name}</span>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-[425px]">
+                                <DialogHeader>
+                                    <DialogTitle>Select Word Collection</DialogTitle>
+                                    <DialogDescription>Choose a word collection to start the {exercise.name} exercise.</DialogDescription>
+                                </DialogHeader>
+                                <div className="grid gap-4 py-4 w-full">
+                                    <div className="flex items-center gap-4">
+                                        <Label htmlFor="collection" className="text-right">
+                                            Collection
+                                        </Label>
+                                        <Select
+                                            id="collection"
+                                            value={selectedCollectionId}
+                                            onValueChange={setSelectedCollectionId}
+                                            className="col-span-4"
+                                        >
+                                            <SelectTrigger className="w-full">
+                                                <SelectValue placeholder="Select a collection" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {wordCollections.map((item) => (
+                                                    <SelectItem key={item._id} value={item._id}>{item.name}</SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
                                     </div>
-                                </CardContent>
-                            </Card>
-                        </DialogTrigger>
-                        <DialogContent className="sm:max-w-[425px]">
-                            <DialogHeader>
-                                <DialogTitle>Select Word Collection</DialogTitle>
-                                <DialogDescription>Choose a word collection to start the {exercise.name} exercise.</DialogDescription>
-                            </DialogHeader>
-                            <div className="grid gap-4 py-4 w-full">
-                                <div className="flex items-center gap-4">
-                                    <Label htmlFor="collection" className="text-right">
-                                        Collection
-                                    </Label>
-                                    <Select
-                                        id="collection"
-                                        value={selectedCollectionId}
-                                        onValueChange={setSelectedCollectionId}
-                                        className="col-span-4"
-                                    >
-                                        <SelectTrigger className="w-full">
-                                            <SelectValue placeholder="Select a collection" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            {wordCollections.map((item) => (
-                                                <SelectItem key={item._id} value={item._id}>{item.name}</SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
                                 </div>
-                            </div>
-                            <DialogFooter>
-                                <Button
-                                    onClick={() => {
-                                        if (selectedCollectionId) {
-                                            navigate(`/exercises/${selectedExercise.path}`, { state: { selectedCollectionId } })
-                                        }
-                                    }}
-                                >
-                                    Start
-                                </Button>
-                            </DialogFooter>
-                        </DialogContent>
-                    </Dialog>
-                ))}
-            </div>
+                                <DialogFooter>
+                                    <Button
+                                        onClick={() => {
+                                            if (selectedCollectionId) {
+                                                navigate(`/exercises/${selectedExercise.path}`, { state: { selectedCollectionId } })
+                                            }
+                                        }}
+                                    >
+                                        Start
+                                    </Button>
+                                </DialogFooter>
+                            </DialogContent>
+                        </Dialog>
+                    ))}
+                </div>
+            </main>
         </div>
     )
 }

@@ -39,39 +39,22 @@ const Collections = () => {
 
     return (
         <div className="flex flex-col min-h-screen bg-muted/40">
-            <header className="bg-background border-b shadow-sm sticky top-0 z-10">
-                <div className="container flex items-center justify-between h-16 px-4 md:px-6">
-                    <Link to="#" className="flex items-center gap-2 text-lg font-semibold">
-                        <BookOpenIcon className="w-6 h-6" />
-                        <span>Word Collections</span>
-                    </Link>
-                    <AddCollectionDialog getAllWordCollections={getAllWordCollections} />
-                </div>
-            </header>
-            <main className="flex-1 container px-4 md:px-6 py-8">
+            <main className="flex-1 container px-4 md:px-6 py-2">
+                <Link to="/collections" className="py-4 flex items-center gap-2 text-2xl font-semibold">
+                    <span>Word Collections</span>
+                </Link>
                 <div className="grid gap-6">
                     <div className="flex items-center justify-between">
-                        <h1 className="text-2xl font-bold">All Collections</h1>
                         <div className="flex items-center gap-4">
                             <Input type="search" placeholder="Search collections..." className="bg-background" />
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <Button variant="outline" size="icon">
-                                        <FilterIcon className="w-5 h-5" />
-                                    </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end">
-                                    <DropdownMenuLabel>Filter by</DropdownMenuLabel>
-                                    <DropdownMenuSeparator />
-                                    <DropdownMenuCheckboxItem>Native Language</DropdownMenuCheckboxItem>
-                                    <DropdownMenuCheckboxItem>Target Language</DropdownMenuCheckboxItem>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
+                            <AddCollectionDialog getAllWordCollections={getAllWordCollections} />
                         </div>
                     </div>
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                         {wordCollections.length > 0 && wordCollections.map((item) => (
-                            <Card key={item._id}>
+                            <Card key={item._id} onClick={() => {
+                                navigate(`/collection/${item._id}`)
+                            }}>
                                 <CardHeader>
                                     <CardTitle>{item.name}</CardTitle>
                                     <CardDescription>Collection for learning {item.targetLanguage}</CardDescription>
@@ -88,14 +71,12 @@ const Collections = () => {
                                     </div>
                                 </CardContent>
                                 <CardFooter className="justify-between">
-                                    <Button variant="outline" size="sm"
-                                        onClick={() => {
-                                            navigate(`/collection/${item._id}`)
-                                        }}>
+                                    <Button variant="outline" size="sm">
                                         View Words
                                     </Button>
                                     <Button variant="destructive" size="sm"
-                                        onClick={() => {
+                                        onClick={(e) => {
+                                            e.stopPropagation();
                                             handleDeleteWordCollection(item._id)
                                         }}>
                                         Delete

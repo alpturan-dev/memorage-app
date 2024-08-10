@@ -87,14 +87,14 @@ const Collection = () => {
                 </div>
                 <div className="grid gap-3">
                     <div className="flex items-center gap-2">
-                        <Input type="text" placeholder="Word" className="w-32"
+                        <Input type="text" placeholder="Word"
                             value={newWord.nativeWord}
                             onChange={(e) => setNewWord({
                                 ...newWord,
                                 nativeWord: e.target.value
                             })}
                         />
-                        <Input type="text" placeholder="Translation" className="w-32"
+                        <Input type="text" placeholder="Translation"
                             value={newWord.targetWord}
                             onChange={(e) => setNewWord({
                                 ...newWord,
