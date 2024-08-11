@@ -8,6 +8,7 @@ import Collections from "./pages/collections"
 import Collection from "./pages/collection"
 import Exercises from "./pages/exercises"
 import Flashcards from "./pages/exercises/components/flashcards"
+import Shuffle from "./pages/exercises/components/shuffle"
 
 const ProviderLayout = () => {
   return (
@@ -30,6 +31,7 @@ const router = createBrowserRouter(
             { path: '/collection/:id', element: <Collection /> },
             { path: '/exercises', element: <Exercises /> },
             { path: '/exercises/flashcards', element: <Flashcards /> },
+            { path: '/exercises/shuffle', element: <Shuffle /> },
           ]
         },
         { path: '/login', element: <Login /> },

@@ -49,22 +49,20 @@ const Flashcards = () => {
     const currentWord = words[currentWordIndex];
 
     return (
-        <div>
-            <main className="flex-1 container px-4 md:px-62">
-                <div className="py-4 flex items-center gap-2 text-2xl font-semibold">
-                    <span>Flashcards</span>
+        <main className="flex-1 container px-4 md:px-62">
+            <div className="max-w-2xl mx-auto p-4 text-center">
+                <div className="py-4 flex items-center gap-2 text-2xl font-semibold underline underline-offset-2">
+                    <span>Flashcards Exercise</span>
                 </div>
-                <div className="w-full my-4 text-align-center">
-                    <div className="mx-auto py-8 w-full max-w-sm h-40 p-4 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:text-white flex items-center justify-center perspective-1000 cursor-pointer transform-style-preserve-3d transition-transform duration-600 ease-in-out hover:shadow-lg" onClick={flipCard}>
-                        {isFlipped ? currentWord.targetWord : currentWord.nativeWord}
-                    </div>
-                    <div className="flex items-center justify-center gap-4 py-4">
-                        <Button className="p-2 px-4 text-sm font-semibold rounded-lg" onClick={previousCard}>Previous</Button>
-                        <Button className="p-2 px-4 text-sm font-semibold rounded-lg" onClick={nextCard}>Next</Button>
-                    </div>
+                <div className="mx-auto py-8 w-full h-40 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:text-white flex items-center justify-center perspective-1000 cursor-pointer transform-style-preserve-3d transition-transform duration-600 ease-in-out hover:shadow-lg" onClick={flipCard}>
+                    {isFlipped ? currentWord.targetWord : currentWord.nativeWord}
                 </div>
-            </main>
-        </div>
+                <div className="flex items-center justify-center gap-4 py-4">
+                    <Button className="p-2 px-4 text-sm font-semibold rounded-lg" onClick={previousCard}>Previous</Button>
+                    <Button className="p-2 px-4 text-sm font-semibold rounded-lg" onClick={nextCard}>Next</Button>
+                </div>
+            </div>
+        </main>
     )
 }
 
