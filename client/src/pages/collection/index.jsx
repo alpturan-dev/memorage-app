@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import ImportWordsComponent from "./components/import-words-component";
 
 const Collection = () => {
     const params = useParams();
@@ -11,7 +12,6 @@ const Collection = () => {
         nativeWord: "",
         targetWord: "",
         wordCollectionId: params.id
-
     };
     const [newWord, setNewWord] = useState(wordInitialState);
     const [formAction, setFormAction] = useState("add");
@@ -84,6 +84,7 @@ const Collection = () => {
             <div className="grid gap-4">
                 <div className="flex items-center justify-between">
                     <h1 className="text-xl font-bold">{selectedCollection.name}</h1>
+                    <ImportWordsComponent wordCollectionId={params.id} getAllWordsByCollection={getAllWordsByCollection} />
                 </div>
                 <div className="grid gap-3">
                     <div className="flex items-center gap-2">
