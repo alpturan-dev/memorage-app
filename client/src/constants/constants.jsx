@@ -1,9 +1,9 @@
 export const exercises = [
-    {
-        path: "flashcards",
-        name: "Flashcards",
-        description: "Test your vocabulary with interactive flashcards."
-    },
+    // {
+    //     path: "flashcards",
+    //     name: "Flashcards",
+    //     description: "Test your vocabulary with interactive flashcards."
+    // },
     {
         path: "shuffle",
         name: "Shuffle",

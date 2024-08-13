@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label"
 import { useState } from "react"
 import { languages } from "@/constants/constants"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import toast from "react-hot-toast"
 
 const initialState = {
     name: "",
@@ -28,22 +29,26 @@ const initialState = {
 }
 
 export const AddCollectionDialog = ({ getAllWordCollections }) => {
+    const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false)
     const [newCollection, setNewCollection] = useState(initialState)
 
     const handleAddCollection = async (e) => {
         e.preventDefault();
         try {
+            setLoading(true);
             const response = await apiRequest.post('/api/wordCollections', newCollection);
             if (response.status === 201) {
                 await getAllWordCollections();
-                console.log("yeni koleksiyon eklendi.");
+                toast.success('New word collection added.')
             }
         } catch (error) {
             console.error(error);
+            toast.error(error.response.data.message);
         } finally {
             setOpen(false);
             setNewCollection(initialState);
+            setLoading(false);
         }
     }
 
@@ -71,6 +76,8 @@ export const AddCollectionDialog = ({ getAllWordCollections }) => {
                             <Input
                                 id="name"
                                 className="col-span-3"
+                                disabled={loading}
+                                required
                                 value={newCollection.name}
                                 onChange={(e) => setNewCollection({
                                     ...newCollection,
@@ -85,6 +92,8 @@ export const AddCollectionDialog = ({ getAllWordCollections }) => {
                             <Select
                                 id="nativeLanguage"
                                 value={newCollection.nativeLanguage.code}
+                                disabled={loading}
+                                required
                                 onValueChange={(value) => {
                                     const lang = languages.find((item) => item.code === value);
                                     setNewCollection({
@@ -112,6 +121,8 @@ export const AddCollectionDialog = ({ getAllWordCollections }) => {
                             </Label>
                             <Select
                                 id="targetLanguage"
+                                disabled={loading}
+                                required
                                 value={newCollection.targetLanguage.code}
                                 onValueChange={(value) => {
                                     const lang = languages.find((item) => item.code === value);
@@ -136,7 +147,9 @@ export const AddCollectionDialog = ({ getAllWordCollections }) => {
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button type="submit">Create</Button>
+                        <Button type="submit" disabled={loading}>
+                            {loading ? 'Creating...' : 'Create'}
+                        </Button>
                     </DialogFooter>
                 </form>
             </DialogContent>
