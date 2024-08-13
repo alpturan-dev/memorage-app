@@ -17,8 +17,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 const initialState = {
     name: "",
-    nativeLanguage: {},
-    targetLanguage: {}
+    nativeLanguage: {
+        code: "",
+        name: ""
+    },
+    targetLanguage: {
+        code: "",
+        name: ""
+    }
 }
 
 export const AddCollectionDialog = ({ getAllWordCollections }) => {
@@ -60,7 +66,7 @@ export const AddCollectionDialog = ({ getAllWordCollections }) => {
                     <div className="grid gap-4 py-4">
                         <div className="grid grid-cols-4 items-center gap-4">
                             <Label htmlFor="name" className="text-right">
-                                Name
+                                Collection Name
                             </Label>
                             <Input
                                 id="name"
@@ -102,7 +108,7 @@ export const AddCollectionDialog = ({ getAllWordCollections }) => {
                         </div>
                         <div className="flex items-center gap-4">
                             <Label htmlFor="targetLanguage" className="text-right">
-                                Native Language
+                                Target Language
                             </Label>
                             <Select
                                 id="targetLanguage"

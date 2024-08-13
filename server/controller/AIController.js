@@ -9,6 +9,11 @@ export const importWordsFromImages = async (req, res) => {
             return res.status(400).json({ error: 'No images uploaded' });
         }
 
+        const { sourceLanguage, targetLanguage } = req.body;
+        if (!sourceLanguage || !targetLanguage) {
+            return res.status(400).json({ error: 'Source and target languages are required' });
+        }
+
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
         const imageParts = await Promise.all(req.files.map(async (file) => {
@@ -21,7 +26,7 @@ export const importWordsFromImages = async (req, res) => {
             };
         }));
 
-        const prompt = "Generate the array of objects from given images, objects should have two fields: nativeWord, targetWord. Return the result as a valid JSON array.";
+        const prompt = "Analyze the given images to identify word pairs consisting of a word in [SOURCE_LANGUAGE] and its translation in [TARGET_LANGUAGE]. Return the results as a valid JSON array. Each object in the array should contain the following properties: nativeWord, targetWord. If no word pairs are found, return an empty array.";
 
         const result = await model.generateContent([prompt, ...imageParts]);
         const response = await result.response;

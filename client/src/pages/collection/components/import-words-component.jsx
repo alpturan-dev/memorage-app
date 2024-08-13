@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { apiRequest } from '@/api/config';
 
-const ImportWordsComponent = ({ wordCollectionId, getAllWordsByCollection }) => {
+const ImportWordsComponent = ({ wordCollectionId, getAllWordsByCollection, selectedCollection }) => {
     const [open, setOpen] = useState(false)
     const [images, setImages] = useState([]);
 
@@ -21,6 +21,9 @@ const ImportWordsComponent = ({ wordCollectionId, getAllWordsByCollection }) => 
         images.forEach((image, index) => {
             formData.append(`image${index}`, image);
         });
+
+        formData.append('sourceLanguage', selectedCollection.nativeLanguage.name);
+        formData.append('targetLanguage', selectedCollection.targetLanguage.name);
 
         try {
             const aiRes = await apiRequest.post(`/api/ai/importWordsFromImages`, formData);
@@ -43,7 +46,7 @@ const ImportWordsComponent = ({ wordCollectionId, getAllWordsByCollection }) => 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline">Upload Images</Button>
+                <Button variant="outline">Import words from images</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
@@ -63,7 +66,7 @@ const ImportWordsComponent = ({ wordCollectionId, getAllWordsByCollection }) => 
                             {images.length} image(s) selected
                         </div>
                     )}
-                    <Button onClick={handleSubmit} disabled={images.length === 0}>
+                    <Button className="col-span-3 float-right" onClick={handleSubmit} disabled={images.length === 0}>
                         Apply
                     </Button>
                 </div>

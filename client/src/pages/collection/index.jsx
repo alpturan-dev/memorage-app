@@ -84,8 +84,9 @@ const Collection = () => {
             <div className="grid gap-4">
                 <div className="flex items-center justify-between">
                     <h1 className="text-xl font-bold">{selectedCollection.name}</h1>
-                    <ImportWordsComponent wordCollectionId={params.id} getAllWordsByCollection={getAllWordsByCollection} />
+                    <div className="float-right">Total words: {words.length}</div>
                 </div>
+                <ImportWordsComponent wordCollectionId={params.id} getAllWordsByCollection={getAllWordsByCollection} selectedCollection={selectedCollection} />
                 <div className="grid gap-3">
                     <div className="flex items-center gap-2">
                         <Input type="text" placeholder="Word"
