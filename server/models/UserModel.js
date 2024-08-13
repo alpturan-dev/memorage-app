@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema(
         },
         username: {
             type: String,
-            unique: [true, "This username already taken"],
+            unique: false,
             required: [true, "Your username is required"],
         },
         password: {

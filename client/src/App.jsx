@@ -9,10 +9,12 @@ import Collection from "./pages/collection"
 import Exercises from "./pages/exercises"
 import Flashcards from "./pages/exercises/components/flashcards"
 import Shuffle from "./pages/exercises/components/shuffle"
+import { Toaster } from "react-hot-toast"
 
 const ProviderLayout = () => {
   return (
     <AuthContextProvider>
+      <Toaster />
       <Outlet />
     </AuthContextProvider>
   )

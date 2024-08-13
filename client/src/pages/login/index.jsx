@@ -5,8 +5,10 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { apiRequest } from "@/api/config"
 import { useAuth } from "@/context/AuthContext"
+import toast from "react-hot-toast"
 
 const Login = () => {
+    const [loading, setLoading] = useState(false);
     const { setToken } = useAuth();
     const navigate = useNavigate();
     const [credentials, setCredentials] = useState({
@@ -17,15 +19,23 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
+            setLoading(true);
+            if (credentials.email === null, credentials.password === null) {
+                toast.error('Email and password required!')
+            }
             const response = await apiRequest.post('/login', { ...credentials });
             if (response.status === 201) {
                 localStorage.setItem('user', JSON.stringify(response.data.user));
                 localStorage.setItem('token', response.data.token);
                 setToken(response.data.token);
                 navigate("/")
+                toast.success('Logged in succesfully!');
             }
         } catch (error) {
             console.error(error)
+            toast.error(error.response.data.message);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -45,6 +55,7 @@ const Login = () => {
                     <div>
                         <Label htmlFor="email">Email</Label>
                         <Input id="email" type="email" placeholder="name@example.com" required
+                            disabled={loading}
                             value={credentials.email}
                             onChange={(e) => setCredentials({
                                 ...credentials,
@@ -55,6 +66,7 @@ const Login = () => {
                     <div>
                         <Label htmlFor="password">Password</Label>
                         <Input id="password" type="password" placeholder="Password" required
+                            disabled={loading}
                             value={credentials.password}
                             onChange={(e) => setCredentials({
                                 ...credentials,
@@ -62,8 +74,8 @@ const Login = () => {
                             })}
                         />
                     </div>
-                    <Button type="submit" className="w-full">
-                        Sign in
+                    <Button type="submit" className="w-full" disabled={loading}>
+                        {loading ? 'Logging in...' : 'Login'}
                     </Button>
                 </form>
             </div>

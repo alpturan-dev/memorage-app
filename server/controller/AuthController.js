@@ -28,7 +28,7 @@ export const Signup = async (req, res) => {
         const { email, password, username } = req.body;
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res.status(400).json({ message: "User already exists" });
+            return res.status(400).json({ message: "This email already used." });
         }
         const user = await User.create({ email, password, username });
         const token = createSecretToken(user._id);
