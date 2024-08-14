@@ -7,8 +7,10 @@ import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { exercises } from "@/constants/constants";
 import { apiRequest } from "@/api/config"
+import { useTranslation } from "react-i18next"
 
 const Exercises = () => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const [selectedExercise, setSelectedExercise] = useState(null);
     const [selectedCollectionId, setSelectedCollectionId] = useState(null);
@@ -33,7 +35,7 @@ const Exercises = () => {
         <div className="flex flex-col min-h-screen bg-muted/40">
             <main className="flex-1 container px-4 md:px-6 py-2">
                 <Link to="/exercises" className="py-4 flex items-center gap-2 text-2xl font-semibold">
-                    <span>Exercises</span>
+                    <span>{t('exercisesPage.title')}</span>
                 </Link>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                     {exercises.map((exercise, index) => (
@@ -54,13 +56,15 @@ const Exercises = () => {
                             </DialogTrigger>
                             <DialogContent className="sm:max-w-[425px]">
                                 <DialogHeader>
-                                    <DialogTitle>Select Word Collection</DialogTitle>
-                                    <DialogDescription>Choose a word collection to start the {exercise.name} exercise.</DialogDescription>
+                                    <DialogTitle>{t('exercisesPage.dialogTitle')}</DialogTitle>
+                                    <DialogDescription>
+                                        {t('exercisesPage.dialogSubtitle', { exerciseName: exercise.name })}
+                                    </DialogDescription>
                                 </DialogHeader>
                                 <div className="grid gap-4 py-4 w-full">
                                     <div className="flex items-center gap-4">
                                         <Label htmlFor="collection" className="text-right">
-                                            Collection
+                                            {t('exercisesPage.collection')}
                                         </Label>
                                         <Select
                                             id="collection"
@@ -69,7 +73,7 @@ const Exercises = () => {
                                             className="col-span-4"
                                         >
                                             <SelectTrigger className="w-full">
-                                                <SelectValue placeholder="Select a collection" />
+                                                <SelectValue placeholder={t('collectionsPage.selectLanguage')} />
                                             </SelectTrigger>
                                             <SelectContent>
                                                 {wordCollections.map((item) => (
@@ -87,7 +91,7 @@ const Exercises = () => {
                                             }
                                         }}
                                     >
-                                        Start
+                                        {t('exercisesPage.start')}
                                     </Button>
                                 </DialogFooter>
                             </DialogContent>

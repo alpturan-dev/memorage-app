@@ -18,8 +18,10 @@ import { useEffect, useState } from "react"
 import { apiRequest } from "@/api/config"
 import { Skeleton } from "@/components/ui/skeleton"
 import toast from "react-hot-toast"
+import { useTranslation } from "react-i18next"
 
 const Collections = () => {
+    const { t } = useTranslation();
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const [wordCollections, setWordCollections] = useState([]);
@@ -44,7 +46,7 @@ const Collections = () => {
             const response = await apiRequest.delete(`/api/wordCollections/${id}`);
             if (response.status === 200) {
                 setWordCollections(wordCollections.filter((item) => item._id !== id));
-                toast.success('Collection deleted succesfully!')
+                toast.success(t('collectionsPage.deleted'))
             }
         } catch (error) {
             console.error(error)
@@ -63,11 +65,11 @@ const Collections = () => {
             <main className="flex-1 container px-4 md:px-6 py-2">
                 <div className="flex justify-between">
                     <Link to="/collections" className="py-4 flex items-center gap-2 text-2xl font-semibold">
-                        <span>Word Collections</span>
+                        <span>{t('collectionsPage.title')}</span>
                     </Link>
                     <div className="sm:flex hidden items-center justify-between">
                         <div className="flex items-center gap-4">
-                            <Input type="search" placeholder="Search collections..." className="bg-background" />
+                            <Input type="search" placeholder={t('collectionsPage.searchPlaceholder')} className="bg-background" />
                             <AddCollectionDialog getAllWordCollections={getAllWordCollections} />
                         </div>
                     </div>
@@ -75,7 +77,8 @@ const Collections = () => {
                 <div className="grid gap-6">
                     <div className="sm:hidden flex items-center justify-between">
                         <div className="flex items-center gap-4">
-                            <Input type="search" placeholder="Search collections..." className="bg-background" />
+                            <Input type="search"
+                                placeholder={t('collectionsPage.searchPlaceholder')} className="bg-background" />
                             <AddCollectionDialog getAllWordCollections={getAllWordCollections} />
                         </div>
                     </div>
@@ -91,7 +94,7 @@ const Collections = () => {
                                 }}>
                                     <CardHeader>
                                         <CardTitle>{item.name}</CardTitle>
-                                        <CardDescription>Collection for learning {item.targetLanguage.name}</CardDescription>
+                                        <CardDescription>{t('collectionsPage.cardSubtitle')} {item.targetLanguage.name}</CardDescription>
                                     </CardHeader>
                                     <CardContent>
                                         <div className="flex items-center justify-between">
@@ -104,9 +107,9 @@ const Collections = () => {
                                             </div>
                                         </div>
                                     </CardContent>
-                                    <CardFooter className="justify-between">
+                                    <CardFooter className="justify-between gap-2">
                                         <Button variant="outline" size="sm">
-                                            View Words
+                                            {t('collectionsPage.cardButton')}
                                         </Button>
                                         <AlertDialog>
                                             <AlertDialogTrigger asChild>
@@ -114,7 +117,7 @@ const Collections = () => {
                                                     onClick={(e) => {
                                                         e.stopPropagation()
                                                     }}>
-                                                    Delete
+                                                    {t('collectionsPage.cardDelete')}
                                                 </Button>
                                             </AlertDialogTrigger>
                                             <AlertDialogContent
@@ -123,14 +126,17 @@ const Collections = () => {
                                                 }}
                                             >
                                                 <AlertDialogHeader>
-                                                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                                    <AlertDialogTitle>
+                                                        {t('collectionsPage.alertTitle')}
+                                                    </AlertDialogTitle>
                                                     <AlertDialogDescription>
-                                                        This action cannot be undone. This will permanently delete your
-                                                        word collection and remove your words with in it.
+                                                        {t('collectionsPage.alertDescription')}
                                                     </AlertDialogDescription>
                                                 </AlertDialogHeader>
                                                 <AlertDialogFooter>
-                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                    <AlertDialogCancel>
+                                                        {t('collectionsPage.alertCancel')}
+                                                    </AlertDialogCancel>
                                                     <AlertDialogAction asChild>
                                                         <Button variant="destructive" size="sm"
                                                             onClick={async (e) => {
@@ -138,7 +144,7 @@ const Collections = () => {
                                                                 await handleDeleteWordCollection(item._id)
                                                             }}
                                                         >
-                                                            Delete
+                                                            {t('collectionsPage.alertDelete')}
                                                         </Button>
                                                     </AlertDialogAction>
                                                 </AlertDialogFooter>

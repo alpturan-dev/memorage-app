@@ -1,9 +1,12 @@
 import { apiRequest } from "@/api/config";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 
 const Shuffle = () => {
+    const { t } = useTranslation();
     const { state } = useLocation();
     const { selectedCollectionId } = state;
     const [words, setWords] = useState([]);
@@ -54,7 +57,7 @@ const Shuffle = () => {
     };
 
     const handleOptionClick = (selectedOption) => {
-        if (isCorrect !== null) return; // Prevent multiple clicks
+        if (isCorrect !== null) return;
 
         if (selectedOption === currentWord.targetWord) {
             setIsCorrect(true);
@@ -72,16 +75,20 @@ const Shuffle = () => {
     };
 
     if (!currentWord) {
-        return <div className="text-center text-xl">Loading...</div>;
+        return <main className="flex-1 container px-4 md:px-62">
+            <div className="max-w-2xl mx-auto p-4 text-center">
+                <Skeleton className="h-[400px] w-[640px]" />
+            </div>
+        </main>;
     }
 
     return (
         <main className="flex-1 container px-4 md:px-62">
             <div className="max-w-2xl mx-auto p-4 text-center">
                 <div className="py-4 flex items-center gap-2 text-2xl font-semibold underline underline-offset-2">
-                    <span>Shuffle Exercise</span>
+                    <span>{t('shuffleGame.title')}</span>
                 </div>
-                <h2 className="text-2xl font-bold mb-4">Score: {score}</h2>
+                <h2 className="text-2xl font-bold mb-4">{t('shuffleGame.score')} {score}</h2>
                 <hr className="shadow-xl" />
                 <div className="text-3xl font-semibold my-6">{currentWord.nativeWord}</div>
                 <div className="grid grid-cols-2 gap-4">
@@ -108,7 +115,7 @@ const Shuffle = () => {
                 </div>
                 {isCorrect === false && (
                     <div className="mt-4 text-red-600 font-bold">
-                        Incorrect. The correct answer is: {currentWord.targetWord}
+                        {t('shuffleGame.incorrect')} {currentWord.targetWord}
                     </div>
                 )}
                 {showTryAgain && (
@@ -116,7 +123,7 @@ const Shuffle = () => {
                         onClick={handleTryAgain}
                         className="mt-4 font-bold py-2 px-4 rounded"
                     >
-                        Try Again
+                        {t('shuffleGame.tryAgain')}
                     </Button>
                 )}
             </div>

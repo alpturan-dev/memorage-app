@@ -10,13 +10,16 @@ import Exercises from "./pages/exercises"
 import Flashcards from "./pages/exercises/components/flashcards"
 import Shuffle from "./pages/exercises/components/shuffle"
 import { Toaster } from "react-hot-toast"
+import { Suspense } from "react"
 
 const ProviderLayout = () => {
   return (
-    <AuthContextProvider>
-      <Toaster />
-      <Outlet />
-    </AuthContextProvider>
+    <Suspense fallback="loading">
+      <AuthContextProvider>
+        <Toaster />
+        <Outlet />
+      </AuthContextProvider>
+    </Suspense>
   )
 }
 

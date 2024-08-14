@@ -3,8 +3,10 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { apiRequest } from '@/api/config';
+import { useTranslation } from 'react-i18next';
 
 const ImportWordsComponent = ({ wordCollectionId, getAllWordsByCollection, selectedCollection }) => {
+    const { t } = useTranslation();
     const [open, setOpen] = useState(false)
     const [images, setImages] = useState([]);
 
@@ -46,11 +48,11 @@ const ImportWordsComponent = ({ wordCollectionId, getAllWordsByCollection, selec
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline">Import words from images</Button>
+                <Button variant="outline">{t('collectionPage.importWords')}</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle>Upload Images</DialogTitle>
+                    <DialogTitle>{t('collectionPage.uploadImages')}</DialogTitle>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                     <Input
@@ -63,11 +65,11 @@ const ImportWordsComponent = ({ wordCollectionId, getAllWordsByCollection, selec
                     />
                     {images.length > 0 && (
                         <div className="text-sm text-gray-500">
-                            {images.length} image(s) selected
+                            {images.length} {t('collectionPage.imagesSelected')}
                         </div>
                     )}
                     <Button className="col-span-3 float-right" onClick={handleSubmit} disabled={images.length === 0}>
-                        Apply
+                        {t('collectionPage.extractWords')}
                     </Button>
                 </div>
             </DialogContent>

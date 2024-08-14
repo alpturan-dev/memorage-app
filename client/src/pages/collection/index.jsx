@@ -5,8 +5,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ImportWordsComponent from "./components/import-words-component";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useTranslation } from "react-i18next";
 
 const Collection = () => {
+    const { t } = useTranslation();
     const [loading, setLoading] = useState(false);
     const params = useParams();
     const [words, setWords] = useState([]);
@@ -56,13 +58,11 @@ const Collection = () => {
                 const response = await apiRequest.post('/api/words', newWord);
                 if (response.status === 201) {
                     await getAllWordsByCollection();
-                    console.log("yeni kelime eklendi.");
                 }
             } else if (formAction === "edit") {
                 const response = await apiRequest.put(`/api/words/${newWord.id}`, newWord);
                 if (response.status === 200) {
                     await getAllWordsByCollection();
-                    console.log("kelime guncellendi.");
                 }
             }
         } catch (error) {
@@ -101,13 +101,13 @@ const Collection = () => {
                     {loading ? (
                         <Skeleton className="h-[30px] w-[100px]" />
                     ) : (
-                        <div>Total words : {words.length}</div>
+                        <div>{t('collectionPage.totalWords')} {words.length}</div>
                     )}
                 </div>
                 <ImportWordsComponent wordCollectionId={params.id} getAllWordsByCollection={getAllWordsByCollection} selectedCollection={selectedCollection} />
                 <div className="grid gap-3">
                     <div className="flex items-center gap-2">
-                        <Input type="text" placeholder="Word"
+                        <Input type="text" placeholder={t('collectionPage.word')}
                             value={newWord.nativeWord}
                             disabled={loading}
                             onChange={(e) => setNewWord({
@@ -115,7 +115,7 @@ const Collection = () => {
                                 nativeWord: e.target.value
                             })}
                         />
-                        <Input type="text" placeholder="Translation"
+                        <Input type="text" placeholder={t('collectionPage.translation')}
                             value={newWord.targetWord}
                             disabled={loading}
                             onChange={(e) => setNewWord({
@@ -154,7 +154,7 @@ const Collection = () => {
                                             }}
                                         >
                                             <FilePenIcon className="w-4 h-4" />
-                                            <span className="sr-only">Edit</span>
+                                            <span className="sr-only">{t('common.edit')}</span>
                                         </Button>
                                         <Button variant="ghost" size="icon"
                                             onClick={() => {
@@ -162,7 +162,7 @@ const Collection = () => {
                                             }}
                                         >
                                             <TrashIcon className="w-4 h-4" />
-                                            <span className="sr-only">Delete</span>
+                                            <span className="sr-only">{t('common.delete')}</span>
                                         </Button>
                                     </div>
                                 </div>
@@ -170,7 +170,7 @@ const Collection = () => {
                         )}
                 </div>
             </div>
-        </div >
+        </div>
     )
 }
 

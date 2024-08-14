@@ -15,6 +15,7 @@ import { useState } from "react"
 import { languages } from "@/constants/constants"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import toast from "react-hot-toast"
+import { useTranslation } from "react-i18next"
 
 const initialState = {
     name: "",
@@ -29,6 +30,7 @@ const initialState = {
 }
 
 export const AddCollectionDialog = ({ getAllWordCollections }) => {
+    const { t } = useTranslation();
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false)
     const [newCollection, setNewCollection] = useState(initialState)
@@ -40,7 +42,7 @@ export const AddCollectionDialog = ({ getAllWordCollections }) => {
             const response = await apiRequest.post('/api/wordCollections', newCollection);
             if (response.status === 201) {
                 await getAllWordCollections();
-                toast.success('New word collection added.')
+                toast.success(t('collectionsPage.added'))
             }
         } catch (error) {
             console.error(error);
@@ -57,21 +59,21 @@ export const AddCollectionDialog = ({ getAllWordCollections }) => {
             <DialogTrigger asChild>
                 <Button size="sm">
                     <PlusIcon className="w-4 h-4 mr-2" />
-                    New Collection
+                    {t('collectionsPage.addButton')}
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[545px]">
+            <DialogContent className="sm:max-w-[500px]">
                 <form onSubmit={handleAddCollection}>
                     <DialogHeader>
-                        <DialogTitle>New Word Collection</DialogTitle>
+                        <DialogTitle>{t('collectionsPage.dialogTitle')}</DialogTitle>
                         <DialogDescription>
-                            Create a new word collection. Click save when you&apos;re done.
+                            {t('collectionsPage.dialogSubtitle')}
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
                         <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="name" className="text-right">
-                                Collection Name
+                            <Label htmlFor="name" className="col-span-1 text-left">
+                                {t('collectionsPage.collectionName')}
                             </Label>
                             <Input
                                 id="name"
@@ -85,9 +87,9 @@ export const AddCollectionDialog = ({ getAllWordCollections }) => {
                                 })}
                             />
                         </div>
-                        <div className="flex items-center gap-4">
-                            <Label htmlFor="nativeLanguage" className="text-right">
-                                Native Language
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="nativeLanguage" className="col-span-1 text-left">
+                                {t('collectionsPage.sourceLanguage')}
                             </Label>
                             <Select
                                 id="nativeLanguage"
@@ -101,10 +103,9 @@ export const AddCollectionDialog = ({ getAllWordCollections }) => {
                                         nativeLanguage: lang
                                     })
                                 }}
-                                className="col-span-3"
                             >
-                                <SelectTrigger className="w-full">
-                                    <SelectValue placeholder="Select a language" />
+                                <SelectTrigger className="col-span-3">
+                                    <SelectValue placeholder={t('collectionsPage.selectLanguage')} />
                                 </SelectTrigger>
                                 <SelectContent className="h-56">
                                     {languages.map((language) => {
@@ -115,9 +116,9 @@ export const AddCollectionDialog = ({ getAllWordCollections }) => {
                                 </SelectContent>
                             </Select>
                         </div>
-                        <div className="flex items-center gap-4">
-                            <Label htmlFor="targetLanguage" className="text-right">
-                                Target Language
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="targetLanguage" className="col-span-1 text-left">
+                                {t('collectionsPage.targetLanguage')}
                             </Label>
                             <Select
                                 id="targetLanguage"
@@ -131,10 +132,9 @@ export const AddCollectionDialog = ({ getAllWordCollections }) => {
                                         targetLanguage: lang
                                     })
                                 }}
-                                className="col-span-3"
                             >
-                                <SelectTrigger className="w-full">
-                                    <SelectValue placeholder="Select a language" />
+                                <SelectTrigger className="col-span-3">
+                                    <SelectValue placeholder={t('collectionsPage.selectLanguage')} />
                                 </SelectTrigger>
                                 <SelectContent className="h-56">
                                     {languages.map((language) => {
@@ -148,7 +148,9 @@ export const AddCollectionDialog = ({ getAllWordCollections }) => {
                     </div>
                     <DialogFooter>
                         <Button type="submit" disabled={loading}>
-                            {loading ? 'Creating...' : 'Create'}
+                            {loading ?
+                                t('common.creating') :
+                                t('common.create')}
                         </Button>
                     </DialogFooter>
                 </form>
