@@ -1,0 +1,75 @@
+{
+  "common": {
+    "email": "E-posta",
+    "emailExample": "isim@ornek.com",
+    "password": "Şifre",
+    "loading": "Yükleniyor...",
+    "create": "Oluştur",
+    "creating": "Oluşturuluyor...",
+    "edit": "Düzenle",
+    "delete": "Sil"
+  },
+  "navbar": {
+    "dashboard": "Kontrol Paneli",
+    "collections": "Koleksiyonlar",
+    "exercises": "Alıştırmalar"
+  },
+  "loginPage": {
+    "title": "Hesabınıza giriş yapın",
+    "subtitle": "Hesabınız yok mu? ",
+    "login": "Giriş Yap",
+    "loggingIn": "Giriş yapılıyor...",
+    "credentialsRequired": "E-posta ve şifre gerekli!",
+    "loggedIn": "Başarıyla giriş yapıldı!"
+  },
+  "signupPage": {
+    "title": "Kayıt ol",
+    "subtitle": "Zaten bir hesabınız var mı? ",
+    "username": "Kullanıcı adı",
+    "signup": "Kayıt ol",
+    "signingUp": "Kayıt olunuyor...",
+    "signedUp": "Başarıyla kayıt olundu!"
+  },
+  "collectionsPage": {
+    "title": "Kelime Koleksiyonları",
+    "searchPlaceholder": "Koleksiyonlarda ara...",
+    "addButton": "Yeni Koleksiyon",
+    "cardSubtitle": "Öğrenme koleksiyonu ",
+    "cardButton": "Kelimeleri Görüntüle",
+    "cardDelete": "Koleksiyonu sil",
+    "dialogTitle": "Yeni Kelime Koleksiyonu",
+    "dialogSubtitle": "Yeni bir kelime koleksiyonu oluşturun. Bitirdiğinizde kaydet'e tıklayın.",
+    "alertTitle": "Emin misiniz?",
+    "alertDescription": "Bu işlem geri alınamaz. Bu, kelime koleksiyonunuzu kalıcı olarak silecek ve içindeki kelimeleri kaldıracaktır.",
+    "alertCancel": "İptal",
+    "alertDelete": "Sil",
+    "collectionName": "Koleksiyon Adı",
+    "sourceLanguage": "Kaynak Dil",
+    "targetLanguage": "Hedef Dil",
+    "selectLanguage": "Bir dil seçin",
+    "deleted": "Koleksiyon başarıyla silindi!",
+    "added": "Yeni kelime koleksiyonu eklendi."
+  },
+  "collectionPage": {
+    "totalWords": "Toplam kelime:",
+    "importWords": "Görsellerden kelime bul",
+    "word": "Kelime",
+    "translation": "Çeviri",
+    "uploadImages": "Görselleri Yükle",
+    "extractWords": "Görsellerden kelime bul",
+    "imagesSelected": " görsel seçildi"
+  },
+  "exercisesPage": {
+    "title": "Alıştırmalar",
+    "dialogTitle": "Kelime Koleksiyonu Seç",
+    "dialogSubtitle": "{{exerciseName}} alıştırmasına başlamak için bir kelime koleksiyonu seçin.",
+    "collection": "Koleksiyon",
+    "start": "Başla"
+  },
+  "shuffleGame": {
+    "title": "Karıştırma Alıştırması",
+    "score": "Puan: ",
+    "incorrect": "Yanlış. Doğru cevap: ",
+    "tryAgain": "Tekrar Dene"
+  }
+}

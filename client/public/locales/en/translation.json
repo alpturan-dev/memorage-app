@@ -1,0 +1,75 @@
+{
+  "common": {
+    "email": "Email",
+    "emailExample": "isim@ornek.com",
+    "password": "Password",
+    "loading": "Loading...",
+    "create": "Create",
+    "creating": "Creating...",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "navbar": {
+    "dashboard": "Dashboard",
+    "collections": "Collections",
+    "exercises": "Exercises"
+  },
+  "loginPage": {
+    "title": "Sign in to your account",
+    "subtitle": "Don't have an account? ",
+    "login": "Login",
+    "loggingIn": "Logging in...",
+    "credentialsRequired": "Email and password required!",
+    "loggedIn": "Logged in succesfully!"
+  },
+  "signupPage": {
+    "title": "Sign up",
+    "subtitle": "You already have an account? ",
+    "username": "Username",
+    "signup": "Sign up",
+    "signingUp": "Signing up...",
+    "signedUp": "Signed up successfully!"
+  },
+  "collectionsPage": {
+    "title": "Word Collections",
+    "searchPlaceholder": "Search collections...",
+    "addButton": "New Collection",
+    "cardSubtitle": "Collection for learning ",
+    "cardButton": "View Words",
+    "cardDelete": "Delete collection",
+    "dialogTitle": "New Word Collection",
+    "dialogSubtitle": "Create a new word collection. Click save when you're done.",
+    "alertTitle": "Are you absolutely sure?",
+    "alertDescription": "This action cannot be undone. This will permanently delete your word collection and remove your words with in it.",
+    "alertCancel": "Cancel",
+    "alertDelete": "Delete",
+    "collectionName": "Collection Name",
+    "sourceLanguage": "Source Language",
+    "targetLanguage": "Target Language",
+    "selectLanguage": "Select a language",
+    "deleted": "Collection deleted succesfully!",
+    "added": "New word collection added."
+  },
+  "collectionPage": {
+    "totalWords": "Total words:",
+    "importWords": "Import words from images",
+    "word": "Word",
+    "translation": "Translation",
+    "uploadImages": "Upload Images",
+    "extractWords": "Find words from images",
+    "imagesSelected": " images selected"
+  },
+  "exercisesPage": {
+    "title": "Exercises",
+    "dialogTitle": "Select Word Collection",
+    "dialogSubtitle": "Choose a word collection to start the {{exerciseName}} exercise.",
+    "collection": "Collection",
+    "start": "Start"
+  },
+  "shuffleGame": {
+    "title": "Shuffle Exercise",
+    "score": "Score: ",
+    "incorrect": "Incorrect. The correct answer is: ",
+    "tryAgain": "Try Again"
+  }
+}
