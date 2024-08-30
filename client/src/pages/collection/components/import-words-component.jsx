@@ -7,6 +7,8 @@ import { useTranslation } from 'react-i18next';
 
 const ImportWordsComponent = ({ wordCollectionId, getAllWordsByCollection, selectedCollection }) => {
     const { t } = useTranslation();
+    const [loading, setLoading] = useState(false);
+    const [loadingText, setLoadingText] = useState("");
     const [open, setOpen] = useState(false)
     const [images, setImages] = useState([]);
 
@@ -17,6 +19,7 @@ const ImportWordsComponent = ({ wordCollectionId, getAllWordsByCollection, selec
     };
 
     const handleSubmit = async () => {
+        setLoading(true);
         if (images.length === 0) return;
 
         const formData = new FormData();
@@ -28,8 +31,10 @@ const ImportWordsComponent = ({ wordCollectionId, getAllWordsByCollection, selec
         formData.append('targetLanguage', selectedCollection.targetLanguage.name);
 
         try {
+            setLoadingText(t('collectionPage.processingImages'));
             const aiRes = await apiRequest.post(`/api/ai/importWordsFromImages`, formData);
             if (aiRes.status === 200) {
+                setLoadingText(t('collectionPage.findingWords'));
                 const words = aiRes.data;
                 words.map(async (word) => {
                     const res = await apiRequest.post('/api/words', { ...word, wordCollectionId });
@@ -42,15 +47,22 @@ const ImportWordsComponent = ({ wordCollectionId, getAllWordsByCollection, selec
             }
         } catch (error) {
             console.error(error)
+        } finally {
+            setLoading(false);
+            setImages([]);
         }
     };
 
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog open={open} onOpenChange={(val) => {
+            setOpen(val);
+            setImages([]);
+            setLoadingText("");
+        }}>
             <DialogTrigger asChild>
                 <Button variant="outline">{t('collectionPage.importWords')}</Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-[425px]" aria-describedby={undefined}>
                 <DialogHeader>
                     <DialogTitle>{t('collectionPage.uploadImages')}</DialogTitle>
                 </DialogHeader>
@@ -68,8 +80,8 @@ const ImportWordsComponent = ({ wordCollectionId, getAllWordsByCollection, selec
                             {images.length} {t('collectionPage.imagesSelected')}
                         </div>
                     )}
-                    <Button className="col-span-3 float-right" onClick={handleSubmit} disabled={images.length === 0}>
-                        {t('collectionPage.extractWords')}
+                    <Button className="col-span-3 float-right" onClick={handleSubmit} disabled={images.length === 0 || loading}>
+                        {loading ? loadingText : t('collectionPage.extractWords')}
                     </Button>
                 </div>
             </DialogContent>

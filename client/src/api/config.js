@@ -25,11 +25,11 @@ axios.interceptors.response.use(
         return response;
     },
     (error) => {
-        if (error.response.status === 401) {
+        if (error.response && error.response.status === 401) {
             localStorage.clear();
-            history.go('/login');
+            history.go('/login', { state: { message: 'Session expired, please log in again' } });
         } else {
-            console.error(error)
+            console.error(error);
         }
         return Promise.reject(error);
     }

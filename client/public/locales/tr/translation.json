@@ -57,7 +57,9 @@
     "translation": "Çeviri",
     "uploadImages": "Görselleri Yükle",
     "extractWords": "Görsellerden kelime bul",
-    "imagesSelected": " görsel seçildi"
+    "imagesSelected": " görsel seçildi",
+    "processingImages": "Görseller işleniyor...",
+    "findingWords": "Kelimeler bulunuyor..."
   },
   "exercisesPage": {
     "title": "Alıştırmalar",

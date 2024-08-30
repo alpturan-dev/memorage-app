@@ -57,7 +57,9 @@
     "translation": "Translation",
     "uploadImages": "Upload Images",
     "extractWords": "Find words from images",
-    "imagesSelected": " images selected"
+    "imagesSelected": " images selected",
+    "processingImages": "Processing images...",
+    "findingWords": "Finding words..."
   },
   "exercisesPage": {
     "title": "Exercises",

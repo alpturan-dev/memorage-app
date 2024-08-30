@@ -12,7 +12,10 @@ export const userVerification = async (req, res, next) => {
             next()
         } catch (error) {
             console.log(error)
-            res.status(401)
+            if (error.name === 'TokenExpiredError') {
+                return res.status(401).json({ message: 'Token expired', expired: true });
+            }
+            res.status(401).json({ message: 'Token is not valid' });
         }
     }
     if (!token) {
