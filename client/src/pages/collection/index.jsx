@@ -90,7 +90,7 @@ const Collection = () => {
     }, []);
 
     return (
-        <div className="bg-background text-foreground p-4 sm:p-6">
+        <div className="bg-background text-foreground py-4">
             <div className="grid gap-4">
                 <div className="flex items-center justify-between">
                     {loading ? (

@@ -10,9 +10,13 @@
     "delete": "Sil"
   },
   "navbar": {
-    "dashboard": "Kontrol Paneli",
+    "home": "Anasayfa",
     "collections": "Koleksiyonlar",
-    "exercises": "Alıştırmalar"
+    "exercises": "Alıştırmalar",
+    "account": "Hesap",
+    "myAccount": "Hesabım",
+    "profile": "Profil",
+    "logout": "Çıkış yap"
   },
   "loginPage": {
     "title": "Hesabınıza giriş yapın",

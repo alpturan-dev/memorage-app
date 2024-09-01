@@ -33,7 +33,7 @@ const Exercises = () => {
 
     return (
         <div className="flex flex-col min-h-screen bg-muted/40">
-            <main className="flex-1 container px-4 md:px-6 py-2">
+            <main className="flex-1 py-2">
                 <Link to="/exercises" className="py-4 flex items-center gap-2 text-2xl font-semibold">
                     <span>{t('exercisesPage.title')}</span>
                 </Link>

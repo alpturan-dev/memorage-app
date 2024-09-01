@@ -62,7 +62,7 @@ const Collections = () => {
 
     return (
         <div className="flex flex-col min-h-screen bg-muted/40">
-            <main className="flex-1 container px-4 md:px-6 py-2">
+            <main className="flex-1 py-2">
                 <div className="flex justify-between">
                     <Link to="/collections" className="py-4 flex items-center gap-2 text-2xl font-semibold">
                         <span>{t('collectionsPage.title')}</span>
@@ -82,7 +82,7 @@ const Collections = () => {
                             <AddCollectionDialog getAllWordCollections={getAllWordCollections} />
                         </div>
                     </div>
-                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                         {loading ? (
                             Array.from({ length: 7 }, (_, index) => (
                                 <Skeleton key={index} className="h-[208px] w-full rounded-xl" />

@@ -10,9 +10,13 @@
     "delete": "Delete"
   },
   "navbar": {
-    "dashboard": "Dashboard",
+    "home": "Home",
     "collections": "Collections",
-    "exercises": "Exercises"
+    "exercises": "Exercises",
+    "account": "Account",
+    "myAccount": "My Account",
+    "profile": "Profile",
+    "logout": "Logout"
   },
   "loginPage": {
     "title": "Sign in to your account",
