@@ -19,6 +19,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useState } from 'react'
+import logo from '../../public/brand.svg'
 
 function Navbar() {
     const { t } = useTranslation();
@@ -65,8 +66,13 @@ function Navbar() {
                 <div className="w-full flex flex-row justify-between items-center py-4">
                     {/* Logo */}
                     <div className="flex justify-start">
-                        <a href="/" className="text-xl font-bold text-primary">
-                            Logo
+                        <a href="/" className="text-xl font-bold text-primary flex gap-2">
+                            <div className="h-4 w-4" >
+                                <img src={logo} />
+                            </div>
+                            <span className='self-end'>
+                                Memorage
+                            </span>
                         </a>
                     </div>
                     {/* Mobile menu button */}
