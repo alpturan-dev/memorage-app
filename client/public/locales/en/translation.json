@@ -1,7 +1,7 @@
 {
   "common": {
     "email": "Email",
-    "emailExample": "isim@ornek.com",
+    "emailExample": "name@sample.com",
     "password": "Password",
     "loading": "Loading...",
     "create": "Create",
@@ -13,7 +13,6 @@
     "home": "Home",
     "collections": "Collections",
     "exercises": "Exercises",
-    "account": "Account",
     "myAccount": "My Account",
     "profile": "Profile",
     "logout": "Logout"
@@ -24,7 +23,8 @@
     "login": "Login",
     "loggingIn": "Logging in...",
     "credentialsRequired": "Email and password required!",
-    "loggedIn": "Logged in succesfully!"
+    "loggedIn": "Logged in succesfully!",
+    "loggedOut": "Logged out succesfully!"
   },
   "signupPage": {
     "title": "Sign up",
@@ -39,8 +39,8 @@
     "searchPlaceholder": "Search collections...",
     "addButton": "New Collection",
     "cardSubtitle": "Collection for learning ",
-    "cardButton": "View Words",
-    "cardDelete": "Delete collection",
+    "cardButton": "View",
+    "cardDelete": "Delete",
     "dialogTitle": "New Word Collection",
     "dialogSubtitle": "Create a new word collection. Click save when you're done.",
     "alertTitle": "Are you absolutely sure?",

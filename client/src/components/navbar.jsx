@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { Menu, User, LogOut } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
@@ -20,9 +20,11 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useState } from 'react'
 import logo from '../../public/brand.svg'
+import toast from 'react-hot-toast'
 
 function Navbar() {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const navItems = [
         { to: "/", name: t('navbar.home') },
@@ -36,7 +38,9 @@ function Navbar() {
                 <DropdownMenuTrigger asChild>
                     <Button variant="outline" className="ml-4 text-base">
                         <User className="mr-2 h-4 w-4" />
-                        {t('navbar.account')}
+                        <span className='w-full'>
+                            {JSON.parse(localStorage.getItem('user')).username}
+                        </span>
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
@@ -51,7 +55,14 @@ function Navbar() {
                         </DropdownMenuItem>
                     </NavLink>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>
+                    <DropdownMenuItem
+                        onClick={() => {
+                            localStorage.clear();
+                            navigate("/login")
+                            toast.success(t('loginPage.loggedOut'));
+                            setIsOpen(false);
+                        }}
+                    >
                         <LogOut className="mr-2 h-4 w-4" />
                         <span>{t('navbar.logout')}</span>
                     </DropdownMenuItem>
@@ -91,7 +102,9 @@ function Navbar() {
                                         >{item.name}</NavLink>
                                     ))}
                                     <div className="pt-4 mt-4 border-t border-border">
-                                        <p className="mb-2 text-sm font-semibold text-primary">{t('navbar.account')}</p>
+                                        <p className="mb-2 text-sm font-semibold text-primary">
+                                            {JSON.parse(localStorage.getItem('user')).username}
+                                        </p>
                                         <NavLink
                                             to="/profile"
                                             className="flex items-center py-2 text-base font-medium text-primary hover:text-primary/80"
@@ -101,9 +114,13 @@ function Navbar() {
                                             {t('navbar.profile')}
                                         </NavLink>
                                         <NavLink
-                                            to="/logout"
                                             className="flex items-center py-2 text-base font-medium text-primary hover:text-primary/80"
-                                            onClick={() => setIsOpen(false)}
+                                            onClick={() => {
+                                                localStorage.clear();
+                                                navigate("/login")
+                                                toast.success(t('loginPage.loggedOut'));
+                                                setIsOpen(false);
+                                            }}
                                         >
                                             <LogOut className="mr-2 h-4 w-4" />
                                             {t('navbar.logout')}
@@ -130,7 +147,7 @@ function Navbar() {
                             </NavigationMenuList>
                         </NavigationMenu>
                     </div>
-                    <div className='hidden md:block md:w-[120px]'>
+                    <div className='hidden md:block'>
                         <AccountDropdown />
                     </div>
                 </div>

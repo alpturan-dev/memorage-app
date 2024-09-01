@@ -37,7 +37,7 @@ const Exercises = () => {
                 <Link to="/exercises" className="py-4 flex items-center gap-2 text-2xl font-semibold">
                     <span>{t('exercisesPage.title')}</span>
                 </Link>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                     {exercises.map((exercise, index) => (
                         <Dialog key={index}>
                             <DialogTrigger asChild>

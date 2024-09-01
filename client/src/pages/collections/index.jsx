@@ -19,6 +19,7 @@ import { apiRequest } from "@/api/config"
 import { Skeleton } from "@/components/ui/skeleton"
 import toast from "react-hot-toast"
 import { useTranslation } from "react-i18next"
+import { Eraser, Grip } from "lucide-react"
 
 const Collections = () => {
     const { t } = useTranslation();
@@ -107,9 +108,12 @@ const Collections = () => {
                                             </div>
                                         </div>
                                     </CardContent>
-                                    <CardFooter className="justify-between gap-2">
-                                        <Button variant="outline" size="sm">
-                                            {t('collectionsPage.cardButton')}
+                                    <CardFooter className="justify-between gap-1">
+                                        <Button size="sm">
+                                            <Grip className="w-5 h-5 mr-2" />
+                                            <span>
+                                                {t('collectionsPage.cardButton')}
+                                            </span>
                                         </Button>
                                         <AlertDialog>
                                             <AlertDialogTrigger asChild>
@@ -117,7 +121,7 @@ const Collections = () => {
                                                     onClick={(e) => {
                                                         e.stopPropagation()
                                                     }}>
-                                                    {t('collectionsPage.cardDelete')}
+                                                    <Eraser className="w-5 h-5" />
                                                 </Button>
                                             </AlertDialogTrigger>
                                             <AlertDialogContent

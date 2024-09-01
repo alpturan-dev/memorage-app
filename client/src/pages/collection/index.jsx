@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import ImportWordsComponent from "./components/import-words-component";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "react-i18next";
+import { EditIcon } from "lucide-react";
 
 const Collection = () => {
     const { t } = useTranslation();
@@ -26,7 +27,7 @@ const Collection = () => {
             setLoading(true);
             const response = await apiRequest.get(`/api/words/wordCollection/${params.id}`);
             if (response.status === 200) {
-                setWords(response.data);
+                setWords(response.data.reverse());
                 await getCollectionById(params.id);
             }
         } catch (error) {
@@ -86,6 +87,12 @@ const Collection = () => {
     };
 
     useEffect(() => {
+        if (newWord.nativeWord === "" && newWord.targetWord === "") {
+            setFormAction("add");
+        }
+    }, [newWord]);
+
+    useEffect(() => {
         getAllWordsByCollection();
     }, []);
 
@@ -104,9 +111,8 @@ const Collection = () => {
                         <div>{t('collectionPage.totalWords')} {words.length}</div>
                     )}
                 </div>
-                <ImportWordsComponent wordCollectionId={params.id} getAllWordsByCollection={getAllWordsByCollection} selectedCollection={selectedCollection} />
-                <div className="grid gap-3">
-                    <div className="flex items-center gap-2">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                    <div className="flex items-center gap-2 md:gap-1">
                         <Input type="text" placeholder={t('collectionPage.word')}
                             value={newWord.nativeWord}
                             disabled={loading}
@@ -126,47 +132,58 @@ const Collection = () => {
                         <Button variant="outline" size="sm" onClick={handleAddOrEditWord}>
                             {loading ? (
                                 <>...</>
-                            ) : (
+                            ) : formAction === "add" ? (
                                 <PlusIcon className="w-4 h-4" />
+                            ) : (
+                                <EditIcon className="w-4 h-4" />
                             )}
                         </Button>
                     </div>
+                    <div className="col-span-1 md:col-span-2 flex justify-end order-first md:order-none">
+                        <ImportWordsComponent wordCollectionId={params.id} getAllWordsByCollection={getAllWordsByCollection} selectedCollection={selectedCollection} />
+                    </div>
+                </div>
+                <div className="grid gap-3">
                     {loading ?
-                        Array.from({ length: 7 }, (_, index) => (
-                            <Skeleton key={index} className="h-[68px] w-full rounded-xl" />
-                        ))
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {Array.from({ length: 9 }, (_, index) => (
+                                <Skeleton key={index} className="h-[68px] w-full rounded-xl" />
+                            ))}
+                        </div>
                         : (
-                            words.map((item) => (
-                                <div key={item._id} className="grid grid-cols-[1fr_auto] items-center gap-2 p-3 rounded-md bg-gray-100">
-                                    <div className="flex flex-col">
-                                        <div className="font-medium">{item.nativeWord}</div>
-                                        <div className="text-muted-foreground text-sm">{item.targetWord}</div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                {words.map((item) => (
+                                    <div key={item._id} className="grid grid-cols-[1fr_auto] items-center gap-2 p-3 rounded-md bg-gray-100">
+                                        <div className="flex flex-col">
+                                            <div className="font-medium">{item.nativeWord}</div>
+                                            <div className="text-muted-foreground text-sm">{item.targetWord}</div>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <Button variant="ghost" size="icon"
+                                                onClick={() => {
+                                                    setFormAction("edit");
+                                                    setNewWord({
+                                                        nativeWord: item.nativeWord,
+                                                        targetWord: item.targetWord,
+                                                        id: item._id
+                                                    });
+                                                }}
+                                            >
+                                                <FilePenIcon className="w-4 h-4" />
+                                                <span className="sr-only">{t('common.edit')}</span>
+                                            </Button>
+                                            <Button variant="ghost" size="icon"
+                                                onClick={() => {
+                                                    handleDeleteWord(item._id)
+                                                }}
+                                            >
+                                                <TrashIcon className="w-4 h-4" />
+                                                <span className="sr-only">{t('common.delete')}</span>
+                                            </Button>
+                                        </div>
                                     </div>
-                                    <div className="flex items-center gap-2">
-                                        <Button variant="ghost" size="icon"
-                                            onClick={() => {
-                                                setFormAction("edit");
-                                                setNewWord({
-                                                    nativeWord: item.nativeWord,
-                                                    targetWord: item.targetWord,
-                                                    id: item._id
-                                                });
-                                            }}
-                                        >
-                                            <FilePenIcon className="w-4 h-4" />
-                                            <span className="sr-only">{t('common.edit')}</span>
-                                        </Button>
-                                        <Button variant="ghost" size="icon"
-                                            onClick={() => {
-                                                handleDeleteWord(item._id)
-                                            }}
-                                        >
-                                            <TrashIcon className="w-4 h-4" />
-                                            <span className="sr-only">{t('common.delete')}</span>
-                                        </Button>
-                                    </div>
-                                </div>
-                            ))
+                                ))}
+                            </div>
                         )}
                 </div>
             </div>

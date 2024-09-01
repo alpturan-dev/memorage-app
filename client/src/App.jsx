@@ -16,7 +16,7 @@ const ProviderLayout = () => {
   return (
     <Suspense fallback="loading">
       <AuthContextProvider>
-        <Toaster />
+        <Toaster position="bottom-right" />
         <Outlet />
       </AuthContextProvider>
     </Suspense>

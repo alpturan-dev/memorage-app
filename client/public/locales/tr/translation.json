@@ -13,7 +13,6 @@
     "home": "Anasayfa",
     "collections": "Koleksiyonlar",
     "exercises": "Alıştırmalar",
-    "account": "Hesap",
     "myAccount": "Hesabım",
     "profile": "Profil",
     "logout": "Çıkış yap"
@@ -24,7 +23,8 @@
     "login": "Giriş Yap",
     "loggingIn": "Giriş yapılıyor...",
     "credentialsRequired": "E-posta ve şifre gerekli!",
-    "loggedIn": "Başarıyla giriş yapıldı!"
+    "loggedIn": "Başarıyla giriş yapıldı!",
+    "loggedOut": "Başarıyla çıkış yapıldı!"
   },
   "signupPage": {
     "title": "Kayıt ol",
@@ -39,8 +39,8 @@
     "searchPlaceholder": "Koleksiyonlarda ara...",
     "addButton": "Yeni Koleksiyon",
     "cardSubtitle": "Öğrenme koleksiyonu ",
-    "cardButton": "Kelimeleri Görüntüle",
-    "cardDelete": "Koleksiyonu sil",
+    "cardButton": "Görüntüle",
+    "cardDelete": "Sil",
     "dialogTitle": "Yeni Kelime Koleksiyonu",
     "dialogSubtitle": "Yeni bir kelime koleksiyonu oluşturun. Bitirdiğinizde kaydet'e tıklayın.",
     "alertTitle": "Emin misiniz?",
