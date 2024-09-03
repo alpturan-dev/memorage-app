@@ -4,6 +4,7 @@ import Layout from "./components/layout"
 import Login from "./pages/login"
 import SignUp from "./pages/signup"
 import Dashboard from "./pages/dashboard"
+import Profile from "./pages/profile"
 import Collections from "./pages/collections"
 import Collection from "./pages/collection"
 import Exercises from "./pages/exercises"
@@ -32,6 +33,7 @@ const router = createBrowserRouter(
           element: <Layout />,
           children: [
             { path: '/', element: <Dashboard /> },
+            { path: '/profile', element: <Profile /> },
             { path: '/collections', element: <Collections /> },
             { path: '/collection/:id', element: <Collection /> },
             { path: '/exercises', element: <Exercises /> },

@@ -40,3 +40,19 @@ export const Signup = async (req, res) => {
         return res.status(400).json({ message: "Bad Request" + error })
     }
 };
+
+export const UpdateUserCredentials = async (req, res) => {
+    try {
+        const { username, email } = req.body;
+        if (!username && !email) {
+            return res.status(400).json({ message: 'All fields are required' })
+        }
+        const user = await User.findOneAndUpdate({ _id: req.params.id }, { username, email }, { new: true })
+        if (!user) {
+            return res.status(400).json({ message: 'Something happened updating user credentials' })
+        }
+        return res.status(200).json({ message: "User updated successfully", success: true, user });
+    } catch (error) {
+        console.error(error);
+    }
+}

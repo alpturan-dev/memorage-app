@@ -12,7 +12,7 @@
   "navbar": {
     "home": "Anasayfa",
     "collections": "Koleksiyonlar",
-    "exercises": "Alıştırmalar",
+    "exercises": "Egzersizler",
     "myAccount": "Hesabım",
     "profile": "Profil",
     "logout": "Çıkış yap"
@@ -66,14 +66,14 @@
     "findingWords": "Kelimeler bulunuyor..."
   },
   "exercisesPage": {
-    "title": "Alıştırmalar",
+    "title": "Egzersizler",
     "dialogTitle": "Kelime Koleksiyonu Seç",
-    "dialogSubtitle": "{{exerciseName}} alıştırmasına başlamak için bir kelime koleksiyonu seçin.",
+    "dialogSubtitle": "{{exerciseName}} egzersizine başlamak için bir kelime koleksiyonu seçin.",
     "collection": "Koleksiyon",
     "start": "Başla"
   },
   "shuffleGame": {
-    "title": "Karıştırma Alıştırması",
+    "title": "Karıştırma Egzersizi",
     "score": "Puan: ",
     "incorrect": "Yanlış. Doğru cevap: ",
     "tryAgain": "Tekrar Dene"
