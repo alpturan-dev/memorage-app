@@ -13,7 +13,7 @@ app.use(express.json());
 
 app.use(cors());
 
-app.use("/", AuthRoute);
+app.use('', AuthRoute);
 app.use('/api/wordCollections', WordCollectionRoute);
 app.use('/api/words', WordRoute);
 app.use('/api/ai', AIRoute);

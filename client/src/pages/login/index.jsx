@@ -26,7 +26,7 @@ const Login = () => {
                 toast.error(t('loginPage.credentialsRequired'))
             }
             const response = await apiRequest.post('/login', { ...credentials });
-            if (response.status === 201) {
+            if (response.status === 200) {
                 localStorage.setItem('user', JSON.stringify(response.data.user));
                 localStorage.setItem('token', response.data.token);
                 setToken(response.data.token);

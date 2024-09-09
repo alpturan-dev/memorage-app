@@ -7,7 +7,8 @@
     "create": "Oluştur",
     "creating": "Oluşturuluyor...",
     "edit": "Düzenle",
-    "delete": "Sil"
+    "delete": "Sil",
+    "change": "Değiştir"
   },
   "navbar": {
     "home": "Anasayfa",
@@ -33,6 +34,23 @@
     "signup": "Kayıt ol",
     "signingUp": "Kayıt olunuyor...",
     "signedUp": "Başarıyla kayıt olundu!"
+  },
+  "profilePage": {
+    "title": "Profil Ayarları",
+    "username": "Kullanıcı Adı",
+    "email": "E-posta",
+    "language": "Dil",
+    "saveChanges": "Değişiklikleri Kaydet",
+    "changePassword": "Şifreyi Değiştir",
+    "currentPassword": "Mevcut Şifre",
+    "newPassword": "Yeni Şifre",
+    "confirmNewPassword": "Yeni Şifreyi Onayla",
+    "updatePassword": "Şifreyi Güncelle",
+    "userUpdated": "Bilgileriniz başarıyla güncellendi!",
+    "userError": "Bilgilerinizi güncellerken bir hata oluştu. Lütfen daha sonra tekrar deneyin.",
+    "passwordChanged": "Şifreniz başarıyla değiştirildi.",
+    "passwordsDoNotMatch": "Yeni şifreler uyuşmuyor.",
+    "passwordError": "Şifrenizi değiştirirken bir hata oluştu. Lütfen mevcut şifrenizin doğru olduğundan emin olun ve tekrar deneyin."
   },
   "collectionsPage": {
     "title": "Kelime Koleksiyonları",

@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: [true, "Your password is required"],
         },
+        language: {
+            type: String,
+            default: 'tr'
+        },
     },
     {
         timestamps: true

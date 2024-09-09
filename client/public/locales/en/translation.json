@@ -7,7 +7,9 @@
     "create": "Create",
     "creating": "Creating...",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "change": "Change"
   },
   "navbar": {
     "home": "Home",
@@ -33,6 +35,23 @@
     "signup": "Sign up",
     "signingUp": "Signing up...",
     "signedUp": "Signed up successfully!"
+  },
+  "profilePage": {
+    "title": "Profile Settings",
+    "username": "Username",
+    "email": "Email",
+    "language": "Language",
+    "saveChanges": "Save Changes",
+    "changePassword": "Change Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmNewPassword": "Confirm New Password",
+    "updatePassword": "Update Password",
+    "userUpdated": "Your information has been successfully updated!",
+    "userError": "There was an error updating your information. Please try again later.",
+    "passwordChanged": "Your password has been changed successfully.",
+    "passwordsDoNotMatch": "New passwords do not match.",
+    "passwordError": "There was an error changing your password. Please ensure your current password is correct and try again."
   },
   "collectionsPage": {
     "title": "Word Collections",

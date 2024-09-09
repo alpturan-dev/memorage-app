@@ -87,7 +87,7 @@ function Navbar() {
                         </a>
                     </div>
                     {/* Mobile menu button */}
-                    <div className="md:hidden">
+                    <div className="lg:hidden">
                         <Sheet open={isOpen} onOpenChange={setIsOpen}>
                             <SheetTrigger asChild>
                                 <Button variant="ghost" size="icon" className="text-primary">
@@ -131,7 +131,7 @@ function Navbar() {
                         </Sheet>
                     </div>
                     {/* Desktop menu */}
-                    <div className="hidden md:flex md:items-center md:ml-[90px] md:justify-between">
+                    <div className="hidden lg:flex lg:items-center lg:ml-[90px] lg:justify-between">
                         <NavigationMenu>
                             <NavigationMenuList>
                                 {navItems.map((item) => (
@@ -147,7 +147,7 @@ function Navbar() {
                             </NavigationMenuList>
                         </NavigationMenu>
                     </div>
-                    <div className='hidden md:block'>
+                    <div className='hidden lg:block'>
                         <AccountDropdown />
                     </div>
                 </div>
