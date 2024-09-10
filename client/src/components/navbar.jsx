@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { Menu, User, LogOut } from 'lucide-react'
+import { Menu, User, LogOut, Brain } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import {
@@ -19,7 +19,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useState } from 'react'
-import logo from '../../public/brand.svg'
+// import logo from '../../public/brand.svg'
 import toast from 'react-hot-toast'
 
 function Navbar() {
@@ -78,10 +78,10 @@ function Navbar() {
                     {/* Logo */}
                     <div className="flex justify-start">
                         <a href="/" className="text-xl font-bold text-primary flex gap-2">
-                            <div className="h-4 w-4" >
-                                <img src={logo} />
+                            <div className="h-8 w-8" >
+                                <Brain className="w-full h-full text-[#016DCC]" />
                             </div>
-                            <span className='self-end'>
+                            <span className='self-center'>
                                 Memorage
                             </span>
                         </a>

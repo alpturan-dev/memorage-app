@@ -36,6 +36,28 @@
     "signingUp": "Signing up...",
     "signedUp": "Signed up successfully!"
   },
+  "dashboardPage": {
+    "title": "Memorage",
+    "description": "Your personal word storage and learning companion. Create collections, store words, and practice efficiently.",
+    "getStarted": "Get Started",
+    "learnMore": "Learn More",
+    "feature1": {
+      "title": "Create Collections",
+      "description": "Organize your words into themed collections for efficient learning and review."
+    },
+    "feature2": {
+      "title": "Add Words",
+      "description": "Easily add new words to your collections. Import words from images and add to collections!"
+    },
+    "feature3": {
+      "title": "Practice Exercises",
+      "description": "Test your knowledge with various exercise types designed to reinforce your learning."
+    },
+    "callToActionTitle": "Ready to enhance your vocabulary?",
+    "callToActionDescription": "Start creating your word collections and begin your learning journey with Memorage today.",
+    "createCollection": "Create Collection",
+    "practiceNow": "Practice Now"
+  },
   "profilePage": {
     "title": "Profile Settings",
     "username": "Username",

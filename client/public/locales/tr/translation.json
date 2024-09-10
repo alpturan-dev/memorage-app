@@ -8,6 +8,7 @@
     "creating": "Oluşturuluyor...",
     "edit": "Düzenle",
     "delete": "Sil",
+    "cancel": "İptal",
     "change": "Değiştir"
   },
   "navbar": {
@@ -34,6 +35,28 @@
     "signup": "Kayıt ol",
     "signingUp": "Kayıt olunuyor...",
     "signedUp": "Başarıyla kayıt olundu!"
+  },
+  "dashboardPage": {
+    "title": "Memorage",
+    "description": "Kişisel kelime depolama ve öğrenme asistanınız. Koleksiyonlar oluşturun, kelimeleri saklayın ve etkili bir şekilde pratik yapın.",
+    "getStarted": "Başlayın",
+    "learnMore": "Daha Fazla Bilgi",
+    "feature1": {
+      "title": "Koleksiyonlar Oluşturun",
+      "description": "Verimli öğrenme ve gözden geçirme için, kelimelerinizi temalı koleksiyonlara kaydedin."
+    },
+    "feature2": {
+      "title": "Kelimeler Ekleyin",
+      "description": "Koleksiyonlarınıza yeni kelimeler kolayca ekleyin. Kelimeleri resimlerden içe aktarın ve koleksiyona ekleyin!"
+    },
+    "feature3": {
+      "title": "Pratik Egzersizler",
+      "description": "Öğrenmenizi pekiştirmek için çeşitli egzersiz türleri ile bilginizi test edin."
+    },
+    "callToActionTitle": "Kelime bilginizi geliştirmeye hazır mısınız?",
+    "callToActionDescription": "Kelime koleksiyonlarınızı oluşturmaya başlayın ve Memorage ile öğrenme yolculuğunuza bugün başlayın.",
+    "createCollection": "Koleksiyon Oluştur",
+    "practiceNow": "Şimdi Pratik Yap"
   },
   "profilePage": {
     "title": "Profil Ayarları",
