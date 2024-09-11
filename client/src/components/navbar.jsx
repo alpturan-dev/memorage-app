@@ -31,6 +31,7 @@ function Navbar() {
         { to: "/collections", name: t('navbar.collections') },
         { to: "/exercises", name: t('navbar.exercises') },
     ];
+    const username = JSON.parse(localStorage.getItem('user')).username;
 
     const AccountDropdown = () => {
         return (
@@ -39,7 +40,7 @@ function Navbar() {
                     <Button variant="outline" className="ml-4 text-base">
                         <User className="mr-2 h-4 w-4" />
                         <span className='w-full'>
-                            {JSON.parse(localStorage.getItem('user')).username}
+                            {username}
                         </span>
                     </Button>
                 </DropdownMenuTrigger>
@@ -103,7 +104,7 @@ function Navbar() {
                                     ))}
                                     <div className="pt-4 mt-4 border-t border-border">
                                         <p className="mb-2 text-sm font-semibold text-primary">
-                                            {JSON.parse(localStorage.getItem('user')).username}
+                                            {username}
                                         </p>
                                         <NavLink
                                             to="/profile"
