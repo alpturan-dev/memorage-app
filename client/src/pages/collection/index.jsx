@@ -7,6 +7,7 @@ import ImportWordsComponent from "./components/import-words-component";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "react-i18next";
 import { EditIcon } from "lucide-react";
+import ExerciseDialog from "./components/exercise-dialog";
 
 const Collection = () => {
     const { t } = useTranslation();
@@ -140,7 +141,10 @@ const Collection = () => {
                         </Button>
                     </div>
                     <div className="col-span-1 md:col-span-2 flex justify-end order-first md:order-none">
-                        <ImportWordsComponent wordCollectionId={params.id} getAllWordsByCollection={getAllWordsByCollection} selectedCollection={selectedCollection} />
+                        <div className="grid grid-cols-2 gap-2">
+                            <ExerciseDialog selectedCollectionId={selectedCollection._id} />
+                            <ImportWordsComponent wordCollectionId={params.id} getAllWordsByCollection={getAllWordsByCollection} selectedCollection={selectedCollection} />
+                        </div>
                     </div>
                 </div>
                 <div className="grid gap-3">

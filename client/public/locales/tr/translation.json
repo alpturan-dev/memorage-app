@@ -104,7 +104,9 @@
     "extractWords": "Görsellerden kelime bul",
     "imagesSelected": " görsel seçildi",
     "processingImages": "Görseller işleniyor...",
-    "findingWords": "Kelimeler bulunuyor..."
+    "findingWords": "Kelimeler bulunuyor...",
+    "exerciseDialogButton": "Egzersiz Yap",
+    "exerciseDialogTitle": "Egzersiz seç"
   },
   "exercisesPage": {
     "title": "Egzersizler",

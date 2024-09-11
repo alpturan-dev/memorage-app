@@ -104,7 +104,9 @@
     "extractWords": "Find words from images",
     "imagesSelected": " images selected",
     "processingImages": "Processing images...",
-    "findingWords": "Finding words..."
+    "findingWords": "Finding words...",
+    "exerciseDialogButton": "Do Exercise",
+    "exerciseDialogTitle": "Choose exercise"
   },
   "exercisesPage": {
     "title": "Exercises",
