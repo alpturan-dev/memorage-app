@@ -93,24 +93,38 @@ const Shuffle = () => {
     };
 
     if (!currentWord) {
-        return <main className="flex-1 container px-4 md:px-62">
-            <div className="max-w-2xl mx-auto p-4 text-center">
-                <Skeleton className="h-[400px] w-[640px]" />
+        return <main className="bg-background text-foreground py-4">
+            <div className="mx-auto text-center">
+                <div className="py-4 flex items-center gap-2 text-2xl font-semibold">
+                    <Skeleton className="h-8 w-64" />
+                </div>
+                <Skeleton className="h-px w-full my-1" />
+                <div className="pt-6 w-full flex justify-center">
+                    <div className="relative w-1/2 sm:w-1/4">
+                        <Skeleton className="h-12 w-full rounded-lg" />
+                    </div>
+                </div>
+                <Skeleton className="h-12 w-64 mx-auto my-6" />
+                <div className="grid grid-cols-2 gap-4">
+                    {[...Array(4)].map((_, index) => (
+                        <Skeleton key={index} className="h-14 w-full rounded-lg" />
+                    ))}
+                </div>
             </div>
-        </main>;
+        </main>
     }
 
     return (
         <main className="bg-background text-foreground py-4">
             <div className="mx-auto text-center">
                 <div className="py-4 flex items-center gap-2 text-2xl font-semibold">
-                    <span>{t('shuffleGame.title')}</span>
+                    <span>{t('shuffleExercise.title')}</span>
                 </div>
                 <hr className="shadow-xl" />
                 <div className="pt-6 w-full flex justify-center">
                     <div className="relative w-1/2 sm:w-1/4">
                         <h2 className="rounded-lg py-2 px-4 text-2xl font-bold bg-gray-700 text-white">
-                            {t('shuffleGame.score')} {score}
+                            {t('shuffleExercise.score')} {score}
                         </h2>
                         {isCorrect && (
                             <span className="absolute top-0 right-0 transform translate-x-1 -translate-y-1 bg-green-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs animate-bounce">
@@ -144,7 +158,7 @@ const Shuffle = () => {
                 </div>
                 {isCorrect === false && (
                     <div className="mt-4 text-red-600 font-bold">
-                        {t('shuffleGame.incorrect')} {currentWord.targetWord}
+                        {t('shuffleExercise.incorrect')} {currentWord.targetWord}
                     </div>
                 )}
                 {showTryAgain && (
@@ -152,7 +166,7 @@ const Shuffle = () => {
                         onClick={handleTryAgain}
                         className="mt-4 font-bold py-2 px-4 rounded"
                     >
-                        {t('shuffleGame.tryAgain')}
+                        {t('shuffleExercise.tryAgain')}
                     </Button>
                 )}
             </div>

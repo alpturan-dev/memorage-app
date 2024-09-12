@@ -115,7 +115,9 @@
     "collection": "Collection",
     "start": "Start"
   },
-  "shuffleGame": {
+  "shuffleExercise": {
+    "name": "Shuffle",
+    "description": "Shuffle cards and find the translation word.",
     "title": "Shuffle Exercise",
     "score": "Score: ",
     "incorrect": "Incorrect. The correct answer is: ",

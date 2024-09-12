@@ -1,16 +1,3 @@
-export const exercises = [
-    // {
-    //     path: "flashcards",
-    //     name: "Flashcards",
-    //     description: "Test your vocabulary with interactive flashcards."
-    // },
-    {
-        path: "shuffle",
-        name: "Shuffle",
-        description: "Shuffle cards and find the tranlation word."
-    }
-]
-
 export const languages = [
     { code: 'en', name: 'English' },
     { code: 'es', name: 'Español' },

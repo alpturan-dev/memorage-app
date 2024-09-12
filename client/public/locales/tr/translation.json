@@ -115,7 +115,9 @@
     "collection": "Koleksiyon",
     "start": "Başla"
   },
-  "shuffleGame": {
+  "shuffleExercise": {
+    "name": "Karıştırma",
+    "description": "Kartları karıştırın ve çeviri kelimeyi bulun.",
     "title": "Karıştırma Egzersizi",
     "score": "Puan: ",
     "incorrect": "Yanlış. Doğru cevap: ",

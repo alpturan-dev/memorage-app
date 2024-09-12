@@ -5,13 +5,14 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { exercises } from "@/constants/constants";
 import { apiRequest } from "@/api/config"
 import { useTranslation } from "react-i18next"
+import { useExercises } from "@/hooks/useExercises"
 
 const Exercises = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const exercises = useExercises();
     const [selectedExercise, setSelectedExercise] = useState(null);
     const [selectedCollectionId, setSelectedCollectionId] = useState(null);
     const [wordCollections, setWordCollections] = useState([]);

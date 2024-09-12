@@ -2,15 +2,17 @@ import { useState } from 'react'
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button";
-import { exercises } from "@/constants/constants";
+// import { exercises } from "@/constants/constants";
 import { useNavigate } from 'react-router-dom';
 import { ArrowUpRight, PlayIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
+import { useExercises } from '@/hooks/useExercises';
 
 const ExerciseDialog = ({ selectedCollectionId }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const exercises = useExercises();
     const [open, setOpen] = useState(false);
     const [selectedExercise, setSelectedExercise] = useState(null)
 
@@ -51,6 +53,7 @@ const ExerciseDialog = ({ selectedCollectionId }) => {
                 </div>
                 <DialogFooter>
                     <Button
+                        disabled={selectedExercise === null}
                         onClick={() => {
                             if (selectedCollectionId) {
                                 handleNavigate();
