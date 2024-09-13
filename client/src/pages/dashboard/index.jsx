@@ -31,7 +31,7 @@ const Dashboard = () => {
                     <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
                         {t('dashboardPage.description')}
                     </p>
-                    <div className="space-x-4">
+                    <div className="space-x-4 space-y-2">
                         <Link
                             to="/collections"
                             onClick={scrollToTop}
