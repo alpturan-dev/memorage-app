@@ -31,7 +31,7 @@ function Navbar() {
         { to: "/collections", name: t('navbar.collections') },
         { to: "/exercises", name: t('navbar.exercises') },
     ];
-    const username = JSON.parse(localStorage.getItem('user')).username;
+    const username = JSON.parse(localStorage.getItem('user'))?.username || "";
 
     const AccountDropdown = () => {
         return (
