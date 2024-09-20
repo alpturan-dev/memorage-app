@@ -9,7 +9,7 @@ const Footer = () => {
             <div className="container mx-auto px-4">
                 <div className="flex flex-col items-center ">
                     <p className="text-center text-sm text-muted-foreground">
-                        Made by <a href="https://www.linkedin.com/in/abdurrahman-alpturan-798b94202/" className='underline underline-offset-1'>alpturan-dev</a>
+                        Made by <a href="https://www.linkedin.com/in/abdurrahman-alpturan-798b94202/" className='underline underline-offset-1'>alpturan-dev, enesturan</a>
                     </p>
                     <div className="flex space-x-2 py-4 md:py-0">
                         <a href="https://x.com/alpturandev">
