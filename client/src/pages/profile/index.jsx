@@ -78,8 +78,8 @@ const Profile = () => {
         <div className="flex flex-col min-h-screen bg-muted/40">
             <main className="flex-1 py-2">
                 <h1 className="py-4 flex items-center gap-2 text-2xl font-semibold"></h1>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    <section className=' py-2 px-4 border border-slate-200 rounded-md'>
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <section className='lg:col-span-5 py-2 px-4'>
                         <div className="flex justify-between items-center mb-4">
                             <h2 className="text-lg font-semibold">{t('profilePage.title')}</h2>
                             {!editingInfo ? (
@@ -130,7 +130,8 @@ const Profile = () => {
                             )}
                         </form>
                     </section>
-                    <section className='py-2 px-4 border border-slate-200 rounded-md'>
+                    <div className={`lg:col-span-2 mx-auto bg-gray-300 lg:h-full lg:w-px h-px w-full lg:inline-block`}></div>
+                    <section className='lg:col-span-5 py-2 px-4'>
                         <div className="flex justify-between items-center mb-4">
                             <h2 className="text-lg font-semibold">{t('profilePage.changePassword')}</h2>
                             {!editingPassword ? (
