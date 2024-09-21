@@ -11,6 +11,10 @@
     "cancel": "Cancel",
     "change": "Change"
   },
+  "comingSoon": {
+    "comingSoon": "coming soon",
+    "wordBattle": "Word Battle"
+  },
   "navbar": {
     "home": "Home",
     "collections": "Collections",
@@ -122,5 +126,9 @@
     "score": "Score: ",
     "incorrect": "Incorrect. The correct answer is: ",
     "tryAgain": "Try Again"
+  },
+  "fillInTheBlanksExercise": {
+    "name": "Fill in the Blanks",
+    "description": "Read the sentences and fill in the missing words."
   }
 }

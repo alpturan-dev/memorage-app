@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { Menu, User, LogOut, Brain } from 'lucide-react'
+import { Menu, User, LogOut, Brain, Swords } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import {
@@ -21,6 +21,7 @@ import {
 import { useState } from 'react'
 // import logo from '../../public/brand.svg'
 import toast from 'react-hot-toast'
+import { twJoin } from 'tailwind-merge'
 
 function Navbar() {
     const { t } = useTranslation();
@@ -32,6 +33,7 @@ function Navbar() {
         { to: "/exercises", name: t('navbar.exercises') },
     ];
     const username = JSON.parse(localStorage.getItem('user'))?.username || "";
+    const lang = JSON.parse(localStorage.getItem('user'))?.language || "tr";
 
     const AccountDropdown = () => {
         return (
@@ -102,6 +104,17 @@ function Navbar() {
                                         <NavLink className="text-base font-medium text-primary hover:text-primary/80 cursor-pointer" to={item.to} key={item.name} onClick={() => setIsOpen(false)}
                                         >{item.name}</NavLink>
                                     ))}
+                                    <NavLink className="flex items-center text-base font-medium text-primary hover:text-primary/80 cursor-pointer opacity-70 disabled">
+                                        <div className="inline-block mr-1">
+                                            <Swords />
+                                        </div>
+                                        <span className='text-center select-auto'>
+                                            {t('comingSoon.wordBattle')}
+                                        </span>
+                                        <div className='ml-1 mb-3 text-xs font-bold bg-gradient-to-r from-[#016DCC] to-purple-600 bg-clip-text text-transparent rounded-sm px-0.5'>
+                                            {t('comingSoon.comingSoon')}
+                                        </div>
+                                    </NavLink>
                                     <div className="pt-4 mt-4 border-t border-border">
                                         <p className="mb-2 text-sm font-semibold text-primary">
                                             {username}
@@ -145,6 +158,23 @@ function Navbar() {
                                         </NavigationMenuLink>
                                     </NavigationMenuItem>
                                 ))}
+                                <NavigationMenuItem className="relative flex opacity-70 cursor-not-allowed">
+                                    <NavigationMenuLink
+                                        className={navigationMenuTriggerStyle()}
+                                    >
+                                        <div className="inline-block mr-1">
+                                            <Swords />
+                                        </div>
+                                        <span className='text-center select-auto'>
+                                            {t('comingSoon.wordBattle')}
+                                        </span>
+                                        <div className={twJoin(
+                                            lang === 'en' ? '-right-12 -top-1' : '-right-6 -top-1',
+                                            'absolute -top-2 text-[0.6rem] font-bold bg-gradient-to-r from-[#016DCC] to-purple-600 bg-clip-text text-transparent rounded-sm px-0.5')}>
+                                            {t('comingSoon.comingSoon')}
+                                        </div>
+                                    </NavigationMenuLink>
+                                </NavigationMenuItem>
                             </NavigationMenuList>
                         </NavigationMenu>
                     </div>

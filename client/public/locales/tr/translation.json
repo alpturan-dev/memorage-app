@@ -11,6 +11,10 @@
     "cancel": "İptal",
     "change": "Değiştir"
   },
+  "comingSoon": {
+    "comingSoon": "yakında",
+    "wordBattle": "Kelime Savaşı"
+  },
   "navbar": {
     "home": "Anasayfa",
     "collections": "Koleksiyonlar",
@@ -122,5 +126,9 @@
     "score": "Puan: ",
     "incorrect": "Yanlış. Doğru cevap: ",
     "tryAgain": "Tekrar Dene"
+  },
+  "fillInTheBlanksExercise": {
+    "name": "Boşlukları Doldur",
+    "description": "Cümleleri oku ve kayıp kelimeleri doldur."
   }
 }
