@@ -22,6 +22,7 @@ import { useState } from 'react'
 import logo from '../../public/logo.png'
 import toast from 'react-hot-toast'
 import { twJoin } from 'tailwind-merge'
+import { Badge } from './ui/badge'
 
 function Navbar() {
     const { t } = useTranslation();
@@ -80,8 +81,11 @@ function Navbar() {
                 <div className="w-full flex flex-row justify-between items-center py-3">
                     {/* Logo */}
                     <div className="flex justify-start items-center">
-                        <NavLink to="/" className="text-xl font-bold text-primary flex gap-2">
+                        <NavLink to="/" className="text-xl font-bold text-primary flex">
                             <img src={logo} className='w-20 h-20' />
+                            <Badge className='px-1 py-1 relative right-3 bg-green-600 text-xs h-4 rounded-sm'>
+                                Beta
+                            </Badge>
                         </NavLink>
                     </div>
                     {/* Mobile menu button */}
