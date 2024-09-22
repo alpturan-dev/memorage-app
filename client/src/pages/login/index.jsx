@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -7,6 +7,7 @@ import { apiRequest } from "@/api/config"
 import { useAuth } from "@/context/AuthContext"
 import toast from "react-hot-toast"
 import { useTranslation } from "react-i18next"
+import logo from '../../../public/logo.png'
 
 const Login = () => {
     const { t } = useTranslation();
@@ -50,17 +51,20 @@ const Login = () => {
     };
 
     return (
-        <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8">
+        <div className="flex flex-col items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-md space-y-4">
-                <div className="text-center">
+                <div className="flex items-center justify-center mb-8">
+                    <img src={logo} className='w-40 h-36' />
+                </div>
+                <div className="text-center pb-4">
                     <h1 className="text-3xl font-bold tracking-tight text-foreground">
                         {t('loginPage.title')}
                     </h1>
                     <p className="mt-2 text-muted-foreground">
                         {t('loginPage.subtitle')}
-                        <a href="signup" className="font-medium text-primary hover:underline">
+                        <NavLink to="/signup" className="font-medium text-primary hover:underline">
                             {t('signupPage.signup')}
-                        </a>
+                        </NavLink>
                     </p>
                 </div>
                 <form onSubmit={handleLogin} className="space-y-4">

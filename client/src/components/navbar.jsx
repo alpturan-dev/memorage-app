@@ -200,7 +200,7 @@ function Navbar() {
                             <AccountDropdown />
                         </div>
                     ) : (
-                        <div className='hidden lg:block lg:self-start'>
+                        <div className='hidden lg:block'>
                             <Button variant="outline" className="text-base" onClick={() => navigate('/login')}>
                                 <LogIn className="mr-2 h-4 w-4" />
                                 <span>
