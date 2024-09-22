@@ -83,7 +83,7 @@ function Navbar() {
                     <div className="flex justify-start items-center">
                         <NavLink to="/" className="text-xl font-bold text-primary flex">
                             <img src={logo} className='w-20 h-20' />
-                            <Badge className='px-1 py-1 relative right-3 text-xs h-4 rounded-sm'>
+                            <Badge className='px-1 py-1 relative right-3 text-xs h-4 rounded-sm font-serif'>
                                 Beta
                             </Badge>
                         </NavLink>
