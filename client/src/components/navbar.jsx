@@ -77,7 +77,7 @@ function Navbar() {
     return (
         <header className="bg-background shadow-sm">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="w-full flex flex-row justify-between items-center py-2">
+                <div className="w-full flex flex-row justify-between items-center py-3">
                     {/* Logo */}
                     <div className="flex justify-start items-center">
                         <NavLink to="/" className="text-xl font-bold text-primary flex gap-2">
