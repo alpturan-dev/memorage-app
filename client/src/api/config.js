@@ -1,3 +1,4 @@
+import i18n from '@/i18n';
 import axios from 'axios'
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
@@ -26,7 +27,14 @@ axios.interceptors.response.use(
     },
     (error) => {
         if (error.response && error.response.status === 401) {
-            history.go('/login', { state: { message: 'Session expired, please log in again' } });
+            const toastMessage = i18n.t('loginPage.needLogin');
+            const state = {
+                message: 'Session expired, please log in again',
+                toastMessage: toastMessage
+            };
+
+            window.history.pushState(state, '', '/login');
+            window.location.reload();
             localStorage.clear();
         } else {
             console.error(error);

@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { Menu, User, LogOut, Brain, Swords } from 'lucide-react'
+import { Menu, User, LogOut, Brain, Swords, LogIn } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import {
@@ -32,14 +32,14 @@ function Navbar() {
         { to: "/collections", name: t('navbar.collections') },
         { to: "/exercises", name: t('navbar.exercises') },
     ];
-    const username = JSON.parse(localStorage.getItem('user'))?.username || "";
+    const username = JSON.parse(localStorage.getItem('user'))?.username;
     const lang = JSON.parse(localStorage.getItem('user'))?.language || "tr";
 
     const AccountDropdown = () => {
         return (
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="ml-4 text-base">
+                    <Button variant="outline" className="text-base">
                         <User className="mr-2 h-4 w-4" />
                         <span className='w-full'>
                             {username}
@@ -104,7 +104,7 @@ function Navbar() {
                                         <NavLink className="text-base font-medium text-primary hover:text-primary/80 cursor-pointer" to={item.to} key={item.name} onClick={() => setIsOpen(false)}
                                         >{item.name}</NavLink>
                                     ))}
-                                    <NavLink className="flex items-center text-base font-medium text-primary hover:text-primary/80 cursor-pointer opacity-70 disabled">
+                                    <NavLink className="flex items-center text-base font-medium text-primary hover:text-primary/80 opacity-70 cursor-not-allowed">
                                         <div className="inline-block mr-1">
                                             <Swords />
                                         </div>
@@ -115,31 +115,49 @@ function Navbar() {
                                             {t('comingSoon.comingSoon')}
                                         </div>
                                     </NavLink>
-                                    <div className="pt-4 mt-4 border-t border-border">
-                                        <p className="mb-2 text-sm font-semibold text-primary">
-                                            {username}
-                                        </p>
-                                        <NavLink
-                                            to="/profile"
-                                            className="flex items-center py-2 text-base font-medium text-primary hover:text-primary/80"
-                                            onClick={() => setIsOpen(false)}
-                                        >
-                                            <User className="mr-2 h-4 w-4" />
-                                            {t('navbar.profile')}
-                                        </NavLink>
-                                        <NavLink
-                                            className="flex items-center py-2 text-base font-medium text-primary hover:text-primary/80"
-                                            onClick={() => {
-                                                localStorage.clear();
-                                                navigate("/login")
-                                                toast.success(t('loginPage.loggedOut'));
-                                                setIsOpen(false);
-                                            }}
-                                        >
-                                            <LogOut className="mr-2 h-4 w-4" />
-                                            {t('navbar.logout')}
-                                        </NavLink>
-                                    </div>
+                                    {username ? (
+                                        <div className="pt-4 mt-4 border-t border-border">
+                                            <p className="mb-2 text-sm font-semibold text-primary">
+                                                {username}
+                                            </p>
+                                            <NavLink
+                                                to="/profile"
+                                                className="flex items-center py-2 text-base font-medium text-primary hover:text-primary/80"
+                                                onClick={() => setIsOpen(false)}
+                                            >
+                                                <User className="mr-2 h-4 w-4" />
+                                                {t('navbar.profile')}
+                                            </NavLink>
+                                            <NavLink
+                                                className="flex items-center py-2 text-base font-medium text-primary hover:text-primary/80"
+                                                onClick={() => {
+                                                    localStorage.clear();
+                                                    navigate("/login")
+                                                    toast.success(t('loginPage.loggedOut'));
+                                                    setIsOpen(false);
+                                                }}
+                                            >
+                                                <LogOut className="mr-2 h-4 w-4" />
+                                                {t('navbar.logout')}
+                                            </NavLink>
+                                        </div>
+                                    )
+                                        : (
+                                            <div className="pt-4 mt-4 border-t border-border">
+                                                <NavLink
+                                                    to="/login"
+                                                    className="flex items-center py-2 text-base font-medium text-primary hover:text-primary/80"
+                                                    onClick={() => {
+                                                        localStorage.clear();
+                                                        setIsOpen(false);
+                                                    }}
+                                                >
+                                                    <LogIn className="mr-2 h-4 w-4" />
+                                                    {t('loginPage.login')}
+                                                </NavLink>
+                                            </div>
+                                        )
+                                    }
                                 </nav>
                             </SheetContent>
                         </Sheet>
@@ -178,9 +196,20 @@ function Navbar() {
                             </NavigationMenuList>
                         </NavigationMenu>
                     </div>
-                    <div className='hidden lg:block'>
-                        <AccountDropdown />
-                    </div>
+                    {username ? (
+                        <div className='hidden lg:block lg:self-start'>
+                            <AccountDropdown />
+                        </div>
+                    ) : (
+                        <div className='hidden lg:block lg:self-start'>
+                            <Button variant="outline" className="text-base" onClick={() => navigate('/login')}>
+                                <LogIn className="mr-2 h-4 w-4" />
+                                <span>
+                                    {t('loginPage.login')}
+                                </span>
+                            </Button>
+                        </div>
+                    )}
                 </div>
             </div>
         </header>

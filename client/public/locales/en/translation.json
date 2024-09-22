@@ -30,7 +30,8 @@
     "loggingIn": "Logging in...",
     "credentialsRequired": "Email and password required!",
     "loggedIn": "Logged in succesfully!",
-    "loggedOut": "Logged out succesfully!"
+    "loggedOut": "Logged out succesfully!",
+    "needLogin": "You need to login for access the page!"
   },
   "signupPage": {
     "title": "Sign up",

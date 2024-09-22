@@ -30,7 +30,8 @@
     "loggingIn": "Giriş yapılıyor...",
     "credentialsRequired": "E-posta ve şifre gerekli!",
     "loggedIn": "Başarıyla giriş yapıldı!",
-    "loggedOut": "Başarıyla çıkış yapıldı!"
+    "loggedOut": "Başarıyla çıkış yapıldı!",
+    "needLogin": "Sayfaya erişebilmek için giriş yapmalısın!"
   },
   "signupPage": {
     "title": "Kayıt ol",

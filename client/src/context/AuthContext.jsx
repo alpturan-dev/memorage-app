@@ -10,7 +10,7 @@ const AuthContextProvider = ({ children }) => {
     const [token, setToken] = useState(localStorage.getItem('token'));
 
     useEffect(() => {
-        if (!token && location.pathname !== '/login' && location.pathname !== '/signup') {
+        if (!token && location.pathname !== '/login' && location.pathname !== '/signup' && location.pathname !== '/') {
             navigate('/login');
         }
     }, [token]);

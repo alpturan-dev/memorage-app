@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
@@ -17,6 +17,14 @@ const Login = () => {
         email: "",
         password: ""
     });
+
+    useEffect(() => {
+        const state = window.history.state;
+        if (state && state.toastMessage) {
+            toast(state.toastMessage);
+            window.history.replaceState(null, '', window.location.pathname);
+        }
+    }, []);
 
     const handleLogin = async (e) => {
         e.preventDefault();

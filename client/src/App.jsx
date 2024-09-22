@@ -12,10 +12,11 @@ import Flashcards from "./pages/exercises/components/flashcards"
 import Shuffle from "./pages/exercises/components/shuffle"
 import { Toaster } from "react-hot-toast"
 import { Suspense } from "react"
+import { Loader } from "lucide-react"
 
 const ProviderLayout = () => {
   return (
-    <Suspense fallback="loading">
+    <Suspense fallback={<Loader />}>
       <AuthContextProvider>
         <Toaster position="bottom-right" />
         <Outlet />
@@ -33,6 +34,8 @@ const router = createBrowserRouter(
           element: <Layout />,
           children: [
             { path: '/', element: <Dashboard /> },
+            { path: '/login', element: <Login /> },
+            { path: '/signup', element: <SignUp /> },
             { path: '/profile', element: <Profile /> },
             { path: '/collections', element: <Collections /> },
             { path: '/collection/:id', element: <Collection /> },
@@ -41,8 +44,6 @@ const router = createBrowserRouter(
             { path: '/exercises/shuffle', element: <Shuffle /> },
           ]
         },
-        { path: '/login', element: <Login /> },
-        { path: '/signup', element: <SignUp /> },
       ]
     }
   ]
