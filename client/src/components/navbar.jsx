@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { Menu, User, LogOut, Brain, Swords, LogIn } from 'lucide-react'
+import { Menu, User, LogOut, Swords, LogIn } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import {
@@ -19,7 +19,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useState } from 'react'
-// import logo from '../../public/brand.svg'
+import logo from '../../public/logo.png'
 import toast from 'react-hot-toast'
 import { twJoin } from 'tailwind-merge'
 
@@ -77,17 +77,12 @@ function Navbar() {
     return (
         <header className="bg-background shadow-sm">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="w-full flex flex-row justify-between items-center py-4">
+                <div className="w-full flex flex-row justify-between items-center py-2">
                     {/* Logo */}
-                    <div className="flex justify-start">
-                        <a href="/" className="text-xl font-bold text-primary flex gap-2">
-                            <div className="h-8 w-8" >
-                                <Brain className="w-full h-full text-[#016DCC]" />
-                            </div>
-                            <span className='self-center'>
-                                Memorage
-                            </span>
-                        </a>
+                    <div className="flex justify-start items-center">
+                        <NavLink to="/" className="text-xl font-bold text-primary flex gap-2">
+                            <img src={logo} className='w-20 h-20' />
+                        </NavLink>
                     </div>
                     {/* Mobile menu button */}
                     <div className="lg:hidden">
@@ -197,7 +192,7 @@ function Navbar() {
                         </NavigationMenu>
                     </div>
                     {username ? (
-                        <div className='hidden lg:block lg:self-start'>
+                        <div className='hidden lg:block'>
                             <AccountDropdown />
                         </div>
                     ) : (

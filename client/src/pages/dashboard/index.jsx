@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
-import { Book, Brain, Folder, Plus } from 'lucide-react'
+import { Book, Folder, Plus } from 'lucide-react'
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import logo from '../../../public/logo.png'
 
 const Dashboard = () => {
     const { t } = useTranslation();
@@ -25,8 +26,7 @@ const Dashboard = () => {
             <main className="max-w-7xl mx-auto">
                 <section className="text-center mb-16">
                     <div className="flex items-center justify-center mb-6">
-                        <Brain className="h-12 w-12 text-[#016DCC]" />
-                        <h1 className="ml-3 text-4xl font-bold text-gray-900">{t('dashboardPage.title')}</h1>
+                        <img src={logo} className='w-40 h-36' />
                     </div>
                     <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
                         {t('dashboardPage.description')}
