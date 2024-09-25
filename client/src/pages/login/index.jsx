@@ -8,6 +8,7 @@ import { useAuth } from "@/context/AuthContext"
 import toast from "react-hot-toast"
 import { useTranslation } from "react-i18next"
 import logo from '../../../public/logo.png'
+import i18n from "@/i18n"
 
 const Login = () => {
     const { t } = useTranslation();
@@ -36,6 +37,7 @@ const Login = () => {
             }
             const response = await apiRequest.post('/login', { ...credentials });
             if (response.status === 200) {
+                i18n.changeLanguage(response.data.user.language);
                 localStorage.setItem('user', JSON.stringify(response.data.user));
                 localStorage.setItem('token', response.data.token);
                 setToken(response.data.token);

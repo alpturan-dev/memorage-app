@@ -14,11 +14,11 @@ const Layout = () => {
   return (
     <>
       <Navbar />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col min-h-screen">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col">
         <Outlet />
         <button
           onClick={scrollToTop}
-          className="fixed bottom-4 right-4 p-2 bg-blue-500 text-white rounded-full shadow-lg transition-all duration-300 ease-in-out hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 hover:scale-110"
+          className="fixed bottom-4 right-4 p-2 bg-gray-500 text-white rounded-full shadow-lg transition-all duration-300 ease-in-out hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 hover:scale-110"
           aria-label="Scroll to top"
         >
           <svg

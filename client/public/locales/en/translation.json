@@ -81,11 +81,14 @@
     "passwordError": "There was an error changing your password. Please ensure your current password is correct and try again."
   },
   "collectionsPage": {
-    "title": "Word Collections",
+    "yourCollectionsTitle": "Your Collections",
+    "yourCollectionsDescription": "Choose from your custom language learning collections",
     "searchPlaceholder": "Search collections...",
     "addButton": "New Collection",
     "cardSubtitle": "Collection for learning ",
     "cardButton": "View",
+    "viewCollection": "View Collection",
+    "doExercise": "Do Exercise",
     "cardDelete": "Delete",
     "dialogTitle": "New Word Collection",
     "dialogSubtitle": "Create a new word collection. Click save when you're done.",
@@ -98,7 +101,19 @@
     "targetLanguage": "Target Language",
     "selectLanguage": "Select a language",
     "deleted": "Collection deleted succesfully!",
-    "added": "New word collection added."
+    "added": "New word collection added.",
+    "beginner": "Beginner",
+    "elementary": "Elementary",
+    "intermediate": "Intermediate",
+    "upperIntermediate": "Upper Intermediate",
+    "advanced": "Advanced",
+    "proficiency": "Proficiency",
+    "presetTitle": "Preset Collections",
+    "presetDescription": "Choose from our curated language learning collections",
+    "level": "level",
+    "vocabulary": "vocabulary",
+    "preset": "Preset Collections",
+    "your": "Your Collections"
   },
   "collectionPage": {
     "totalWords": "Total words:",
