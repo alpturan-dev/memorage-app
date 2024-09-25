@@ -1,15 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ArrowUpRight, ChartNoAxesColumnIncreasing, ChevronLeft, ChevronRight, Grip } from "lucide-react"
+import { ChartNoAxesColumnIncreasing, ChevronLeft, ChevronRight, Grip } from "lucide-react"
 import { Progress } from '@/components/ui/progress';
 import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
 import { languages as constLangs } from '@/constants/constants';
+import { useNavigate } from 'react-router-dom';
+import ExerciseDialog from '@/pages/collection/components/exercise-dialog';
+import { apiRequest } from '@/api/config';
 
 const PresetCollections = ({ view }) => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const languages = constLangs.map((lang) => lang.name);
     const levels = [
         { level: 'A1', label: t('collectionsPage.beginner'), value: 15, color: 'bg-green-400' },
@@ -20,6 +24,7 @@ const PresetCollections = ({ view }) => {
         { level: "C2", label: t('collectionsPage.proficiency'), value: 100, color: 'bg-red-500' }];
     const [visibleLanguages, setVisibleLanguages] = useState(languages.slice(0, view === "mobile" ? 2 : 4));
     const [startIndex, setStartIndex] = useState(0);
+    const [presetCollections, setPresetCollections] = useState([]);
 
     const handleNext = () => {
         const tabCount = view === "mobile" ? 2 : 4;
@@ -34,6 +39,25 @@ const PresetCollections = ({ view }) => {
         setStartIndex(newStartIndex);
         setVisibleLanguages(languages.slice(newStartIndex, newStartIndex + tabCount));
     };
+
+    const getAllPresetCollections = async () => {
+        try {
+            // setLoading(true);
+            const response = await apiRequest.get('/api/preset-collections');
+            if (response.status === 200) {
+                console.log("response.data", response.data)
+                setPresetCollections(response.data);
+            }
+        } catch (error) {
+            console.error(error)
+        } finally {
+            // setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        getAllPresetCollections();
+    }, [])
 
     return (
         <>
@@ -87,18 +111,21 @@ const PresetCollections = ({ view }) => {
                                             </div>
                                         </CardHeader>
                                         <CardContent className="flex flex-col md:flex-row gap-2">
-                                            <Button size="sm" variant="outline">
+                                            <Button size="sm" variant="outline" onClick={() => {
+                                                let tempLang = constLangs.find((item) => item.name === lang);
+                                                navigate(`/preset-collection/${tempLang.code}/${level.level}`);
+                                            }}>
                                                 <Grip className="w-5 h-5 mr-2" />
                                                 <span className="text-xs">
                                                     {t('collectionsPage.viewCollection')}
                                                 </span>
                                             </Button>
-                                            <Button size="sm">
-                                                <ArrowUpRight className="w-5 h-5 mr-2" />
-                                                <span className="text-xs">
-                                                    {t('collectionsPage.doExercise')}
-                                                </span>
-                                            </Button>
+                                            <ExerciseDialog selectedCollectionId={
+                                                presetCollections.find((col) => {
+                                                    let tempLang = constLangs.find((item) => item.name === lang);
+                                                    return col.languageCode === tempLang.code && col.level === level.level
+                                                })?._id
+                                            } preset={true} />
                                         </CardContent>
                                     </Card>
                                 ))}

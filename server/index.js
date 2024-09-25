@@ -6,6 +6,7 @@ import AuthRoute from './routes/AuthRoute.js'
 import WordCollectionRoute from './routes/WordCollectionRoute.js'
 import WordRoute from './routes/WordRoute.js'
 import AIRoute from './routes/AIRoute.js'
+import PresetCollectionRoute from './routes/PresetCollectionRoute.js'
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use('', AuthRoute);
 app.use('/api/wordCollections', WordCollectionRoute);
 app.use('/api/words', WordRoute);
 app.use('/api/ai', AIRoute);
+app.use('/api/preset-collections', PresetCollectionRoute);
 
 mongoose
     .connect(process.env.ATLAS_URI)

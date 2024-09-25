@@ -99,9 +99,7 @@ const Collections = () => {
                                         ))
                                     ) : (
                                         wordCollections.length > 0 && wordCollections.map((item) => (
-                                            <Card key={item._id} onClick={() => {
-                                                navigate(`/collection/${item._id}`)
-                                            }}>
+                                            <Card key={item._id} >
                                                 <CardHeader>
                                                     <CardTitle className="text-xl">{item.name}</CardTitle>
                                                     <CardDescription className="text-xs">{t('collectionsPage.cardSubtitle')} {item.targetLanguage.name}</CardDescription>
@@ -118,7 +116,9 @@ const Collections = () => {
                                                     </div>
                                                 </CardContent>
                                                 <CardFooter className="justify-between gap-1">
-                                                    <Button size="sm" variant="outline">
+                                                    <Button size="sm" variant="outline" onClick={() => {
+                                                        navigate(`/collection/${item._id}`)
+                                                    }}>
                                                         <Grip className="w-5 h-5 mr-2" />
                                                         <span className="text-xs">
                                                             {t('collectionsPage.cardButton')}
@@ -202,9 +202,7 @@ const Collections = () => {
                                     ))
                                 ) : (
                                     wordCollections.length > 0 && wordCollections.map((item) => (
-                                        <Card key={item._id} onClick={() => {
-                                            navigate(`/collection/${item._id}`)
-                                        }}>
+                                        <Card key={item._id}>
                                             <CardHeader>
                                                 <CardTitle className="text-xl">{item.name}</CardTitle>
                                                 <CardDescription className="text-xs">{t('collectionsPage.cardSubtitle')} {item.targetLanguage.name}</CardDescription>
@@ -221,7 +219,9 @@ const Collections = () => {
                                                 </div>
                                             </CardContent>
                                             <CardFooter className="justify-between gap-1">
-                                                <Button size="sm" variant="outline">
+                                                <Button size="sm" variant="outline" onClick={() => {
+                                                    navigate(`/collection/${item._id}`)
+                                                }}>
                                                     <Grip className="w-5 h-5 mr-2" />
                                                     <span className="text-xs">
                                                         {t('collectionsPage.cardButton')}
