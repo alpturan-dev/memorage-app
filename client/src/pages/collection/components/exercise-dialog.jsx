@@ -26,7 +26,7 @@ const ExerciseDialog = ({ selectedCollectionId, preset = false }) => {
             setSelectedExercise(null)
         }}>
             <DialogTrigger asChild>
-                <Button className="w-full md:w-auto flex gap-2">
+                <Button size="sm" className="text-xs w-full md:w-auto flex gap-2">
                     {t('collectionPage.exerciseDialogButton')}
                     <ArrowUpRight />
                 </Button>

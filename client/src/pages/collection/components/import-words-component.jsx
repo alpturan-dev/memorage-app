@@ -60,7 +60,7 @@ const ImportWordsComponent = ({ wordCollectionId, getAllWordsByCollection, selec
             setLoadingText("");
         }}>
             <DialogTrigger asChild>
-                <Button className="w-full md:w-auto">{t('collectionPage.importWords')}</Button>
+                <Button size="sm" className="text-xs w-full md:w-auto">{t('collectionPage.importWords')}</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]" aria-describedby={undefined}>
                 <DialogHeader>
