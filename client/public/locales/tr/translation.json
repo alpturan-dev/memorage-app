@@ -113,7 +113,9 @@
     "level": "seviye",
     "vocabulary": "kelime dağarcığı",
     "preset": "Hazır Koleksiyonlar",
-    "your": "Senin Koleksiyonların"
+    "your": "Senin Koleksiyonların",
+    "noCollectionTitle": "Henüz koleksiyon oluşturmadın",
+    "noCollectionDescription": "İlk kelime koleksiyonunu oluşturarak başla."
   },
   "collectionPage": {
     "totalWords": "Toplam kelime:",
@@ -126,7 +128,9 @@
     "processingImages": "Görseller işleniyor...",
     "findingWords": "Kelimeler bulunuyor...",
     "exerciseDialogButton": "Egzersiz Yap",
-    "exerciseDialogTitle": "Egzersiz seç"
+    "exerciseDialogTitle": "Egzersiz seç",
+    "noWordTitle": "Henüz kelime eklemedin",
+    "noWordDescription": "İlk kelimeni ekleyerek egzersizlere başla."
   },
   "exercisesPage": {
     "title": "Egzersizler",

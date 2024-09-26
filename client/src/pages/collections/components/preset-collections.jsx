@@ -59,6 +59,13 @@ const PresetCollections = ({ view }) => {
         getAllPresetCollections();
     }, [])
 
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        })
+    }
+
     return (
         <>
             <CardHeader className="px-0 pt-3 lg:pt-6">
@@ -121,6 +128,7 @@ const PresetCollections = ({ view }) => {
                                             <Button size="sm" variant="outline" onClick={() => {
                                                 let tempLang = constLangs.find((item) => item.name === lang);
                                                 navigate(`/preset-collection/${tempLang.code}/${level.level}`);
+                                                scrollToTop();
                                             }}>
                                                 <Grip className="w-5 h-5 mr-2" />
                                                 <span className="text-xs">

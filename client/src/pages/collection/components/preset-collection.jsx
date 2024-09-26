@@ -1,13 +1,16 @@
 import { apiRequest } from "@/api/config";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "react-i18next";
 import ExerciseDialog from "./exercise-dialog";
 import { languages } from "@/constants/constants";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 
 const PresetCollection = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const params = useParams();
     const [words, setWords] = useState([]);
@@ -42,22 +45,26 @@ const PresetCollection = () => {
                     {loading ? (
                         <Skeleton className="h-[30px] w-[100px]" />
                     ) : (
-                        <h1 className="text-xl font-bold">{selectedCollection.name}</h1>
+                        <div className="flex gap-2 items-center">
+                            <Button size="sm" variant="outline" onClick={() => navigate('/collections')}>
+                                <ArrowLeft />
+                            </Button>
+                            <h1 className="text-xl font-bold">{selectedCollection.name}</h1>
+                        </div>
                     )}
                     {loading ? (
                         <Skeleton className="h-[30px] w-[100px]" />
                     ) : (
                         <div className="flex gap-2 items-center">
-                            <ExerciseDialog selectedCollectionId={selectedCollection._id} preset={true} />
+                            <div className="hidden lg:block">
+                                <ExerciseDialog selectedCollectionId={selectedCollection._id} preset={true} />
+                            </div>
                             <div>{t('collectionPage.totalWords')} {words.length}</div>
                         </div>
                     )}
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                    <div className="col-span-1 md:col-span-2 flex justify-end order-first md:order-none">
-                        <div className="grid grid-cols-2 gap-2">
-                        </div>
-                    </div>
+                <div className="block lg:hidden">
+                    <ExerciseDialog selectedCollectionId={selectedCollection._id} preset={true} />
                 </div>
                 <div className="grid gap-3">
                     {loading ?

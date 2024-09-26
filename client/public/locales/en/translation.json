@@ -113,7 +113,9 @@
     "level": "level",
     "vocabulary": "vocabulary",
     "preset": "Preset Collections",
-    "your": "Your Collections"
+    "your": "Your Collections",
+    "noCollectionTitle": "You have not created a collection yet",
+    "noCollectionDescription": "Get started by creating your first word collection."
   },
   "collectionPage": {
     "totalWords": "Total words:",
@@ -126,7 +128,9 @@
     "processingImages": "Processing images...",
     "findingWords": "Finding words...",
     "exerciseDialogButton": "Do Exercise",
-    "exerciseDialogTitle": "Choose exercise"
+    "exerciseDialogTitle": "Choose exercise",
+    "noWordTitle": "You have not added a word yet",
+    "noWordDescription": "Get started by creating your first word."
   },
   "exercisesPage": {
     "title": "Exercises",

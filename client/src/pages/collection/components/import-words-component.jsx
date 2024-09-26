@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { apiRequest } from '@/api/config';
 import { useTranslation } from 'react-i18next';
+import { ImageUp } from 'lucide-react';
 
 const ImportWordsComponent = ({ wordCollectionId, getAllWordsByCollection, selectedCollection }) => {
     const { t } = useTranslation();
@@ -60,7 +61,10 @@ const ImportWordsComponent = ({ wordCollectionId, getAllWordsByCollection, selec
             setLoadingText("");
         }}>
             <DialogTrigger asChild>
-                <Button size="sm" className="text-xs w-full md:w-auto">{t('collectionPage.importWords')}</Button>
+                <Button size="sm" className="text-xs w-full md:w-auto flex gap-2">
+                    <ImageUp />
+                    {t('collectionPage.importWords')}
+                </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]" aria-describedby={undefined}>
                 <DialogHeader>

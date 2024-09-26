@@ -18,7 +18,7 @@ import { apiRequest } from "@/api/config"
 import { Skeleton } from "@/components/ui/skeleton"
 import toast from "react-hot-toast"
 import { useTranslation } from "react-i18next"
-import { Grip, ListX } from "lucide-react"
+import { FileX2, Grip, ListX } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 import PresetCollections from "./components/preset-collections"
 import { Tabs } from "@radix-ui/react-tabs"
@@ -64,6 +64,13 @@ const Collections = () => {
         getAllWordCollections();
     }, []);
 
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        })
+    }
+
     return (
         <div className="flex flex-col bg-muted/40">
             {/* Mobile view */}
@@ -98,8 +105,128 @@ const Collections = () => {
                                             <Skeleton key={index} className="h-[208px] w-full rounded-xl" />
                                         ))
                                     ) : (
-                                        wordCollections.length > 0 && wordCollections.map((item) => (
-                                            <Card key={item._id} >
+                                        wordCollections.length > 0 ?
+                                            wordCollections.map((item) => (
+                                                <Card key={item._id} >
+                                                    <CardHeader>
+                                                        <CardTitle className="text-xl">{item.name}</CardTitle>
+                                                        <CardDescription className="text-xs">{t('collectionsPage.cardSubtitle')} {item.targetLanguage.name}</CardDescription>
+                                                    </CardHeader>
+                                                    <CardContent>
+                                                        <div className="flex items-center justify-between">
+                                                            <div className="flex items-center gap-2 text-sm">
+                                                                <FlagIcon className="w-5 h-5" />
+                                                                <span>{item.nativeLanguage.name}</span>
+                                                                <ArrowRightIcon className="w-5 h-5" />
+                                                                <FlagIcon className="w-5 h-5" />
+                                                                <span>{item.targetLanguage.name}</span>
+                                                            </div>
+                                                        </div>
+                                                    </CardContent>
+                                                    <CardFooter className="justify-between gap-1">
+                                                        <Button size="sm" variant="outline" onClick={() => {
+                                                            navigate(`/collection/${item._id}`);
+                                                            scrollToTop();
+                                                        }}>
+                                                            <Grip className="w-5 h-5 mr-2" />
+                                                            <span className="text-xs">
+                                                                {t('collectionsPage.cardButton')}
+                                                            </span>
+                                                        </Button>
+                                                        <AlertDialog>
+                                                            <AlertDialogTrigger asChild>
+                                                                <Button size="sm" variant="icon"
+                                                                    onClick={(e) => {
+                                                                        e.stopPropagation()
+                                                                    }}>
+                                                                    <ListX className="text-red-600 w-5 h-5" />
+                                                                </Button>
+                                                            </AlertDialogTrigger>
+                                                            <AlertDialogContent
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                }}
+                                                            >
+                                                                <AlertDialogHeader>
+                                                                    <AlertDialogTitle>
+                                                                        {t('collectionsPage.alertTitle')}
+                                                                    </AlertDialogTitle>
+                                                                    <AlertDialogDescription>
+                                                                        {t('collectionsPage.alertDescription')}
+                                                                    </AlertDialogDescription>
+                                                                </AlertDialogHeader>
+                                                                <AlertDialogFooter>
+                                                                    <AlertDialogCancel>
+                                                                        {t('collectionsPage.alertCancel')}
+                                                                    </AlertDialogCancel>
+                                                                    <AlertDialogAction asChild>
+                                                                        <Button variant="destructive" size="sm"
+                                                                            onClick={async (e) => {
+                                                                                e.stopPropagation();
+                                                                                await handleDeleteWordCollection(item._id)
+                                                                            }}
+                                                                        >
+                                                                            {t('collectionsPage.alertDelete')}
+                                                                        </Button>
+                                                                    </AlertDialogAction>
+                                                                </AlertDialogFooter>
+                                                            </AlertDialogContent>
+                                                        </AlertDialog>
+                                                    </CardFooter>
+                                                </Card>
+                                            ))
+                                            :
+                                            (
+                                                <div className="w-full max-w-md mx-auto border-0">
+                                                    <CardContent className="pt-6 pb-4 text-center">
+                                                        <div className="flex justify-center mb-4">
+                                                            <FileX2 className="h-12 w-12 text-muted-foreground" />
+                                                        </div>
+                                                        <h3 className="text-lg font-semibold mb-2">{t('collectionsPage.noCollectionTitle')}</h3>
+                                                        <p className="text-sm text-muted-foreground">
+                                                            {t('collectionsPage.noCollectionDescription')}
+                                                        </p>
+                                                    </CardContent>
+                                                </div>
+                                            )
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </TabsContent>
+                </Tabs>
+            </div>
+            {/* Desktop view */}
+            <div className="hidden lg:block">
+                <main className="grid grid-cols-1 lg:grid-cols-7 py-2">
+                    <div className="flex lg:col-span-5">
+                        <div className="w-full">
+                            <PresetCollections />
+                        </div>
+                        <Separator orientation="vertical" className="mx-8" />
+                    </div>
+                    <div className="lg:col-span-2">
+                        <div className="flex flex-col pb-4">
+                            <Link to="/collections" className="pt-6 flex items-center gap-2 text-xl font-semibold">
+                                <span>{t('collectionsPage.yourCollectionsTitle')}</span>
+                            </Link>
+                            <CardDescription className="text-xs py-0 pt-[6px]">
+                                {t('collectionsPage.yourCollectionsDescription')}
+                            </CardDescription>
+                        </div>
+                        <div className="grid gap-6">
+                            <div className="flex items-center justify-between">
+                                <AddCollectionDialog getAllWordCollections={getAllWordCollections} />
+                            </div>
+                            <div className="overflow-scroll max-h-[600px] grid gap-4 md:grid-cols-2 lg:grid-cols-1">
+                                {loading ? (
+                                    Array.from({ length: 7 }, (_, index) => (
+                                        <Skeleton key={index} className="h-[208px] w-full rounded-xl" />
+                                    ))
+                                ) : (
+                                    wordCollections.length > 0 ?
+                                        wordCollections.map((item) => (
+                                            <Card key={item._id}>
                                                 <CardHeader>
                                                     <CardTitle className="text-xl">{item.name}</CardTitle>
                                                     <CardDescription className="text-xs">{t('collectionsPage.cardSubtitle')} {item.targetLanguage.name}</CardDescription>
@@ -117,7 +244,8 @@ const Collections = () => {
                                                 </CardContent>
                                                 <CardFooter className="justify-between gap-1">
                                                     <Button size="sm" variant="outline" onClick={() => {
-                                                        navigate(`/collection/${item._id}`)
+                                                        navigate(`/collection/${item._id}`);
+                                                        scrollToTop();
                                                     }}>
                                                         <Grip className="w-5 h-5 mr-2" />
                                                         <span className="text-xs">
@@ -166,109 +294,20 @@ const Collections = () => {
                                                 </CardFooter>
                                             </Card>
                                         ))
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    </TabsContent>
-                </Tabs>
-            </div>
-            {/* Desktop view */}
-            <div className="hidden lg:block">
-                <main className="grid grid-cols-1 lg:grid-cols-7 py-2">
-                    <div className="flex lg:col-span-5">
-                        <div className="w-full">
-                            <PresetCollections />
-                        </div>
-                        <Separator orientation="vertical" className="mx-8" />
-                    </div>
-                    <div className="lg:col-span-2">
-                        <div className="flex flex-col pb-4">
-                            <Link to="/collections" className="pt-6 flex items-center gap-2 text-xl font-semibold">
-                                <span>{t('collectionsPage.yourCollectionsTitle')}</span>
-                            </Link>
-                            <CardDescription className="text-xs py-0 pt-[6px]">
-                                {t('collectionsPage.yourCollectionsDescription')}
-                            </CardDescription>
-                        </div>
-                        <div className="grid gap-6">
-                            <div className="flex items-center justify-between">
-                                <AddCollectionDialog getAllWordCollections={getAllWordCollections} />
-                            </div>
-                            <div className="overflow-scroll max-h-[600px] grid gap-4 md:grid-cols-2 lg:grid-cols-1">
-                                {loading ? (
-                                    Array.from({ length: 7 }, (_, index) => (
-                                        <Skeleton key={index} className="h-[208px] w-full rounded-xl" />
-                                    ))
-                                ) : (
-                                    wordCollections.length > 0 && wordCollections.map((item) => (
-                                        <Card key={item._id}>
-                                            <CardHeader>
-                                                <CardTitle className="text-xl">{item.name}</CardTitle>
-                                                <CardDescription className="text-xs">{t('collectionsPage.cardSubtitle')} {item.targetLanguage.name}</CardDescription>
-                                            </CardHeader>
-                                            <CardContent>
-                                                <div className="flex items-center justify-between">
-                                                    <div className="flex items-center gap-2 text-sm">
-                                                        <FlagIcon className="w-5 h-5" />
-                                                        <span>{item.nativeLanguage.name}</span>
-                                                        <ArrowRightIcon className="w-5 h-5" />
-                                                        <FlagIcon className="w-5 h-5" />
-                                                        <span>{item.targetLanguage.name}</span>
+                                        :
+                                        (
+                                            <div className="w-full max-w-md mx-auto border-0">
+                                                <CardContent className="pt-6 pb-4 text-center">
+                                                    <div className="flex justify-center mb-4">
+                                                        <FileX2 className="h-12 w-12 text-muted-foreground" />
                                                     </div>
-                                                </div>
-                                            </CardContent>
-                                            <CardFooter className="justify-between gap-1">
-                                                <Button size="sm" variant="outline" onClick={() => {
-                                                    navigate(`/collection/${item._id}`)
-                                                }}>
-                                                    <Grip className="w-5 h-5 mr-2" />
-                                                    <span className="text-xs">
-                                                        {t('collectionsPage.cardButton')}
-                                                    </span>
-                                                </Button>
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger asChild>
-                                                        <Button size="sm" variant="icon"
-                                                            onClick={(e) => {
-                                                                e.stopPropagation()
-                                                            }}>
-                                                            <ListX className="text-red-600 w-5 h-5" />
-                                                        </Button>
-                                                    </AlertDialogTrigger>
-                                                    <AlertDialogContent
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                        }}
-                                                    >
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>
-                                                                {t('collectionsPage.alertTitle')}
-                                                            </AlertDialogTitle>
-                                                            <AlertDialogDescription>
-                                                                {t('collectionsPage.alertDescription')}
-                                                            </AlertDialogDescription>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>
-                                                                {t('collectionsPage.alertCancel')}
-                                                            </AlertDialogCancel>
-                                                            <AlertDialogAction asChild>
-                                                                <Button variant="destructive" size="sm"
-                                                                    onClick={async (e) => {
-                                                                        e.stopPropagation();
-                                                                        await handleDeleteWordCollection(item._id)
-                                                                    }}
-                                                                >
-                                                                    {t('collectionsPage.alertDelete')}
-                                                                </Button>
-                                                            </AlertDialogAction>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
-                                            </CardFooter>
-                                        </Card>
-                                    ))
+                                                    <h3 className="text-lg font-semibold mb-2">{t('collectionsPage.noCollectionTitle')}</h3>
+                                                    <p className="text-sm text-muted-foreground">
+                                                        {t('collectionsPage.noCollectionDescription')}
+                                                    </p>
+                                                </CardContent>
+                                            </div>
+                                        )
                                 )}
                             </div>
                         </div>
