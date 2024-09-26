@@ -85,7 +85,14 @@ const PresetCollections = ({ view }) => {
                             view === "mobile" ? 'grid-cols-2' : 'grid-cols-4'
                         )}>
                             {visibleLanguages.map(lang => (
-                                <TabsTrigger key={lang} value={lang}>{lang}</TabsTrigger>
+                                <TabsTrigger key={lang} value={lang} disabled={lang !== "English"}>
+                                    {lang}
+                                    {lang !== "English" && (
+                                        <div className='relative -top-2 -right-2 text-xs font-bold bg-gradient-to-r from-[#016DCC] to-purple-600 bg-clip-text text-transparent rounded-sm px-0.5'>
+                                            {t('comingSoon.comingSoon')}
+                                        </div>
+                                    )}
+                                </TabsTrigger>
                             ))}
                         </TabsList>
                         <Button
