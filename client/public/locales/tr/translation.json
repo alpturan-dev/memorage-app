@@ -81,11 +81,14 @@
     "passwordError": "Şifrenizi değiştirirken bir hata oluştu. Lütfen mevcut şifrenizin doğru olduğundan emin olun ve tekrar deneyin."
   },
   "collectionsPage": {
-    "title": "Kelime Koleksiyonları",
+    "yourCollectionsTitle": "Senin Koleksiyonların",
+    "yourCollectionsDescription": "Kendi oluşturduğun dil öğrenme koleksiyonların arasından seç yap",
     "searchPlaceholder": "Koleksiyonlarda ara...",
     "addButton": "Yeni Koleksiyon",
     "cardSubtitle": "Öğrenme koleksiyonu ",
     "cardButton": "Görüntüle",
+    "viewCollection": "Koleksiyonu Görüntüle",
+    "doExercise": "Egzersiz Yap",
     "cardDelete": "Sil",
     "dialogTitle": "Yeni Kelime Koleksiyonu",
     "dialogSubtitle": "Yeni bir kelime koleksiyonu oluşturun. Bitirdiğinizde kaydet'e tıklayın.",
@@ -98,7 +101,21 @@
     "targetLanguage": "Hedef Dil",
     "selectLanguage": "Bir dil seçin",
     "deleted": "Koleksiyon başarıyla silindi!",
-    "added": "Yeni kelime koleksiyonu eklendi."
+    "added": "Yeni kelime koleksiyonu eklendi.",
+    "beginner": "Başlangıç",
+    "elementary": "Temel",
+    "intermediate": "Orta",
+    "upperIntermediate": "Üst Orta",
+    "advanced": "İleri",
+    "proficiency": "Yeterlilik",
+    "presetTitle": "Hazır Koleksiyonlar",
+    "presetDescription": "Özelleştirilmiş dil öğrenme koleksiyonlarımızdan birini seçin",
+    "level": "seviye",
+    "vocabulary": "kelime dağarcığı",
+    "preset": "Hazır Koleksiyonlar",
+    "your": "Senin Koleksiyonların",
+    "noCollectionTitle": "Henüz koleksiyon oluşturmadın",
+    "noCollectionDescription": "İlk kelime koleksiyonunu oluşturarak başla."
   },
   "collectionPage": {
     "totalWords": "Toplam kelime:",
@@ -111,7 +128,9 @@
     "processingImages": "Görseller işleniyor...",
     "findingWords": "Kelimeler bulunuyor...",
     "exerciseDialogButton": "Egzersiz Yap",
-    "exerciseDialogTitle": "Egzersiz seç"
+    "exerciseDialogTitle": "Egzersiz seç",
+    "noWordTitle": "Henüz kelime eklemedin",
+    "noWordDescription": "İlk kelimeni ekleyerek egzersizlere başla."
   },
   "exercisesPage": {
     "title": "Egzersizler",

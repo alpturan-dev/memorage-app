@@ -13,6 +13,7 @@ import Shuffle from "./pages/exercises/components/shuffle"
 import { Toaster } from "react-hot-toast"
 import { Suspense } from "react"
 import { Loader } from "lucide-react"
+import PresetCollection from "./pages/collection/components/preset-collection"
 
 const ProviderLayout = () => {
   return (
@@ -39,6 +40,7 @@ const router = createBrowserRouter(
             { path: '/profile', element: <Profile /> },
             { path: '/collections', element: <Collections /> },
             { path: '/collection/:id', element: <Collection /> },
+            { path: '/preset-collection/:languageCode/:level', element: <PresetCollection /> },
             { path: '/exercises', element: <Exercises /> },
             { path: '/exercises/flashcards', element: <Flashcards /> },
             { path: '/exercises/shuffle', element: <Shuffle /> },

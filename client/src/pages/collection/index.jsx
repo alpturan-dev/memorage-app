@@ -2,15 +2,17 @@ import { apiRequest } from "@/api/config";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ImportWordsComponent from "./components/import-words-component";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "react-i18next";
-import { EditIcon } from "lucide-react";
+import { ArrowLeft, EditIcon, FileX2 } from "lucide-react";
 import ExerciseDialog from "./components/exercise-dialog";
+import { CardContent } from "@/components/ui/card";
 
 const Collection = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const params = useParams();
     const [words, setWords] = useState([]);
@@ -104,7 +106,12 @@ const Collection = () => {
                     {loading ? (
                         <Skeleton className="h-[30px] w-[100px]" />
                     ) : (
-                        <h1 className="text-xl font-bold">{selectedCollection.name}</h1>
+                        <div className="flex gap-2 items-center">
+                            <Button size="sm" variant="outline" onClick={() => navigate('/collections')}>
+                                <ArrowLeft />
+                            </Button>
+                            <h1 className="text-xl font-bold">{selectedCollection.name}</h1>
+                        </div>
                     )}
                     {loading ? (
                         <Skeleton className="h-[30px] w-[100px]" />
@@ -140,10 +147,14 @@ const Collection = () => {
                             )}
                         </Button>
                     </div>
-                    <div className="col-span-1 md:col-span-2 flex justify-end order-first md:order-none">
-                        <div className="grid grid-cols-2 gap-2">
-                            <ExerciseDialog selectedCollectionId={selectedCollection._id} />
-                            <ImportWordsComponent wordCollectionId={params.id} getAllWordsByCollection={getAllWordsByCollection} selectedCollection={selectedCollection} />
+                    <div className="w-full col-span-1 md:col-span-2 flex justify-center md:justify-end order-first md:order-none">
+                        <div className="grid grid-cols-5 gap-2">
+                            <div className="col-span-2">
+                                <ExerciseDialog selectedCollectionId={selectedCollection._id} />
+                            </div>
+                            <div className="col-span-3">
+                                <ImportWordsComponent wordCollectionId={params.id} getAllWordsByCollection={getAllWordsByCollection} selectedCollection={selectedCollection} />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -156,37 +167,52 @@ const Collection = () => {
                         </div>
                         : (
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                {words.map((item) => (
-                                    <div key={item._id} className="grid grid-cols-[1fr_auto] items-center gap-2 p-3 rounded-md bg-gray-100">
-                                        <div className="flex flex-col">
-                                            <div className="font-medium">{item.nativeWord}</div>
-                                            <div className="text-muted-foreground text-sm">{item.targetWord}</div>
+                                {words.length > 0 ? (
+                                    words.map((item) => (
+                                        <div key={item._id} className="grid grid-cols-[1fr_auto] items-center gap-2 p-3 rounded-md bg-gray-100">
+                                            <div className="flex flex-col">
+                                                <div className="font-medium">{item.nativeWord}</div>
+                                                <div className="text-muted-foreground text-sm">{item.targetWord}</div>
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                                <Button variant="ghost" size="icon"
+                                                    onClick={() => {
+                                                        setFormAction("edit");
+                                                        setNewWord({
+                                                            nativeWord: item.nativeWord,
+                                                            targetWord: item.targetWord,
+                                                            id: item._id
+                                                        });
+                                                    }}
+                                                >
+                                                    <FilePenIcon className="w-4 h-4" />
+                                                    <span className="sr-only">{t('common.edit')}</span>
+                                                </Button>
+                                                <Button variant="ghost" size="icon"
+                                                    onClick={() => {
+                                                        handleDeleteWord(item._id)
+                                                    }}
+                                                >
+                                                    <TrashIcon className="w-4 h-4" />
+                                                    <span className="sr-only">{t('common.delete')}</span>
+                                                </Button>
+                                            </div>
                                         </div>
-                                        <div className="flex items-center gap-2">
-                                            <Button variant="ghost" size="icon"
-                                                onClick={() => {
-                                                    setFormAction("edit");
-                                                    setNewWord({
-                                                        nativeWord: item.nativeWord,
-                                                        targetWord: item.targetWord,
-                                                        id: item._id
-                                                    });
-                                                }}
-                                            >
-                                                <FilePenIcon className="w-4 h-4" />
-                                                <span className="sr-only">{t('common.edit')}</span>
-                                            </Button>
-                                            <Button variant="ghost" size="icon"
-                                                onClick={() => {
-                                                    handleDeleteWord(item._id)
-                                                }}
-                                            >
-                                                <TrashIcon className="w-4 h-4" />
-                                                <span className="sr-only">{t('common.delete')}</span>
-                                            </Button>
+                                    )))
+                                    : (
+                                        <div className="col-span-full w-full max-w-md mx-auto border-0">
+                                            <CardContent className="pt-6 pb-4 text-center">
+                                                <div className="flex justify-center mb-4">
+                                                    <FileX2 className="h-12 w-12 text-muted-foreground" />
+                                                </div>
+                                                <h3 className="text-lg font-semibold mb-2">{t('collectionPage.noWordTitle')}</h3>
+                                                <p className="text-sm text-muted-foreground">
+                                                    {t('collectionPage.noWordDescription')}
+                                                </p>
+                                            </CardContent>
                                         </div>
-                                    </div>
-                                ))}
+                                    )
+                                }
                             </div>
                         )}
                 </div>

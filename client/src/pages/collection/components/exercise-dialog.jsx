@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
 import { useExercises } from '@/hooks/useExercises';
 
-const ExerciseDialog = ({ selectedCollectionId }) => {
+const ExerciseDialog = ({ selectedCollectionId, preset = false }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const exercises = useExercises();
@@ -17,7 +17,7 @@ const ExerciseDialog = ({ selectedCollectionId }) => {
     const [selectedExercise, setSelectedExercise] = useState(null)
 
     const handleNavigate = () => {
-        navigate(`/exercises/${selectedExercise.path}`, { state: { selectedCollectionId } })
+        navigate(`/exercises/${selectedExercise.path}`, { state: { selectedCollectionId, preset } })
     }
 
     return (
@@ -26,7 +26,7 @@ const ExerciseDialog = ({ selectedCollectionId }) => {
             setSelectedExercise(null)
         }}>
             <DialogTrigger asChild>
-                <Button className="w-full md:w-auto flex gap-2">
+                <Button size="sm" className="text-xs w-full md:w-auto flex gap-2">
                     {t('collectionPage.exerciseDialogButton')}
                     <ArrowUpRight />
                 </Button>

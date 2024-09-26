@@ -57,7 +57,7 @@ export const AddCollectionDialog = ({ getAllWordCollections }) => {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button size="sm">
+                <Button size="sm" className='w-full'>
                     <PlusIcon className="w-4 h-4 mr-2" />
                     {t('collectionsPage.addButton')}
                 </Button>

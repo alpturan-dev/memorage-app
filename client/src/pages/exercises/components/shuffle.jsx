@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 const Shuffle = () => {
     const { t } = useTranslation();
     const { state } = useLocation();
-    const { selectedCollectionId } = state;
+    const { selectedCollectionId, preset } = state;
     const [words, setWords] = useState([]);
     const [currentWord, setCurrentWord] = useState(null);
     const [options, setOptions] = useState([]);
@@ -19,10 +19,20 @@ const Shuffle = () => {
 
     const getAllWordsByCollection = async () => {
         try {
-            const response = await apiRequest.get(`/api/words/wordCollection/${selectedCollectionId}`);
+            let response = {};
+            if (preset) {
+                response = await apiRequest.get(`/api/preset-collections/byId/${selectedCollectionId}`);
+            } else {
+                response = await apiRequest.get(`/api/words/wordCollection/${selectedCollectionId}`);
+            }
             if (response.status === 200) {
-                setWords(response.data);
-                nextWord(response.data);
+                if (preset) {
+                    setWords(response.data.words);
+                    nextWord(response.data.words);
+                } else {
+                    setWords(response.data);
+                    nextWord(response.data);
+                }
             }
         } catch (error) {
             console.error(error)
