@@ -193,7 +193,7 @@ const Collection = () => {
                                                         scrollToTop();
                                                     }}
                                                 >
-                                                    <FilePenIcon className="w-4 h-4 text-green-500" />
+                                                    <FilePenIcon className="w-4 h-4" />
                                                     <span className="sr-only">{t('common.edit')}</span>
                                                 </Button>
                                                 <Button variant="ghost" size="icon" className="text-red-600"
