@@ -19,9 +19,10 @@ import { useTranslation } from "react-i18next"
 
 const initialState = {
     name: "",
+    //for now, we will only support one language
     nativeLanguage: {
-        code: "",
-        name: ""
+        code: "tr",
+        name: "Türkçe"
     },
     targetLanguage: {
         code: "",
@@ -71,8 +72,8 @@ export const AddCollectionDialog = ({ getAllWordCollections }) => {
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="name" className="col-span-1 text-left">
+                        <div className="grid grid-cols-5 items-center gap-4">
+                            <Label htmlFor="name" className="col-span-2 text-left">
                                 {t('collectionsPage.collectionName')}
                             </Label>
                             <Input
@@ -87,38 +88,9 @@ export const AddCollectionDialog = ({ getAllWordCollections }) => {
                                 })}
                             />
                         </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="nativeLanguage" className="col-span-1 text-left">
-                                {t('collectionsPage.sourceLanguage')}
-                            </Label>
-                            <Select
-                                id="nativeLanguage"
-                                value={newCollection.nativeLanguage.code}
-                                disabled={loading}
-                                required
-                                onValueChange={(value) => {
-                                    const lang = languages.find((item) => item.code === value);
-                                    setNewCollection({
-                                        ...newCollection,
-                                        nativeLanguage: lang
-                                    })
-                                }}
-                            >
-                                <SelectTrigger className="col-span-3">
-                                    <SelectValue placeholder={t('collectionsPage.selectLanguage')} />
-                                </SelectTrigger>
-                                <SelectContent className="h-56">
-                                    {languages.map((language) => {
-                                        if (newCollection.targetLanguage.code !== language.code) return (
-                                            <SelectItem key={language.code} value={language.code}>{language.name}</SelectItem>
-                                        )
-                                    })}
-                                </SelectContent>
-                            </Select>
-                        </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="targetLanguage" className="col-span-1 text-left">
-                                {t('collectionsPage.targetLanguage')}
+                        <div className="grid grid-cols-5 items-center gap-4">
+                            <Label htmlFor="targetLanguage" className="col-span-2 text-left">
+                                {t('collectionsPage.languageYouWantToLearn')}
                             </Label>
                             <Select
                                 id="targetLanguage"
@@ -137,11 +109,9 @@ export const AddCollectionDialog = ({ getAllWordCollections }) => {
                                     <SelectValue placeholder={t('collectionsPage.selectLanguage')} />
                                 </SelectTrigger>
                                 <SelectContent className="h-56">
-                                    {languages.map((language) => {
-                                        if (newCollection.nativeLanguage.code !== language.code) return (
-                                            <SelectItem key={language.code} value={language.code}>{language.name}</SelectItem>
-                                        )
-                                    })}
+                                    {languages.map((language) => (
+                                        <SelectItem key={language.code} value={language.code}>{language.name}</SelectItem>
+                                    ))}
                                 </SelectContent>
                             </Select>
                         </div>

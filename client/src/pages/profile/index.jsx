@@ -116,7 +116,7 @@ const Profile = () => {
                                 />
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="language">{t('profilePage.language')}</Label>
+                                <Label htmlFor="language">{t('profilePage.appLanguage')}</Label>
                                 <LanguageSelect
                                     language={user.language}
                                     handleLanguageChange={(value) => setUser({ ...user, language: value })}
