@@ -9,6 +9,8 @@ import { useTranslation } from "react-i18next";
 import { ArrowLeft, EditIcon, FileX2 } from "lucide-react";
 import ExerciseDialog from "./components/exercise-dialog";
 import { CardContent } from "@/components/ui/card";
+import { scrollToTop } from "@/lib/utils";
+import { twJoin } from "tailwind-merge";
 
 const Collection = () => {
     const { t } = useTranslation();
@@ -80,12 +82,15 @@ const Collection = () => {
 
     const handleDeleteWord = async (id) => {
         try {
+            setLoading(true);
             const response = await apiRequest.delete(`/api/words/${id}`);
             if (response.status === 200) {
                 setWords(words.filter((item) => item._id !== id));
             }
         } catch (error) {
             console.error(error)
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -128,6 +133,7 @@ const Collection = () => {
                                 ...newWord,
                                 nativeWord: e.target.value
                             })}
+                            className={twJoin(formAction === "edit" && "animate-pulse")}
                         />
                         <Input type="text" placeholder={t('collectionPage.translation')}
                             value={newWord.targetWord}
@@ -136,6 +142,7 @@ const Collection = () => {
                                 ...newWord,
                                 targetWord: e.target.value
                             })}
+                            className={twJoin(formAction === "edit" && "animate-pulse")}
                         />
                         <Button variant="outline" size="sm" onClick={handleAddOrEditWord}>
                             {loading ? (
@@ -143,7 +150,7 @@ const Collection = () => {
                             ) : formAction === "add" ? (
                                 <PlusIcon className="w-4 h-4" />
                             ) : (
-                                <EditIcon className="w-4 h-4" />
+                                <EditIcon className="w-4 h-4 text-green-500" />
                             )}
                         </Button>
                     </div>
@@ -183,12 +190,13 @@ const Collection = () => {
                                                             targetWord: item.targetWord,
                                                             id: item._id
                                                         });
+                                                        scrollToTop();
                                                     }}
                                                 >
-                                                    <FilePenIcon className="w-4 h-4" />
+                                                    <FilePenIcon className="w-4 h-4 text-green-500" />
                                                     <span className="sr-only">{t('common.edit')}</span>
                                                 </Button>
-                                                <Button variant="ghost" size="icon"
+                                                <Button variant="ghost" size="icon" className="text-red-600"
                                                     onClick={() => {
                                                         handleDeleteWord(item._id)
                                                     }}

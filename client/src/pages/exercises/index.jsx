@@ -35,7 +35,7 @@ const Exercises = () => {
     return (
         <div className="flex flex-col min-h-screen bg-muted/40">
             <main className="flex-1 py-2">
-                <Link to="/exercises" className="py-4 flex items-center gap-2 text-2xl font-semibold">
+                <Link to="/exercises" className="py-4 flex items-center gap-2 text-xl font-semibold">
                     <span>{t('exercisesPage.title')}</span>
                 </Link>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
@@ -44,8 +44,8 @@ const Exercises = () => {
                             <DialogTrigger asChild>
                                 <Card onClick={() => setSelectedExercise(exercise)}>
                                     <CardHeader>
-                                        <CardTitle>{exercise.name}</CardTitle>
-                                        <CardDescription>{exercise.description}</CardDescription>
+                                        <CardTitle className="text-xl">{exercise.name}</CardTitle>
+                                        <CardDescription className="text-xs">{exercise.description}</CardDescription>
                                     </CardHeader>
                                     <CardContent className="flex items-center justify-center h-40">
                                         <div className="text-primary hover:text-primary-foreground">
@@ -99,13 +99,13 @@ const Exercises = () => {
                         </Dialog>
                     ))}
                     <div className="relative opacity-60">
-                        <div className={'absolute top-1 right-1 text-base z-50 font-bold bg-gradient-to-r from-[#016DCC] to-purple-600 bg-clip-text text-transparent rounded-sm px-0.5'}>
+                        <div className={'absolute top-2 right-1 text-xs z-50 font-bold bg-gradient-to-r from-[#016DCC] to-purple-600 bg-clip-text text-transparent rounded-sm px-0.5'}>
                             {t('comingSoon.comingSoon')}
                         </div>
                         <Card className="cursor-not-allowed">
                             <CardHeader>
-                                <CardTitle>{t('fillInTheBlanksExercise.name')}</CardTitle>
-                                <CardDescription>{t('fillInTheBlanksExercise.description')}</CardDescription>
+                                <CardTitle className="text-xl">{t('fillInTheBlanksExercise.name')}</CardTitle>
+                                <CardDescription className="text-xs">{t('fillInTheBlanksExercise.description')}</CardDescription>
                             </CardHeader>
                             <CardContent className="flex items-center justify-center h-40">
                                 <div className="text-primary hover:text-primary-foreground">

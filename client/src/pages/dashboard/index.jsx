@@ -3,6 +3,7 @@ import { Book, Folder, Plus } from 'lucide-react'
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import logo from '../../../public/logo.png'
+import { scrollToTop } from '@/lib/utils';
 
 const Dashboard = () => {
     const { t } = useTranslation();
@@ -12,13 +13,6 @@ const Dashboard = () => {
         if (targetRef.current) {
             targetRef.current.scrollIntoView({ behavior: 'smooth' });
         }
-    };
-
-    const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
     };
 
     return (

@@ -1,13 +1,15 @@
 import { apiRequest } from "@/api/config";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ArrowLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Shuffle = () => {
     const { t } = useTranslation();
     const { state } = useLocation();
+    const navigate = useNavigate();
     const { selectedCollectionId, preset } = state;
     const [words, setWords] = useState([]);
     const [currentWord, setCurrentWord] = useState(null);
@@ -127,13 +129,19 @@ const Shuffle = () => {
     return (
         <main className="bg-background text-foreground py-4">
             <div className="mx-auto text-center">
-                <div className="py-4 flex items-center gap-2 text-2xl font-semibold">
-                    <span>{t('shuffleExercise.title')}</span>
+                <div className="flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white">
+                    <div className="flex gap-2 items-center">
+                        <Button size="sm" variant="outline" onClick={() => navigate(-1)}>
+                            <ArrowLeft />
+                        </Button>
+                    </div>
+                    <div className="py-4 flex items-center gap-2 text-xl font-semibold">
+                        <span>{t('shuffleExercise.title')}</span>
+                    </div>
                 </div>
-                <hr className="shadow-xl" />
                 <div className="pt-6 w-full flex justify-center">
-                    <div className="relative w-1/2 sm:w-1/4">
-                        <h2 className="rounded-lg py-2 px-4 text-2xl font-bold bg-gray-700 text-white">
+                    <div className="relative w-1/3 md:w-1/6">
+                        <h2 className="rounded-lg py-0.5 px-0.25 md:py-1 md:px-2 text-xl font-bold bg-gray-700 text-white">
                             {t('shuffleExercise.score')} {score}
                         </h2>
                         {isCorrect && (
@@ -144,13 +152,13 @@ const Shuffle = () => {
                     </div>
                 </div>
                 <div className="text-3xl font-semibold my-6">{currentWord.nativeWord}</div>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {options.map((option, index) => (
                         <button
                             key={index}
                             onClick={() => handleOptionClick(option)}
                             className={`
-              py-3 px-4 text-lg font-medium rounded-lg transition-colors duration-200 overflow-auto
+              py-1 px-2 md:py-3 md:px-4 text-lg font-medium rounded-lg transition-colors duration-200 overflow-auto
               ${isCorrect === true && option === currentWord.targetWord
                                     ? 'bg-green-500 text-white'
                                     : isCorrect === false && option !== currentWord.targetWord

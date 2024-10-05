@@ -10,6 +10,7 @@ import { languages as constLangs } from '@/constants/constants';
 import { useNavigate } from 'react-router-dom';
 import ExerciseDialog from '@/pages/collection/components/exercise-dialog';
 import { apiRequest } from '@/api/config';
+import { scrollToTop } from '@/lib/utils';
 
 const PresetCollections = ({ view }) => {
     const { t } = useTranslation();
@@ -58,13 +59,6 @@ const PresetCollections = ({ view }) => {
     useEffect(() => {
         getAllPresetCollections();
     }, [])
-
-    const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        })
-    }
 
     return (
         <>
@@ -124,7 +118,7 @@ const PresetCollections = ({ view }) => {
                                                 <Progress value={level.value} indicatorColor={level.color} />
                                             </div>
                                         </CardHeader>
-                                        <CardContent className="flex flex-col md:flex-row gap-2">
+                                        <CardContent className="flex flex-col xl:flex-row gap-2">
                                             <Button size="sm" variant="outline" onClick={() => {
                                                 let tempLang = constLangs.find((item) => item.name === lang);
                                                 navigate(`/preset-collection/${tempLang.code}/${level.level}`);

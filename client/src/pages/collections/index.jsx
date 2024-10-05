@@ -23,6 +23,7 @@ import { Separator } from "@/components/ui/separator"
 import PresetCollections from "./components/preset-collections"
 import { Tabs } from "@radix-ui/react-tabs"
 import { TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { scrollToTop } from "@/lib/utils"
 
 const Collections = () => {
     const { t } = useTranslation();
@@ -63,13 +64,6 @@ const Collections = () => {
     useEffect(() => {
         getAllWordCollections();
     }, []);
-
-    const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        })
-    }
 
     return (
         <div className="flex flex-col bg-muted/40">
