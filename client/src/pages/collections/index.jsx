@@ -24,6 +24,7 @@ import PresetCollections from "./components/preset-collections"
 import { Tabs } from "@radix-ui/react-tabs"
 import { TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { scrollToTop } from "@/lib/utils"
+import ExerciseDialog from "../collection/components/exercise-dialog"
 
 const Collections = () => {
     const { t } = useTranslation();
@@ -127,6 +128,9 @@ const Collections = () => {
                                                                 {t('collectionsPage.cardButton')}
                                                             </span>
                                                         </Button>
+                                                        <div>
+                                                            <ExerciseDialog selectedCollectionId={item._id} />
+                                                        </div>
                                                         <AlertDialog>
                                                             <AlertDialogTrigger asChild>
                                                                 <Button size="sm" variant="icon"
@@ -235,57 +239,58 @@ const Collections = () => {
                                                             <span>{item.targetLanguage.name}</span>
                                                         </div>
                                                     </div>
-                                                </CardContent>
-                                                <CardFooter className="justify-between gap-1">
-                                                    <Button size="sm" variant="outline" onClick={() => {
-                                                        navigate(`/collection/${item._id}`);
-                                                        scrollToTop();
-                                                    }}>
-                                                        <Grip className="w-5 h-5 mr-2" />
-                                                        <span className="text-xs">
-                                                            {t('collectionsPage.cardButton')}
-                                                        </span>
-                                                    </Button>
-                                                    <AlertDialog>
-                                                        <AlertDialogTrigger asChild>
-                                                            <Button size="sm" variant="icon"
+                                                    <div className="pt-6 flex flex-col xl:flex-row gap-2">
+                                                        <Button className="w-full lg:w-auto" size="sm" variant="outline" onClick={() => {
+                                                            navigate(`/collection/${item._id}`);
+                                                            scrollToTop();
+                                                        }}>
+                                                            <Grip className="w-5 h-5 mr-2" />
+                                                            <span className="text-xs">
+                                                                {t('collectionsPage.cardButton')}
+                                                            </span>
+                                                        </Button>
+                                                        <ExerciseDialog selectedCollectionId={item._id} />
+                                                        <AlertDialog>
+                                                            <AlertDialogTrigger asChild>
+                                                                <Button size="sm" variant="icon"
+                                                                    onClick={(e) => {
+                                                                        e.stopPropagation()
+                                                                    }}>
+                                                                    <ListX className="text-red-600 w-5 h-5" />
+                                                                </Button>
+                                                            </AlertDialogTrigger>
+                                                            <AlertDialogContent
                                                                 onClick={(e) => {
-                                                                    e.stopPropagation()
-                                                                }}>
-                                                                <ListX className="text-red-600 w-5 h-5" />
-                                                            </Button>
-                                                        </AlertDialogTrigger>
-                                                        <AlertDialogContent
-                                                            onClick={(e) => {
-                                                                e.stopPropagation();
-                                                            }}
-                                                        >
-                                                            <AlertDialogHeader>
-                                                                <AlertDialogTitle>
-                                                                    {t('collectionsPage.alertTitle')}
-                                                                </AlertDialogTitle>
-                                                                <AlertDialogDescription>
-                                                                    {t('collectionsPage.alertDescription')}
-                                                                </AlertDialogDescription>
-                                                            </AlertDialogHeader>
-                                                            <AlertDialogFooter>
-                                                                <AlertDialogCancel>
-                                                                    {t('collectionsPage.alertCancel')}
-                                                                </AlertDialogCancel>
-                                                                <AlertDialogAction asChild>
-                                                                    <Button variant="destructive" size="sm"
-                                                                        onClick={async (e) => {
-                                                                            e.stopPropagation();
-                                                                            await handleDeleteWordCollection(item._id)
-                                                                        }}
-                                                                    >
-                                                                        {t('collectionsPage.alertDelete')}
-                                                                    </Button>
-                                                                </AlertDialogAction>
-                                                            </AlertDialogFooter>
-                                                        </AlertDialogContent>
-                                                    </AlertDialog>
-                                                </CardFooter>
+                                                                    e.stopPropagation();
+                                                                }}
+                                                            >
+                                                                <AlertDialogHeader>
+                                                                    <AlertDialogTitle>
+                                                                        {t('collectionsPage.alertTitle')}
+                                                                    </AlertDialogTitle>
+                                                                    <AlertDialogDescription>
+                                                                        {t('collectionsPage.alertDescription')}
+                                                                    </AlertDialogDescription>
+                                                                </AlertDialogHeader>
+                                                                <AlertDialogFooter>
+                                                                    <AlertDialogCancel>
+                                                                        {t('collectionsPage.alertCancel')}
+                                                                    </AlertDialogCancel>
+                                                                    <AlertDialogAction asChild>
+                                                                        <Button variant="destructive" size="sm"
+                                                                            onClick={async (e) => {
+                                                                                e.stopPropagation();
+                                                                                await handleDeleteWordCollection(item._id)
+                                                                            }}
+                                                                        >
+                                                                            {t('collectionsPage.alertDelete')}
+                                                                        </Button>
+                                                                    </AlertDialogAction>
+                                                                </AlertDialogFooter>
+                                                            </AlertDialogContent>
+                                                        </AlertDialog>
+                                                    </div>
+                                                </CardContent>
                                             </Card>
                                         ))
                                         :

@@ -137,7 +137,8 @@
     "dialogTitle": "Kelime Koleksiyonu Seç",
     "dialogSubtitle": "{{exerciseName}} egzersizine başlamak için bir kelime koleksiyonu seçin.",
     "collection": "Koleksiyon",
-    "start": "Başla"
+    "start": "Başla",
+    "notEnoughWords": "Egzersiz yapmak için en az 4 kelime eklemen gerekli."
   },
   "shuffleExercise": {
     "name": "Karıştırma",
