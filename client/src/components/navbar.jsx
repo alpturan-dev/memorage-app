@@ -47,7 +47,7 @@ function Navbar() {
                         </span>
                     </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
+                <DropdownMenuContent align="start">
                     <DropdownMenuLabel>
                         {t('navbar.myAccount')}
                     </DropdownMenuLabel>
@@ -103,7 +103,7 @@ function Navbar() {
                                         <NavLink className="text-base font-medium text-primary hover:text-primary/80 cursor-pointer" to={item.to} key={item.name} onClick={() => setIsOpen(false)}
                                         >{item.name}</NavLink>
                                     ))}
-                                    <NavLink className="flex items-center text-base font-medium text-primary hover:text-primary/80 opacity-70 cursor-not-allowed">
+                                    <NavLink className="flex items-center text-base font-medium text-primary hover:text-primary/80 opacity-70 cursor-not-allowed" aria-disabled="true">
                                         <div className="inline-block mr-1">
                                             <Swords />
                                         </div>
