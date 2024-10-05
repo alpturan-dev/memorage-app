@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowLeft } from "lucide-react";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -29,9 +30,19 @@ const Shuffle = () => {
             }
             if (response.status === 200) {
                 if (preset) {
+                    if (response.data.words.length < 4) {
+                        toast.error(t('exercisesPage.notEnoughWords'));
+                        navigate(-1);
+                        return;
+                    }
                     setWords(response.data.words);
                     nextWord(response.data.words);
                 } else {
+                    if (response.data.length < 4) {
+                        toast.error(t('exercisesPage.notEnoughWords'));
+                        navigate(-1);
+                        return;
+                    }
                     setWords(response.data);
                     nextWord(response.data);
                 }

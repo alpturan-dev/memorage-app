@@ -137,7 +137,8 @@
     "dialogTitle": "Select Word Collection",
     "dialogSubtitle": "Choose a word collection to start the {{exerciseName}} exercise.",
     "collection": "Collection",
-    "start": "Start"
+    "start": "Start",
+    "notEnoughWords": "You need to add at least 4 words to start this exercise."
   },
   "shuffleExercise": {
     "name": "Shuffle",

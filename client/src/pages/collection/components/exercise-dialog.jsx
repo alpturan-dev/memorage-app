@@ -30,7 +30,7 @@ const ExerciseDialog = ({ selectedCollectionId, preset = false }) => {
             <DialogTrigger asChild>
                 <Button size="sm" className="text-xs w-full md:w-auto flex gap-2">
                     {t('collectionPage.exerciseDialogButton')}
-                    <ArrowUpRight />
+                    <ArrowUpRight size="1rem" />
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[625px]" aria-describedby={undefined}>
