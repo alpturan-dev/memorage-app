@@ -1,16 +1,9 @@
 import { Outlet } from "react-router-dom"
 import Navbar from "./navbar"
 import Footer from "./footer"
+import { scrollToTop } from "@/lib/utils"
 
 const Layout = () => {
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    })
-  }
-
   return (
     <>
       <Navbar />

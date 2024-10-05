@@ -8,6 +8,7 @@ import { ArrowUpRight, PlayIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
 import { useExercises } from '@/hooks/useExercises';
+import { scrollToTop } from '@/lib/utils';
 
 const ExerciseDialog = ({ selectedCollectionId, preset = false }) => {
     const { t } = useTranslation();
@@ -18,6 +19,7 @@ const ExerciseDialog = ({ selectedCollectionId, preset = false }) => {
 
     const handleNavigate = () => {
         navigate(`/exercises/${selectedExercise.path}`, { state: { selectedCollectionId, preset } })
+        scrollToTop();
     }
 
     return (
