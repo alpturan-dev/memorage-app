@@ -130,7 +130,8 @@
     "exerciseDialogButton": "Do Exercise",
     "exerciseDialogTitle": "Choose exercise",
     "noWordTitle": "You have not added a word yet",
-    "noWordDescription": "Get started by creating your first word."
+    "noWordDescription": "Get started by creating your first word.",
+    "translationSuggestion": "Translation suggestion"
   },
   "exercisesPage": {
     "title": "Exercises",

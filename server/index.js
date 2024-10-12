@@ -7,6 +7,7 @@ import WordCollectionRoute from './routes/WordCollectionRoute.js'
 import WordRoute from './routes/WordRoute.js'
 import AIRoute from './routes/AIRoute.js'
 import PresetCollectionRoute from './routes/PresetCollectionRoute.js'
+import TranslateRoute from './routes/TranslateRoute.js'
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use('/api/wordCollections', WordCollectionRoute);
 app.use('/api/words', WordRoute);
 app.use('/api/ai', AIRoute);
 app.use('/api/preset-collections', PresetCollectionRoute);
+app.use('/api/translate', TranslateRoute);
 
 mongoose
     .connect(process.env.ATLAS_URI)

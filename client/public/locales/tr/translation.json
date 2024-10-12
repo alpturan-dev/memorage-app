@@ -130,7 +130,8 @@
     "exerciseDialogButton": "Egzersiz Yap",
     "exerciseDialogTitle": "Egzersiz seç",
     "noWordTitle": "Henüz kelime eklemedin",
-    "noWordDescription": "İlk kelimeni ekleyerek egzersizlere başla."
+    "noWordDescription": "İlk kelimeni ekleyerek egzersizlere başla.",
+    "translationSuggestion": "Çeviri önerisi"
   },
   "exercisesPage": {
     "title": "Egzersizler",

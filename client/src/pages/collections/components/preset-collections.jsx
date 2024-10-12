@@ -46,7 +46,6 @@ const PresetCollections = ({ view }) => {
             // setLoading(true);
             const response = await apiRequest.get('/api/preset-collections');
             if (response.status === 200) {
-                console.log("response.data", response.data)
                 setPresetCollections(response.data);
             }
         } catch (error) {
