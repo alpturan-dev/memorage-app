@@ -14,7 +14,7 @@ export const importWordsFromImages = async (req, res) => {
             return res.status(400).json({ error: 'Source and target languages are required' });
         }
 
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
         const imageParts = await Promise.all(req.files.map(async (file) => {
             const imageData = await fs.promises.readFile(file.path);
