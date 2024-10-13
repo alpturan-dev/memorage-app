@@ -28,8 +28,8 @@ const ImportWordsComponent = ({ wordCollectionId, getAllWordsByCollection, selec
             formData.append(`image${index}`, image);
         });
 
-        formData.append('sourceLanguage', selectedCollection.nativeLanguage.name);
-        formData.append('targetLanguage', selectedCollection.targetLanguage.name);
+        formData.append('sourceLanguage', selectedCollection.targetLanguage.name);
+        formData.append('targetLanguage', selectedCollection.nativeLanguage.name);
 
         try {
             setLoadingText(t('collectionPage.processingImages'));
