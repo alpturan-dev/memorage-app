@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import ImportWordsComponent from "./components/import-words-component";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, EditIcon, FileX2, Loader2 } from "lucide-react";
+import { ArrowLeft, EditIcon, FileX2, Loader2, Volume2 } from "lucide-react";
 import ExerciseDialog from "./components/exercise-dialog";
 import { CardContent } from "@/components/ui/card";
 import { scrollToTop } from "@/lib/utils";
@@ -145,6 +145,18 @@ const Collection = () => {
         }
     };
 
+    const playAudio = async (text, lang) => {
+        try {
+            const response = await apiRequest.post('/api/tts/synthesize', { text, languageCode: lang }, { responseType: 'blob' });
+            const audioBlob = new Blob([response.data], { type: 'audio/mpeg' });
+            const audioUrl = URL.createObjectURL(audioBlob);
+            const audio = new Audio(audioUrl);
+            audio.play();
+        } catch (error) {
+            console.error('Error playing audio:', error);
+        }
+    };
+
     useEffect(() => {
         if (suggestedTranslation !== null) {
             setIsTranslating(false);
@@ -268,35 +280,46 @@ const Collection = () => {
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {words.length > 0 ? (
                                     words.map((item) => (
-                                        <div key={item._id} className="grid grid-cols-[1fr_auto] items-center gap-2 p-3 rounded-md bg-gray-100">
-                                            <div className="flex flex-col">
-                                                <div className="font-medium">{item.nativeWord}</div>
-                                                <div className="text-muted-foreground text-sm">{item.targetWord}</div>
+                                        <div key={item._id} className="p-3 rounded-md bg-gray-100">
+                                            <div className="flex justify-between items-start mb-2">
+                                                <div className="flex items-center gap-2">
+                                                    <div className="font-medium">{item.nativeWord}</div>
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="sm"
+                                                        className="h-6 w-6 p-0"
+                                                        onClick={() => playAudio(item.nativeWord, selectedCollection.targetLanguage.code)}
+                                                    >
+                                                        <Volume2 className="h-4 w-4" />
+                                                        <span className="sr-only">{t('common.playAudio')}</span>
+                                                    </Button>
+                                                </div>
+                                                <div className="flex items-center gap-1">
+                                                    <Button variant="ghost" size="sm" className="h-6 w-6 p-0"
+                                                        onClick={() => {
+                                                            setFormAction("edit");
+                                                            setNewWord({
+                                                                nativeWord: item.nativeWord,
+                                                                targetWord: item.targetWord,
+                                                                id: item._id
+                                                            });
+                                                            scrollToTop();
+                                                        }}
+                                                    >
+                                                        <FilePenIcon className="h-3 w-3" />
+                                                        <span className="sr-only">{t('common.edit')}</span>
+                                                    </Button>
+                                                    <Button variant="ghost" size="sm" className="h-6 w-6 p-0 text-red-600"
+                                                        onClick={() => {
+                                                            handleDeleteWord(item._id)
+                                                        }}
+                                                    >
+                                                        <TrashIcon className="h-3 w-3" />
+                                                        <span className="sr-only">{t('common.delete')}</span>
+                                                    </Button>
+                                                </div>
                                             </div>
-                                            <div className="flex items-center gap-2">
-                                                <Button variant="ghost" size="icon"
-                                                    onClick={() => {
-                                                        setFormAction("edit");
-                                                        setNewWord({
-                                                            nativeWord: item.nativeWord,
-                                                            targetWord: item.targetWord,
-                                                            id: item._id
-                                                        });
-                                                        scrollToTop();
-                                                    }}
-                                                >
-                                                    <FilePenIcon className="w-4 h-4" />
-                                                    <span className="sr-only">{t('common.edit')}</span>
-                                                </Button>
-                                                <Button variant="ghost" size="icon" className="text-red-600"
-                                                    onClick={() => {
-                                                        handleDeleteWord(item._id)
-                                                    }}
-                                                >
-                                                    <TrashIcon className="w-4 h-4" />
-                                                    <span className="sr-only">{t('common.delete')}</span>
-                                                </Button>
-                                            </div>
+                                            <div className="text-muted-foreground text-sm">{item.targetWord}</div>
                                         </div>
                                     )))
                                     : (
