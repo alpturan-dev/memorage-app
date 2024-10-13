@@ -80,6 +80,7 @@ const Collection = () => {
             setNewWord(wordInitialState);
             setFormAction("add");
             setLoading(false);
+            setShowDropdown(false);
         }
     }
 
@@ -94,6 +95,7 @@ const Collection = () => {
             console.error(error)
         } finally {
             setLoading(false);
+            setShowDropdown(false);
         }
     };
 
@@ -166,6 +168,10 @@ const Collection = () => {
     useEffect(() => {
         if (newWord.nativeWord === "" && newWord.targetWord === "") {
             setFormAction("add");
+            setShowDropdown(false);
+        }
+        if (newWord.nativeWord === "") {
+            setShowDropdown(false);
         }
     }, [newWord]);
 
