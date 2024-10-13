@@ -69,14 +69,14 @@ const PresetCollection = () => {
                     ) : (
                         <div className="flex gap-2 items-center">
                             <div className="hidden lg:block">
-                                <ExerciseDialog selectedCollectionId={selectedCollection._id} preset={true} />
+                                <ExerciseDialog selectedCollectionId={selectedCollection._id} preset={true} languageCode={params.languageCode} />
                             </div>
                             <div>{t('collectionPage.totalWords')} {words.length}</div>
                         </div>
                     )}
                 </div>
                 <div className="block lg:hidden">
-                    <ExerciseDialog selectedCollectionId={selectedCollection._id} preset={true} />
+                    <ExerciseDialog selectedCollectionId={selectedCollection._id} preset={true} languageCode={params.languageCode} />
                 </div>
                 <div className="grid gap-3">
                     {loading ?

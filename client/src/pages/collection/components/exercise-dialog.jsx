@@ -9,16 +9,33 @@ import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
 import { useExercises } from '@/hooks/useExercises';
 import { scrollToTop } from '@/lib/utils';
+import { apiRequest } from '@/api/config';
 
-const ExerciseDialog = ({ selectedCollectionId, preset = false }) => {
+const ExerciseDialog = ({ selectedCollectionId, preset = false, languageCode = null }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const exercises = useExercises();
     const [open, setOpen] = useState(false);
     const [selectedExercise, setSelectedExercise] = useState(null)
 
-    const handleNavigate = () => {
-        navigate(`/exercises/${selectedExercise.path}`, { state: { selectedCollectionId, preset } })
+    const getCollectionById = async (id) => {
+        try {
+            const collectionRes = await apiRequest.get(`/api/wordCollections/${id}`);
+            if (collectionRes.status === 200) {
+                return collectionRes.data;
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    };
+
+    const handleNavigate = async () => {
+        if (!preset) {
+            const col = await getCollectionById(selectedCollectionId);
+            navigate(`/exercises/${selectedExercise.path}`, { state: { selectedCollectionId, preset, languageCode: col.targetLanguage.code } })
+        } else {
+            navigate(`/exercises/${selectedExercise.path}`, { state: { selectedCollectionId, preset, languageCode } })
+        }
         scrollToTop();
     }
 
@@ -56,9 +73,9 @@ const ExerciseDialog = ({ selectedCollectionId, preset = false }) => {
                 <DialogFooter>
                     <Button
                         disabled={selectedExercise === null}
-                        onClick={() => {
+                        onClick={async () => {
                             if (selectedCollectionId) {
-                                handleNavigate();
+                                await handleNavigate();
                             }
                         }}
                     >

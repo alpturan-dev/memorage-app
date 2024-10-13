@@ -119,7 +119,7 @@ const Collection = () => {
                     console.error(error);
                 }
             }
-        }, 1000), []  // 1 seconds delay
+        }, 500), []  // 1 seconds delay
     );
 
     const handleSuggestionClick = (suggestion) => {
@@ -139,7 +139,7 @@ const Collection = () => {
             setIsTranslating(true);
             translationTimer.current = setTimeout(() => {
                 fetchTranslations(value);
-            }, 1000); // This should match the debounce delay in fetchTranslations
+            }, 500); // This should match the debounce delay in fetchTranslations
         } else {
             setIsTranslating(false);
         }
@@ -261,7 +261,7 @@ const Collection = () => {
                     <div className="w-full col-span-1 md:col-span-2 flex justify-center md:justify-end order-first md:order-none">
                         <div className="grid grid-cols-5 gap-2">
                             <div className="col-span-2">
-                                <ExerciseDialog selectedCollectionId={selectedCollection._id} />
+                                <ExerciseDialog selectedCollectionId={selectedCollection._id} languageCode={selectedCollection?.targetLanguage?.code} />
                             </div>
                             <div className="col-span-3">
                                 <ImportWordsComponent wordCollectionId={params.id} getAllWordsByCollection={getAllWordsByCollection} selectedCollection={selectedCollection} />

@@ -129,7 +129,7 @@ const Collections = () => {
                                                             </span>
                                                         </Button>
                                                         <div>
-                                                            <ExerciseDialog selectedCollectionId={item._id} />
+                                                            <ExerciseDialog selectedCollectionId={item._id} languageCode={item?.targetLanguage?.code} preset={false} />
                                                         </div>
                                                         <AlertDialog>
                                                             <AlertDialogTrigger asChild>
@@ -249,7 +249,7 @@ const Collections = () => {
                                                                 {t('collectionsPage.cardButton')}
                                                             </span>
                                                         </Button>
-                                                        <ExerciseDialog selectedCollectionId={item._id} />
+                                                        <ExerciseDialog selectedCollectionId={item._id} languageCode={item?.targetLanguage?.code} preset={false} />
                                                         <AlertDialog>
                                                             <AlertDialogTrigger asChild>
                                                                 <Button size="sm" variant="icon"

@@ -88,7 +88,9 @@ const Exercises = () => {
                                     <Button
                                         onClick={() => {
                                             if (selectedCollectionId) {
-                                                navigate(`/exercises/${selectedExercise.path}`, { state: { selectedCollectionId } })
+                                                const collection = wordCollections.find((item) => item._id === selectedCollectionId);
+                                                navigate(`/exercises/${selectedExercise.path}`,
+                                                    { state: { selectedCollectionId, languageCode: collection.targetLanguage.code } });
                                             }
                                         }}
                                     >

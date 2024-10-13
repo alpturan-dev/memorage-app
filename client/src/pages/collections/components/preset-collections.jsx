@@ -128,12 +128,21 @@ const PresetCollections = ({ view }) => {
                                                     {t('collectionsPage.viewCollection')}
                                                 </span>
                                             </Button>
-                                            <ExerciseDialog selectedCollectionId={
-                                                presetCollections.find((col) => {
-                                                    let tempLang = constLangs.find((item) => item.name === lang);
-                                                    return col.languageCode === tempLang.code && col.level === level.level
-                                                })?._id
-                                            } preset={true} />
+                                            <ExerciseDialog
+                                                selectedCollectionId={
+                                                    presetCollections.find((col) => {
+                                                        let tempLang = constLangs.find((item) => item.name === lang);
+                                                        return col.languageCode === tempLang.code && col.level === level.level
+                                                    })?._id
+                                                }
+                                                preset={true}
+                                                languageCode={
+                                                    presetCollections.find((col) => {
+                                                        let tempLang = constLangs.find((item) => item.name === lang);
+                                                        return col.languageCode === tempLang.code && col.level === level.level
+                                                    })?.languageCode
+                                                }
+                                            />
                                         </CardContent>
                                     </Card>
                                 ))}

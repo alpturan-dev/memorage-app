@@ -1,7 +1,7 @@
 import { apiRequest } from "@/api/config";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Volume2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
@@ -11,7 +11,7 @@ const Shuffle = () => {
     const { t } = useTranslation();
     const { state } = useLocation();
     const navigate = useNavigate();
-    const { selectedCollectionId, preset } = state;
+    const { selectedCollectionId, preset, languageCode } = state;
     const [words, setWords] = useState([]);
     const [currentWord, setCurrentWord] = useState(null);
     const [options, setOptions] = useState([]);
@@ -115,6 +115,18 @@ const Shuffle = () => {
         nextWord(words);
     };
 
+    const playAudio = async (text, lang) => {
+        try {
+            const response = await apiRequest.post('/api/tts/synthesize', { text, languageCode: lang }, { responseType: 'blob' });
+            const audioBlob = new Blob([response.data], { type: 'audio/mpeg' });
+            const audioUrl = URL.createObjectURL(audioBlob);
+            const audio = new Audio(audioUrl);
+            audio.play();
+        } catch (error) {
+            console.error('Error playing audio:', error);
+        }
+    };
+
     if (!currentWord) {
         return <main className="bg-background text-foreground py-4">
             <div className="mx-auto text-center">
@@ -162,7 +174,19 @@ const Shuffle = () => {
                         )}
                     </div>
                 </div>
-                <div className="text-3xl font-semibold my-6">{currentWord.nativeWord}</div>
+                <div className="flex items-center justify-center gap-2 my-6">
+                    <Button
+                        variant="ghost"
+                        className="h-6 w-6 p-0"
+                        onClick={() => playAudio(currentWord.nativeWord, languageCode)}
+                    >
+                        <Volume2 className="h-6 w-6" />
+                        <span className="sr-only">{t('common.playAudio')}</span>
+                    </Button>
+                    <span className="text-3xl font-semibold ">
+                        {currentWord.nativeWord}
+                    </span>
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {options.map((option, index) => (
                         <button
