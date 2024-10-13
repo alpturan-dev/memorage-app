@@ -119,7 +119,7 @@ const Collection = () => {
                     console.error(error);
                 }
             }
-        }, 2000), []  // 2 seconds delay
+        }, 1000), []  // 1 seconds delay
     );
 
     const handleSuggestionClick = (suggestion) => {
@@ -139,7 +139,7 @@ const Collection = () => {
             setIsTranslating(true);
             translationTimer.current = setTimeout(() => {
                 fetchTranslations(value);
-            }, 2000); // This should match the debounce delay in fetchTranslations
+            }, 1000); // This should match the debounce delay in fetchTranslations
         } else {
             setIsTranslating(false);
         }
