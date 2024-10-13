@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import ExerciseDialog from "./exercise-dialog";
 import { languages } from "@/constants/constants";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Volume2 } from "lucide-react";
 
 const PresetCollection = () => {
     const { t } = useTranslation();
@@ -31,6 +31,18 @@ const PresetCollection = () => {
             console.error(error)
         } finally {
             setLoading(false);
+        }
+    };
+
+    const playAudio = async (text, lang) => {
+        try {
+            const response = await apiRequest.post('/api/tts/synthesize', { text, languageCode: lang }, { responseType: 'blob' });
+            const audioBlob = new Blob([response.data], { type: 'audio/mpeg' });
+            const audioUrl = URL.createObjectURL(audioBlob);
+            const audio = new Audio(audioUrl);
+            audio.play();
+        } catch (error) {
+            console.error('Error playing audio:', error);
         }
     };
 
@@ -77,9 +89,17 @@ const PresetCollection = () => {
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {words.map((item, index) => (
                                     <div key={index} className="grid grid-cols-[1fr_auto] items-center gap-2 p-3 rounded-md bg-gray-100">
-                                        <div className="flex flex-col">
+                                        <div className="flex items-center gap-2">
                                             <div className="font-medium">{item.nativeWord}</div>
-                                            <div className="text-muted-foreground text-sm">{item.targetWord}</div>
+                                            <Button
+                                                variant="ghost"
+                                                size="sm"
+                                                className="h-6 w-6 p-0"
+                                                onClick={() => playAudio(item.nativeWord, params.languageCode)}
+                                            >
+                                                <Volume2 className="h-4 w-4" />
+                                                <span className="sr-only">{t('common.playAudio')}</span>
+                                            </Button>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             {/* Add to collection.. */}
