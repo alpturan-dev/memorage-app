@@ -59,7 +59,7 @@ const PresetCollection = () => {
                     ) : (
                         <div className="flex gap-2 items-center">
                             <Button size="sm" variant="outline" onClick={() => navigate('/collections')}>
-                                <ArrowLeft />
+                                <ArrowLeft className="w-5 h-5" />
                             </Button>
                             <h1 className="text-xl font-bold">{selectedCollection.name}</h1>
                         </div>

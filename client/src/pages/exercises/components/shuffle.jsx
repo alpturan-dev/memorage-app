@@ -155,7 +155,7 @@ const Shuffle = () => {
                 <div className="flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white">
                     <div className="flex gap-2 items-center">
                         <Button size="sm" variant="outline" onClick={() => navigate(-1)}>
-                            <ArrowLeft />
+                            <ArrowLeft className="w-5 h-5" />
                         </Button>
                     </div>
                     <div className="py-4 flex items-center gap-2 text-xl font-semibold">
