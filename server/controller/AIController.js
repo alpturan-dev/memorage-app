@@ -26,7 +26,7 @@ export const importWordsFromImages = async (req, res) => {
             };
         }));
 
-        const prompt = `Analyze the given images to identify word pairs consisting of a word in ${targetLanguage} and ${sourceLanguage}. Return the results as a valid JSON array. Each object in the array should contain the following properties: targetWord, nativeWord. If no word pairs are found, return an empty array.`;
+        const prompt = `Analyze the given images to identify word pairs consisting of a word in ${sourceLanguage} and ${targetLanguage}. Return the results as a valid JSON array. Each object in the array should contain the following properties: nativeWord (for the word in ${sourceLanguage}), targetWord (for the word in ${targetLanguage}). Especially in arabic words don't make any change in words, return the seen words as is. Don't try to translate the words cause the words is already given in the images.`;
 
         const result = await model.generateContent([prompt, ...imageParts]);
         const response = await result.response;
