@@ -133,6 +133,11 @@ const Collection = () => {
         const { value } = e.target;
         setNewWord((prev) => ({ ...prev, nativeWord: value }));
 
+        // Skip translation for Arabic
+        if ((selectedCollection?.targetLanguage?.code === 'ar')) {
+            return;
+        }
+
         if (translationTimer.current) {
             clearTimeout(translationTimer.current);
         }
