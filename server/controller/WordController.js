@@ -10,6 +10,12 @@ export const createWord = async (req, res) => {
             return res.status(404).json({ message: 'WordCollection not found or unauthorized' });
         }
 
+        const existsWords = await Word.find({ nativeWord });
+
+        if (existsWords.length > 0) {
+            return res.status(400).json({ message: 'Word already exists.' });
+        }
+
         const newWord = new Word({
             nativeWord,
             targetWord,
@@ -53,11 +59,17 @@ export const updateWord = async (req, res) => {
             return res.status(403).json({ message: 'Unauthorized' });
         }
 
+        const existsWords = await Word.find({ nativeWord });
+
+        if (existsWords.length > 0) {
+            return res.status(400).json({ message: 'Word already exists.' });
+        }
+
         word.nativeWord = nativeWord;
         word.targetWord = targetWord;
 
         const updatedWord = await word.save();
-        res.json(updatedWord);
+        res.status(200).json(updatedWord);
     } catch (error) {
         res.status(500).json({ message: 'Error updating word', error: error.message });
     }

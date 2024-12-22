@@ -78,12 +78,12 @@ function Navbar() {
     return (
         <header className="bg-background shadow-sm">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="w-full flex flex-row justify-between items-center py-3">
+                <div className="w-full flex flex-row justify-between items-center py-2">
                     {/* Logo */}
                     <div className="flex justify-start items-center">
                         <NavLink to="/" className="text-xl font-bold text-primary flex">
-                            <img src={logo} className='w-20 h-20' />
-                            <Badge className='px-1 py-1 relative right-3 text-xs h-4 rounded-sm font-serif'>
+                            <img src={logo} className='w-16 h-16' />
+                            <Badge className='px-1 py-1 relative right-3 text-[8px] h-4 rounded-sm font-serif'>
                                 Beta
                             </Badge>
                         </NavLink>

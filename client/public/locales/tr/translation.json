@@ -9,7 +9,8 @@
     "edit": "Düzenle",
     "delete": "Sil",
     "cancel": "İptal",
-    "change": "Değiştir"
+    "change": "Değiştir",
+    "playAudio": "Ses oynat"
   },
   "comingSoon": {
     "comingSoon": "yakında...",
@@ -131,7 +132,8 @@
     "exerciseDialogTitle": "Egzersiz seç",
     "noWordTitle": "Henüz kelime eklemedin",
     "noWordDescription": "İlk kelimeni ekleyerek egzersizlere başla.",
-    "translationSuggestion": "Çeviri önerisi"
+    "translationSuggestion": "Çeviri önerisi",
+    "wordAlreadyExists": "Kelime koleksiyonunda zaten mevcut!"
   },
   "exercisesPage": {
     "title": "Egzersizler",

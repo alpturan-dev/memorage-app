@@ -9,7 +9,8 @@
     "edit": "Edit",
     "delete": "Delete",
     "cancel": "Cancel",
-    "change": "Change"
+    "change": "Change",
+    "playAudio": "Play audio"
   },
   "comingSoon": {
     "comingSoon": "coming soon...",
@@ -131,7 +132,8 @@
     "exerciseDialogTitle": "Choose exercise",
     "noWordTitle": "You have not added a word yet",
     "noWordDescription": "Get started by creating your first word.",
-    "translationSuggestion": "Translation suggestion"
+    "translationSuggestion": "Translation suggestion",
+    "wordAlreadyExists": "Word already exists in your collection!"
   },
   "exercisesPage": {
     "title": "Exercises",

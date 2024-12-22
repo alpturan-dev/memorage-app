@@ -10,6 +10,7 @@ import { ArrowLeft, EditIcon, FileX2, Loader2, Volume2 } from "lucide-react";
 import ExerciseDialog from "./components/exercise-dialog";
 import { CardContent } from "@/components/ui/card";
 import { scrollToTop } from "@/lib/utils";
+import toast from "react-hot-toast";
 
 const Collection = () => {
     const { t } = useTranslation();
@@ -76,6 +77,9 @@ const Collection = () => {
             }
         } catch (error) {
             console.error(error);
+            if (error.response.status === 400) {
+                toast.error(t('collectionPage.wordAlreadyExists'))
+            }
         } finally {
             setNewWord(wordInitialState);
             setFormAction("add");
@@ -121,12 +125,13 @@ const Collection = () => {
                     console.error(error);
                 }
             }
-        }, 500), []  // 1 seconds delay
+        }, 200), []  // 0.2 seconds delay
     );
 
     const handleSuggestionClick = (suggestion) => {
         setNewWord((prev) => ({ ...prev, targetWord: suggestion }));
         setShowDropdown(false);  // Hide dropdown after selection
+        setIsTranslating(false);
     };
 
     const handleNativeWordChangeWithFeedback = (e) => {
