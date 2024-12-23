@@ -61,7 +61,7 @@ const ImportWordsComponent = ({ wordCollectionId, getAllWordsByCollection, selec
             setLoadingText("");
         }}>
             <DialogTrigger asChild>
-                <Button size="sm" className="text-xs w-full md:w-auto flex gap-2">
+                <Button size="sm" className="text-xs w-full md:w-auto flex gap-1">
                     <ImageUp size="1rem" />
                     {t('collectionPage.importWords')}
                 </Button>

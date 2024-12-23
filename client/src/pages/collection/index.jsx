@@ -6,11 +6,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import ImportWordsComponent from "./components/import-words-component";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, EditIcon, FileX2, Loader2, Volume2 } from "lucide-react";
+import { ArrowLeft, DownloadIcon, EditIcon, FileX2, Loader2, Volume2 } from "lucide-react";
 import ExerciseDialog from "./components/exercise-dialog";
 import { CardContent } from "@/components/ui/card";
 import { scrollToTop } from "@/lib/utils";
 import toast from "react-hot-toast";
+import * as XLSX from 'xlsx';
 
 const Collection = () => {
     const { t } = useTranslation();
@@ -101,6 +102,19 @@ const Collection = () => {
             setLoading(false);
             setShowDropdown(false);
         }
+    };
+
+    const exportToExcel = (words) => {
+        const worksheet = XLSX.utils.json_to_sheet(
+            words.map(item => ({
+                'Kelime': item.nativeWord,
+                'Çeviri': item.targetWord
+            }))
+        );
+
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Kelimeler');
+        XLSX.writeFile(workbook, 'kelime-listesi.xlsx');
     };
 
     function debounce(func, delay) {
@@ -206,7 +220,11 @@ const Collection = () => {
                     {loading ? (
                         <Skeleton className="h-[30px] w-[100px]" />
                     ) : (
-                        <div>{t('collectionPage.totalWords')} {words.length}</div>
+                        <div className="flex gap-2 items-center justify-center">
+                            <span className="text-xs sm:text-base">
+                                {t('collectionPage.totalWords')} {words.length}
+                            </span>
+                        </div>
                     )}
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
@@ -275,12 +293,17 @@ const Collection = () => {
                         )}
                     </div>
                     <div className="w-full col-span-1 md:col-span-2 flex justify-center md:justify-end order-first md:order-none">
-                        <div className="grid grid-cols-5 gap-2">
-                            <div className="col-span-2">
+                        <div className="grid grid-cols-11 sm:grid-cols-8 gap-2">
+                            <div className="col-span-4 sm:col-span-3">
                                 <ExerciseDialog selectedCollectionId={selectedCollection._id} languageCode={selectedCollection?.targetLanguage?.code} />
                             </div>
-                            <div className="col-span-3">
+                            <div className="col-span-6 sm:col-span-4">
                                 <ImportWordsComponent wordCollectionId={params.id} getAllWordsByCollection={getAllWordsByCollection} selectedCollection={selectedCollection} />
+                            </div>
+                            <div className="col-span-1">
+                                <Button variant="outline" className="p-1" size="sm" onClick={() => exportToExcel(words)}>
+                                    <DownloadIcon className="w-4 h-4" />
+                                </Button>
                             </div>
                         </div>
                     </div>
