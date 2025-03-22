@@ -319,7 +319,7 @@ const Collection = () => {
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {words.length > 0 ? (
                                     words.map((item) => (
-                                        <div key={item._id} className="p-3 rounded-md bg-gray-50 border">
+                                        <div key={item._id} className="p-3 rounded-md bg-card text-card-foreground border">
                                             <div className="flex justify-between items-start mb-2">
                                                 <div className="flex items-center gap-2">
                                                     <div className="font-medium">{item.nativeWord}</div>

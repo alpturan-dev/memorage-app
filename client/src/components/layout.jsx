@@ -1,7 +1,7 @@
-import { Outlet } from "react-router-dom"
-import Navbar from "./navbar"
-import Footer from "./footer"
-import { scrollToTop } from "@/lib/utils"
+import { Outlet } from "react-router-dom";
+import Navbar from "./navbar";
+import Footer from "./footer";
+import { scrollToTop } from "@/lib/utils";
 
 const Layout = () => {
   return (
@@ -11,7 +11,7 @@ const Layout = () => {
         <Outlet />
         <button
           onClick={scrollToTop}
-          className="fixed bottom-4 right-4 p-2 bg-gray-500 text-white rounded-full shadow-lg transition-all duration-300 ease-in-out hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 hover:scale-110"
+          className="fixed bottom-4 right-4 p-2 bg-primary/80 text-white rounded-full shadow-lg transition-all duration-300 ease-in-out hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 hover:scale-110"
           aria-label="Scroll to top"
         >
           <svg
@@ -21,13 +21,18 @@ const Layout = () => {
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M5 10l7-7m0 0l7 7m-7-7v18"
+            />
           </svg>
         </button>
       </main>
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;
