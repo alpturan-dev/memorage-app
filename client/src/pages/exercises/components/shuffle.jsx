@@ -181,9 +181,9 @@ const Shuffle = () => {
         </div>
         <div className="pt-6 w-full flex justify-center">
           <div className="relative w-1/3 md:w-1/6">
-            <h2 className="rounded-lg py-0.5 px-0.25 md:py-1 md:px-2 text-xl font-bold bg-background text-foreground">
+            <div className="rounded-lg py-0.5 px-0.25 md:py-1 md:px-2 text-xl font-bold bg-primary text-primary-foreground">
               {t("shuffleExercise.score")} {score}
-            </h2>
+            </div>
             {isCorrect && (
               <span className="absolute top-0 right-0 transform translate-x-1 -translate-y-1 bg-background text-white rounded-full w-6 h-6 flex items-center justify-center text-xs animate-bounce">
                 +1
@@ -191,13 +191,13 @@ const Shuffle = () => {
             )}
           </div>
         </div>
-        <div className="flex items-center justify-center gap-2 my-6">
+        <div className="flex items-center justify-center my-7">
           <Button
             variant="ghost"
-            className="h-8 w-8 p-0"
+            className="py-0 pr-0 h-14 w-14"
             onClick={() => playAudio(currentWord.nativeWord, languageCode)}
           >
-            <Volume2 className="h-8 w-8" />
+            <Volume2 className="mt-1.5" />
             <span className="sr-only">{t("common.playAudio")}</span>
           </Button>
           <span className="text-3xl font-semibold ">
