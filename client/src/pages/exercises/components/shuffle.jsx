@@ -227,6 +227,9 @@ const Shuffle = () => {
               ${isCorrect !== null ? "cursor-not-allowed" : "cursor-pointer"}
             `}
               disabled={isCorrect !== null}
+              style={{
+                WebkitTapHighlightColor: 'transparent'
+              }}
             >
               {option}
             </button>
