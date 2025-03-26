@@ -222,14 +222,11 @@ const Shuffle = () => {
                   ? "bg-destructive text-white"
                   : isCorrect === false && option === currentWord.targetWord
                   ? "bg-primary hover:bg-primary/90 text-white"
-                  : "bg-gray-200 hover:outline hover:outline-2 hover:outline-primary/50"
+                  : "bg-gray-200 md:hover:outline md:hover:outline-2 md:hover:outline-primary/50"
               }
               ${isCorrect !== null ? "cursor-not-allowed" : "cursor-pointer"}
             `}
               disabled={isCorrect !== null}
-              style={{
-                WebkitTapHighlightColor: 'transparent'
-              }}
             >
               {option}
             </button>
