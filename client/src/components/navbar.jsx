@@ -215,6 +215,7 @@ function Navbar() {
           )}
         </div>
       </div>
+      <hr />
     </header>
   );
 }
