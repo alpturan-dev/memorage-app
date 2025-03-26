@@ -59,12 +59,6 @@ export const updateWord = async (req, res) => {
             return res.status(403).json({ message: 'Unauthorized' });
         }
 
-        const existsWords = await Word.find({ nativeWord });
-
-        if (existsWords.length > 0) {
-            return res.status(400).json({ message: 'Word already exists.' });
-        }
-
         word.nativeWord = nativeWord;
         word.targetWord = targetWord;
 
