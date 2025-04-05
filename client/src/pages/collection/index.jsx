@@ -9,16 +9,16 @@ import { useTranslation } from "react-i18next";
 import {
   ArrowLeft,
   DownloadIcon,
-  EditIcon,
   FileX2,
   Loader2,
+  Save,
   Volume2,
 } from "lucide-react";
 import ExerciseDialog from "./components/exercise-dialog";
 import { CardContent } from "@/components/ui/card";
-import { scrollToTop } from "@/lib/utils";
 import toast from "react-hot-toast";
 import * as XLSX from "xlsx";
+import { twJoin } from "tailwind-merge";
 
 const Collection = () => {
   const { t } = useTranslation();
@@ -32,6 +32,7 @@ const Collection = () => {
     wordCollectionId: params.id,
   };
   const [newWord, setNewWord] = useState(wordInitialState);
+  const [editWord, setEditWord] = useState({});
   const [formAction, setFormAction] = useState("add");
   const [selectedCollection, setSelectedCollection] = useState({});
   const [suggestedTranslation, setSuggestedTranslation] = useState(null); // To store API suggestions
@@ -70,19 +71,19 @@ const Collection = () => {
     }
   };
 
-  const handleAddOrEditWord = async (e) => {
+  const handleAddOrEditWord = async (e, formActionParam = undefined) => {
     e.preventDefault();
     try {
       setLoading(true);
-      if (formAction === "add") {
+      if (formAction === "add" || formActionParam === "add") {
         const response = await apiRequest.post("/api/words", newWord);
         if (response.status === 201) {
           await getAllWordsByCollection();
         }
       } else if (formAction === "edit") {
         const response = await apiRequest.put(
-          `/api/words/${newWord.id}`,
-          newWord
+          `/api/words/${editWord.id}`,
+          editWord
         );
         if (response.status === 200) {
           await getAllWordsByCollection();
@@ -262,9 +263,7 @@ const Collection = () => {
                   value={newWord.nativeWord}
                   disabled={loading}
                   onChange={handleNativeWordChangeWithFeedback}
-                  className={`w-full ${
-                    formAction === "edit" && "animate-pulse"
-                  }`}
+                  className={`w-full`}
                 />
                 {isTranslating && (
                   <div className="absolute right-2 top-1/2 transform -translate-y-1/2">
@@ -282,23 +281,24 @@ const Collection = () => {
                 onChange={(e) =>
                   setNewWord({ ...newWord, targetWord: e.target.value })
                 }
-                className={`flex-1 ${formAction === "edit" && "animate-pulse"}`}
+                className={`flex-1`}
               />
 
               {/* Add/Edit Button */}
               <Button
                 variant="outline"
                 size="sm"
-                onClick={handleAddOrEditWord}
+                onClick={(e) => {
+                  setFormAction("add");
+                  handleAddOrEditWord(e, "add");
+                }}
                 className="min-w-[40px]"
                 disabled={loading || isTranslating}
               >
                 {loading ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
-                ) : formAction === "add" ? (
-                  <PlusIcon className="w-4 h-4" />
                 ) : (
-                  <EditIcon className="w-4 h-4 text-green-500" />
+                  <PlusIcon className="w-4 h-4" />
                 )}
               </Button>
             </div>
@@ -365,11 +365,42 @@ const Collection = () => {
                   >
                     <div className="flex justify-between items-start mb-2">
                       <div className="flex items-center gap-2">
-                        <div className="font-medium">{item.nativeWord}</div>
+                        <div
+                          contentEditable={
+                            formAction === "edit" && editWord.id === item._id
+                              ? true
+                              : false
+                          }
+                          className={twJoin(
+                            "font-medium",
+                            formAction === "edit" &&
+                              editWord.id === item._id &&
+                              "outline rounded-sm animate-pulse"
+                          )}
+                        >
+                          {formAction === "edit" && editWord.id === item._id ? (
+                            <input
+                              value={editWord.nativeWord}
+                              onChange={(e) =>
+                                setEditWord({
+                                  ...editWord,
+                                  nativeWord: e.target.value,
+                                })
+                              }
+                            />
+                          ) : (
+                            <span>{item.nativeWord}</span>
+                          )}
+                        </div>
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="h-6 w-6 p-0"
+                          className={twJoin(
+                            "h-6 w-6 p-0",
+                            formAction === "edit" &&
+                              editWord.id === item._id &&
+                              "hidden"
+                          )}
                           onClick={() =>
                             playAudio(
                               item.nativeWord,
@@ -388,18 +419,36 @@ const Collection = () => {
                           variant="ghost"
                           size="sm"
                           className="h-6 w-6 p-0 hover:animate-pulse"
-                          onClick={() => {
-                            setFormAction("edit");
-                            setNewWord({
+                          onClick={(e) => {
+                            if (
+                              formAction === "edit" &&
+                              editWord.id === item._id
+                            ) {
+                              handleAddOrEditWord(e);
+                            }
+                            setEditWord({
                               nativeWord: item.nativeWord,
                               targetWord: item.targetWord,
                               id: item._id,
                             });
-                            scrollToTop();
+                            setFormAction("edit");
                           }}
                         >
-                          <FilePenIcon className="h-3 w-3" />
-                          <span className="sr-only">{t("common.edit")}</span>
+                          {formAction === "edit" && editWord.id === item._id ? (
+                            <div>
+                              <Save className="h-3 w-3" />
+                              <span className="sr-only">
+                                {t("common.edit")}
+                              </span>
+                            </div>
+                          ) : (
+                            <div>
+                              <FilePenIcon className="h-3 w-3" />
+                              <span className="sr-only">
+                                {t("common.edit")}
+                              </span>
+                            </div>
+                          )}
                         </Button>
                         <Button
                           variant="link"
@@ -414,8 +463,32 @@ const Collection = () => {
                         </Button>
                       </div>
                     </div>
-                    <div className="opacity-70 text-sm font-light">
-                      {item.targetWord}
+                    <div
+                      contentEditable={
+                        formAction === "edit" && editWord.id === item._id
+                          ? true
+                          : false
+                      }
+                      className={twJoin(
+                        "opacity-70 text-sm font-light",
+                        formAction === "edit" &&
+                          editWord.id === item._id &&
+                          "outline rounded-sm animate-pulse"
+                      )}
+                    >
+                      {formAction === "edit" && editWord.id === item._id ? (
+                        <input
+                          value={editWord.targetWord}
+                          onChange={(e) =>
+                            setEditWord({
+                              ...editWord,
+                              targetWord: e.target.value,
+                            })
+                          }
+                        />
+                      ) : (
+                        <span>{item.targetWord}</span>
+                      )}
                     </div>
                   </div>
                 ))
