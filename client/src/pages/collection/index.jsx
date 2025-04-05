@@ -365,19 +365,7 @@ const Collection = () => {
                   >
                     <div className="flex justify-between items-start mb-2">
                       <div className="flex items-center gap-2">
-                        <div
-                          contentEditable={
-                            formAction === "edit" && editWord.id === item._id
-                              ? true
-                              : false
-                          }
-                          className={twJoin(
-                            "font-medium",
-                            formAction === "edit" &&
-                              editWord.id === item._id &&
-                              "outline rounded-sm animate-pulse"
-                          )}
-                        >
+                        <div className="font-medium">
                           {formAction === "edit" && editWord.id === item._id ? (
                             <input
                               value={editWord.nativeWord}
@@ -387,6 +375,7 @@ const Collection = () => {
                                   nativeWord: e.target.value,
                                 })
                               }
+                              className="outline rounded-sm animate-pulse"
                             />
                           ) : (
                             <span>{item.nativeWord}</span>
@@ -463,19 +452,7 @@ const Collection = () => {
                         </Button>
                       </div>
                     </div>
-                    <div
-                      contentEditable={
-                        formAction === "edit" && editWord.id === item._id
-                          ? true
-                          : false
-                      }
-                      className={twJoin(
-                        "opacity-70 text-sm font-light",
-                        formAction === "edit" &&
-                          editWord.id === item._id &&
-                          "outline rounded-sm animate-pulse"
-                      )}
-                    >
+                    <div className="opacity-70 text-sm font-light">
                       {formAction === "edit" && editWord.id === item._id ? (
                         <input
                           value={editWord.targetWord}
@@ -485,6 +462,7 @@ const Collection = () => {
                               targetWord: e.target.value,
                             })
                           }
+                          className="outline rounded-sm animate-pulse"
                         />
                       ) : (
                         <span>{item.targetWord}</span>
