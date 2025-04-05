@@ -350,13 +350,13 @@ const Collection = () => {
         </div>
         <div className="grid gap-3">
           {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {Array.from({ length: 9 }, (_, index) => (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {Array.from({ length: 24 }, (_, index) => (
                 <Skeleton key={index} className="h-[68px] w-full rounded-xl" />
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {words.length > 0 ? (
                 words.map((item) => (
                   <div
@@ -387,7 +387,7 @@ const Collection = () => {
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="h-6 w-6 p-0"
+                          className="h-6 w-6 p-0 hover:animate-pulse"
                           onClick={() => {
                             setFormAction("edit");
                             setNewWord({
@@ -402,9 +402,9 @@ const Collection = () => {
                           <span className="sr-only">{t("common.edit")}</span>
                         </Button>
                         <Button
-                          variant="ghost"
+                          variant="link"
                           size="sm"
-                          className="h-6 w-6 p-0 text-red-600"
+                          className="h-6 w-6 p-0 text-red-600 hover:animate-shake"
                           onClick={() => {
                             handleDeleteWord(item._id);
                           }}

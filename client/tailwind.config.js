@@ -58,6 +58,11 @@ module.exports = {
       //   sm: "calc(var(--radius) - 4px)",
       // },
       keyframes: {
+        "shake": {
+          '0%, 100%': { transform: 'rotate(0deg)' },
+          '25%': { transform: 'rotate(-15deg)' },
+          '75%': { transform: 'rotate(15deg)' }
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -79,6 +84,7 @@ module.exports = {
         },
       },
       animation: {
+        "shake": 'shake 0.3s ease-in-out',
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "bounce": 'bounce 0.7s ease-out',
