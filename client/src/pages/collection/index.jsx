@@ -350,13 +350,13 @@ const Collection = () => {
         </div>
         <div className="grid gap-3">
           {loading ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {Array.from({ length: 24 }, (_, index) => (
                 <Skeleton key={index} className="h-[68px] w-full rounded-xl" />
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {words.length > 0 ? (
                 words.map((item) => (
                   <div
