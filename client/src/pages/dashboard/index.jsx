@@ -16,7 +16,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
       <main className="max-w-7xl mx-auto">
         {/* Hero Section */}
         <section className="text-center mb-20 animate-fade-in-up">
