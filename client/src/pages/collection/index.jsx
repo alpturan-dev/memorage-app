@@ -15,7 +15,7 @@ import {
   Volume2,
 } from "lucide-react";
 import ExerciseDialog from "./components/exercise-dialog";
-import { CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import toast from "react-hot-toast";
 import * as XLSX from "xlsx";
 import { twJoin } from "tailwind-merge";
@@ -359,10 +359,7 @@ const Collection = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {words.length > 0 ? (
                 words.map((item) => (
-                  <div
-                    key={item._id}
-                    className="p-3 rounded-2xl bg-primary/5 text-card-foreground border"
-                  >
+                  <Card key={item._id} className="p-3 rounded-2xl">
                     <div className="flex justify-between items-start mb-2">
                       <div className="flex items-center gap-2">
                         <div className="font-medium">
@@ -468,7 +465,7 @@ const Collection = () => {
                         <span>{item.targetWord}</span>
                       )}
                     </div>
-                  </div>
+                  </Card>
                 ))
               ) : (
                 <div className="col-span-full w-full max-w-md mx-auto border-0">
