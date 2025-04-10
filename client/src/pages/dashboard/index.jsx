@@ -94,15 +94,15 @@ const Dashboard = () => {
         {/* Call to Action Section */}
         <Card className="text-center bg-secondary/10 p-12">
           <CardHeader>
-            <h2 className="text-3xl font-bold text-foreground">
+            <h2 className="text2xl md:text-3xl font-bold text-foreground">
               {t("dashboardPage.callToActionTitle")}
             </h2>
-            <p className="text-xl max-w-2xl mx-auto text-muted-foreground">
+            <p className="text-lg md:text-xl max-w-2xl mx-auto text-muted-foreground">
               {t("dashboardPage.callToActionDescription")}
             </p>
           </CardHeader>
           <CardContent>
-            <div className="flex justify-center space-x-4">
+            <div className="flex flex-col md:flex-row justify-center space-x-4">
               <Button asChild size="lg" className="group">
                 <Link to="/collections" onClick={scrollToTop}>
                   {t("dashboardPage.createCollection")}
