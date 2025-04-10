@@ -50,7 +50,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-background">
+    <div className="min-h-screen py-12 px-1 sm:px-4 lg:px-8 bg-background">
       <main className="max-w-7xl mx-auto">
         {/* Hero Section */}
         <div className="text-center mb-20 animate-fade-in-up">
@@ -61,10 +61,10 @@ const Dashboard = () => {
               alt="Logo"
             />
           </div>
-          <p className="text-xl mb-8 max-w-2xl mx-auto text-muted-foreground">
+          <p className="text-base md:text-xl mb-8 max-w-2xl mx-auto text-muted-foreground">
             {t("dashboardPage.description")}
           </p>
-          <div className="flex justify-center space-x-4">
+          <div className="flex flex-col md:flex-row justify-center space-x-4">
             <Button asChild size="lg" className="group">
               <Link to="/collections" onClick={scrollToTop}>
                 {t("dashboardPage.getStarted")}
@@ -92,8 +92,8 @@ const Dashboard = () => {
         </div>
 
         {/* Call to Action Section */}
-        <Card className="text-center bg-secondary/10 px-3 py-12">
-          <CardHeader>
+        <Card className="text-center bg-secondary/10 px-1 py-10">
+          <CardHeader className="px-1">
             <h2 className="text-xl md:text-3xl font-bold text-foreground">
               {t("dashboardPage.callToActionTitle")}
             </h2>
@@ -102,7 +102,7 @@ const Dashboard = () => {
             </p>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-col md:flex-row justify-center space-x-4">
+            <div className="flex flex-col gap-4 md:flex-row justify-center">
               <Button asChild size="lg" className="group">
                 <Link to="/collections" onClick={scrollToTop}>
                   {t("dashboardPage.createCollection")}
@@ -110,7 +110,7 @@ const Dashboard = () => {
                 </Link>
               </Button>
               <Button asChild variant="secondary" size="lg">
-                <Link to="/exercises" onClick={scrollToTop}>
+                <Link to="/exercises" onClick={scrollToTop} className="ml-0">
                   {t("dashboardPage.practiceNow")}
                 </Link>
               </Button>
