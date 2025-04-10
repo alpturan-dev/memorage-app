@@ -136,7 +136,7 @@ const PresetCollections = ({ view }) => {
                 >
                   {lang}
                   {lang !== "English" && (
-                    <div className="relative -top-2 -right-2 text-xs font-bold bg-gradient-to-r from-[#016DCC] to-purple-600 bg-clip-text text-transparent rounded-sm px-0.5">
+                    <div className="relative -top-2 -right-2 text-[8px] font-bold bg-gradient-to-r from-[#016DCC] to-purple-600 bg-clip-text text-transparent rounded-sm px-0.5">
                       {t("comingSoon.comingSoon")}
                     </div>
                   )}
