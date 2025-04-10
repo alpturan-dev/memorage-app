@@ -92,12 +92,12 @@ const Dashboard = () => {
         </div>
 
         {/* Call to Action Section */}
-        <Card className="text-center bg-secondary/10 p-12">
+        <Card className="text-center bg-secondary/10 px-3 py-12">
           <CardHeader>
-            <h2 className="text2xl md:text-3xl font-bold text-foreground">
+            <h2 className="text-xl md:text-3xl font-bold text-foreground">
               {t("dashboardPage.callToActionTitle")}
             </h2>
-            <p className="text-lg md:text-xl max-w-2xl mx-auto text-muted-foreground">
+            <p className="text-base md:text-xl mx-auto text-muted-foreground">
               {t("dashboardPage.callToActionDescription")}
             </p>
           </CardHeader>

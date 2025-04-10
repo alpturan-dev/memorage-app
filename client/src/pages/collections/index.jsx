@@ -77,7 +77,7 @@ const Collections = () => {
     <div className="flex flex-col">
       {/* Mobile view */}
       <div className="block lg:hidden">
-        <Tabs defaultValue="preset" className="pt-3">
+        <Tabs defaultValue="preset" className="pt-3 text-sm">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="preset">
               {t("collectionsPage.preset")}
