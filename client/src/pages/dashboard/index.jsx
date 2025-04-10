@@ -64,7 +64,7 @@ const Dashboard = () => {
           <p className="text-base md:text-xl mb-8 max-w-2xl mx-auto text-muted-foreground">
             {t("dashboardPage.description")}
           </p>
-          <div className="flex flex-col md:flex-row justify-center space-x-4">
+          <div className="flex flex-col gap-2 md:gap-4 md:flex-row justify-center">
             <Button asChild size="lg" className="group">
               <Link to="/collections" onClick={scrollToTop}>
                 {t("dashboardPage.getStarted")}
