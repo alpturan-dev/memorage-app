@@ -5,7 +5,7 @@ import { scrollToTop } from "@/lib/utils";
 
 const Layout = () => {
   return (
-    <div className="bg-background">
+    <div className="bg-background font-sans">
       <Navbar />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col min-h-screen">
         <Outlet />
