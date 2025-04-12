@@ -219,7 +219,7 @@ const Shuffle = () => {
                 isCorrect === true && option === currentWord.targetWord
                   ? "bg-primary text-white"
                   : isCorrect === false && option !== currentWord.targetWord
-                  ? "bg-destructive text-white"
+                  ? "bg-gray-200 text-black"
                   : isCorrect === false && option === currentWord.targetWord
                   ? "bg-primary hover:bg-primary/90 text-white"
                   : "bg-gray-200 md:hover:outline md:hover:outline-2 md:hover:outline-primary/50"
@@ -233,7 +233,7 @@ const Shuffle = () => {
           ))}
         </div>
         {isCorrect === false && (
-          <div className="mt-4 text-destructive font-bold">
+          <div className="mt-4 font-bold">
             {t("shuffleExercise.incorrect")} {currentWord.targetWord}
           </div>
         )}
