@@ -55,14 +55,14 @@ const Login = () => {
   return (
     <div className="flex flex-col items-center justify-center bg-background px-4 pt-6 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-md space-y-4">
-        <div className="flex items-center justify-center mb-8">
-          <img src={logo} className="w-40 h-36" />
+        <div className="flex items-center justify-center mb-4 md:mb-8">
+          <img src={logo} className="w-[110px] h-[100px] md:w-40 md:h-36" />
         </div>
         <div className="text-center pb-4">
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">
+          <h1 className="text-xl md:text-3xl font-bold tracking-tight text-foreground">
             {t("loginPage.title")}
           </h1>
-          <p className="mt-2 text-muted-foreground">
+          <p className="mt-2 text-muted-foreground text-sm md:text-base">
             {t("loginPage.subtitle")}
             <NavLink
               to="/signup"
