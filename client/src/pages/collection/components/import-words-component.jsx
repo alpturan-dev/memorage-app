@@ -84,6 +84,7 @@ const ImportWordsComponent = ({
           variant="ghost"
           size="sm"
           className="text-xs w-full md:w-auto flex justify-start"
+          onClick={(e) => e.stopPropagation()}
         >
           <ImageUp size="1rem" />
           {t("collectionPage.importWords")}

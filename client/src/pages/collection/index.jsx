@@ -357,7 +357,7 @@ const Collection = () => {
                     />
                   </div>
                 </DropdownMenuItem>
-                <DropdownMenuItem classname="p-0">
+                <DropdownMenuItem className="p-0">
                   <div className="w-full">
                     <Button
                       variant="ghost"
