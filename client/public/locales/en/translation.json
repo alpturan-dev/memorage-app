@@ -133,7 +133,9 @@
     "noWordTitle": "You have not added a word yet",
     "noWordDescription": "Get started by creating your first word.",
     "translationSuggestion": "Translation suggestion",
-    "wordAlreadyExists": "Word already exists in your collection!"
+    "wordAlreadyExists": "Word already exists in your collection!",
+    "options": "More Options",
+    "exportToExcel": "Export to Excel"
   },
   "exercisesPage": {
     "title": "Exercises",

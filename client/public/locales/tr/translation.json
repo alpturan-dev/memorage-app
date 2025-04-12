@@ -133,7 +133,9 @@
     "noWordTitle": "Henüz kelime eklemedin",
     "noWordDescription": "İlk kelimeni ekleyerek egzersizlere başla.",
     "translationSuggestion": "Çeviri önerisi",
-    "wordAlreadyExists": "Kelime koleksiyonunda zaten mevcut!"
+    "wordAlreadyExists": "Kelime koleksiyonunda zaten mevcut!",
+    "options": "Diğer İşlemler",
+    "exportToExcel": "Excel olarak indir"
   },
   "exercisesPage": {
     "title": "Egzersizler",

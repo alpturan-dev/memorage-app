@@ -11,6 +11,7 @@ import {
   DownloadIcon,
   FileX2,
   Loader2,
+  MoreVertical,
   Save,
   Volume2,
 } from "lucide-react";
@@ -19,6 +20,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import toast from "react-hot-toast";
 import * as XLSX from "xlsx";
 import { twJoin } from "tailwind-merge";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Collection = () => {
   const { t } = useTranslation();
@@ -281,7 +290,7 @@ const Collection = () => {
                 onChange={(e) =>
                   setNewWord({ ...newWord, targetWord: e.target.value })
                 }
-                className={`flex-1`}
+                className="flex-1"
               />
 
               {/* Add/Edit Button */}
@@ -320,32 +329,49 @@ const Collection = () => {
               </div>
             )}
           </div>
-          <div className="w-full col-span-1 md:col-span-2 flex justify-center md:justify-end order-first md:order-none">
-            <div className="grid grid-cols-11 sm:grid-cols-8 gap-2">
-              <div className="col-span-4 sm:col-span-3">
-                <ExerciseDialog
-                  selectedCollectionId={selectedCollection._id}
-                  languageCode={selectedCollection?.targetLanguage?.code}
-                />
-              </div>
-              <div className="col-span-6 sm:col-span-4">
-                <ImportWordsComponent
-                  wordCollectionId={params.id}
-                  getAllWordsByCollection={getAllWordsByCollection}
-                  selectedCollection={selectedCollection}
-                />
-              </div>
-              <div className="col-span-1">
-                <Button
-                  variant="outline"
-                  className="p-1"
-                  size="sm"
-                  onClick={() => exportToExcel(words)}
-                >
-                  <DownloadIcon className="w-4 h-4" />
-                </Button>
-              </div>
+          <div className="w-full col-span-1 md:col-span-2 flex justify-center items-center md:justify-end md:items-end order-first md:order-none md:gap-4">
+            {/* Replaced grid with dropdown menu */}
+            <div className="w-full md:w-auto p-2 md:p-0">
+              <ExerciseDialog
+                selectedCollectionId={selectedCollection._id}
+                languageCode={selectedCollection?.targetLanguage?.code}
+              />
             </div>
+            <DropdownMenu className="p-0">
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="min-w-[40px]">
+                  <MoreVertical className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="p-0">
+                <DropdownMenuLabel className="pl-3 bg-primary text-white font-normal text-xs">
+                  {t("collectionPage.options")}
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="p-0">
+                  <div className="w-full">
+                    <ImportWordsComponent
+                      wordCollectionId={params.id}
+                      getAllWordsByCollection={getAllWordsByCollection}
+                      selectedCollection={selectedCollection}
+                    />
+                  </div>
+                </DropdownMenuItem>
+                <DropdownMenuItem classname="p-0">
+                  <div className="w-full">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-xs w-full md:w-auto flex justify-start"
+                      onClick={() => exportToExcel(words)}
+                    >
+                      <DownloadIcon size="1rem" />
+                      {t("collectionPage.exportToExcel")}
+                    </Button>
+                  </div>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
         <div className="grid gap-3">
