@@ -29,7 +29,8 @@ const ImportWordsComponent = ({
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.stopPropagation();
     setLoading(true);
     if (images.length === 0) return;
 
