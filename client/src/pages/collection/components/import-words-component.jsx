@@ -24,7 +24,6 @@ const ImportWordsComponent = ({
   const [images, setImages] = useState([]);
 
   const handleImageChange = (e) => {
-    e.stopPropagation();
     if (e.target.files) {
       setImages(Array.from(e.target.files));
     }
@@ -102,6 +101,7 @@ const ImportWordsComponent = ({
             accept="image/*"
             multiple
             onChange={handleImageChange}
+            onClick={(e) => e.stopPropagation()}
             className="col-span-3"
           />
           {images.length > 0 && (
