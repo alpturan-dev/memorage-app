@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Book, Folder, Plus, ArrowRight } from "lucide-react";
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
-import logo from "../../../public/image.png";
+import logo from "../../../public/logo1.png";
 import { scrollToTop } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";

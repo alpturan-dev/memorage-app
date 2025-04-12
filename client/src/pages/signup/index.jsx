@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { apiRequest } from "@/api/config";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
-import logo from "../../../public/image.png";
+import logo from "../../../public/logo1.png";
 
 const SignUp = () => {
   const { t } = useTranslation();

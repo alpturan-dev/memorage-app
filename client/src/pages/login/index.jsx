@@ -7,7 +7,7 @@ import { apiRequest } from "@/api/config";
 import { useAuth } from "@/context/AuthContext";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
-import logo from "../../../public/image.png";
+import logo from "../../../public/logo1.png";
 import i18n from "@/i18n";
 
 const Login = () => {

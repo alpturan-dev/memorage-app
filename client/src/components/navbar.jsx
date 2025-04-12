@@ -19,7 +19,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
-import logo from "../../public/image.png";
+import logo from "../../public/logo1.png";
 import toast from "react-hot-toast";
 import { twJoin } from "tailwind-merge";
 import { Badge } from "./ui/badge";
