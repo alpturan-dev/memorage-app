@@ -24,6 +24,7 @@ const ImportWordsComponent = ({
   const [images, setImages] = useState([]);
 
   const handleImageChange = (e) => {
+    e.stopPropagation();
     if (e.target.files) {
       setImages(Array.from(e.target.files));
     }
