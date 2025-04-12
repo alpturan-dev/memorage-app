@@ -38,6 +38,7 @@ const Collections = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [wordCollections, setWordCollections] = useState([]);
+  const [collectionMenu, setCollectionMenu] = useState("preset");
 
   const getAllWordCollections = async () => {
     try {
@@ -70,6 +71,8 @@ const Collections = () => {
   };
 
   useEffect(() => {
+    const menu = localStorage.getItem("collectionMenu");
+    setCollectionMenu(menu !== null ? menu : "preset");
     getAllWordCollections();
   }, []);
 
@@ -77,7 +80,14 @@ const Collections = () => {
     <div className="flex flex-col">
       {/* Mobile view */}
       <div className="block lg:hidden">
-        <Tabs defaultValue="preset" className="pt-3">
+        <Tabs
+          value={collectionMenu}
+          className="pt-3"
+          onValueChange={(value) => {
+            setCollectionMenu(value);
+            localStorage.setItem("collectionMenu", value);
+          }}
+        >
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="preset" className="text-xs">
               {t("collectionsPage.preset")}
