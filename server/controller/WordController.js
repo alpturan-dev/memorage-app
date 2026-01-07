@@ -32,14 +32,31 @@ export const createWord = async (req, res) => {
 export const getWordsByWordCollection = async (req, res) => {
     try {
         const { wordCollectionId } = req.params;
+        const { limit = 20, offset = 0 } = req.query;
 
         const collection = await WordCollection.findOne({ _id: wordCollectionId, user: req.user.id });
         if (!collection) {
             return res.status(404).json({ message: 'WordCollection not found or unauthorized' });
         }
 
-        const words = await Word.find({ wordCollection: wordCollectionId });
-        res.json(words);
+        const totalCount = await Word.countDocuments({ wordCollection: wordCollectionId });
+
+        const words = await Word.find({ wordCollection: wordCollectionId })
+            .sort({ _id: -1 })
+            .skip(parseInt(offset))
+            .limit(parseInt(limit));
+
+        const hasMore = parseInt(offset) + words.length < totalCount;
+
+        res.json({
+            words,
+            pagination: {
+                totalCount,
+                offset: parseInt(offset),
+                limit: parseInt(limit),
+                hasMore
+            }
+        });
     } catch (error) {
         res.status(500).json({ message: 'Error fetching words', error: error.message });
     }

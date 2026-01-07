@@ -48,21 +48,45 @@ const Collection = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [isTranslating, setIsTranslating] = useState(false);
   const translationTimer = useRef(null);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [pagination, setPagination] = useState({
+    totalCount: 0,
+    offset: 0,
+    hasMore: false
+  });
+  const PAGE_SIZE = 20;
 
-  const getAllWordsByCollection = async () => {
+  const getAllWordsByCollection = async (offset = 0, append = false) => {
     try {
-      setLoading(true);
+      if (append) {
+        setLoadingMore(true);
+      } else {
+        setLoading(true);
+        setWords([]);
+      }
+
       const response = await apiRequest.get(
-        `/api/words/wordCollection/${params.id}`
+        `/api/words/wordCollection/${params.id}`,
+        { params: { limit: PAGE_SIZE, offset } }
       );
+
       if (response.status === 200) {
-        setWords(response.data.reverse());
-        await getCollectionById(params.id);
+        const { words: newWords, pagination: paginationData } = response.data;
+
+        if (append) {
+          setWords((prev) => [...prev, ...newWords]);
+        } else {
+          setWords(newWords);
+          await getCollectionById(params.id);
+        }
+
+        setPagination(paginationData);
       }
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
+      setLoadingMore(false);
     }
   };
 
@@ -117,6 +141,7 @@ const Collection = () => {
       const response = await apiRequest.delete(`/api/words/${id}`);
       if (response.status === 200) {
         setWords(words.filter((item) => item._id !== id));
+        setPagination((prev) => ({ ...prev, totalCount: prev.totalCount - 1 }));
       }
     } catch (error) {
       console.error(error);
@@ -124,6 +149,11 @@ const Collection = () => {
       setLoading(false);
       setShowDropdown(false);
     }
+  };
+
+  const handleLoadMore = () => {
+    const newOffset = pagination.offset + PAGE_SIZE;
+    getAllWordsByCollection(newOffset, true);
   };
 
   const exportToExcel = (words) => {
@@ -256,7 +286,7 @@ const Collection = () => {
           ) : (
             <div className="flex gap-2 items-center justify-center">
               <span className="text-xs sm:text-base">
-                {t("collectionPage.totalWords")} {words.length}
+                {t("collectionPage.totalWords")} {words.length} / {pagination.totalCount}
               </span>
             </div>
           )}
@@ -384,7 +414,8 @@ const Collection = () => {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {words.length > 0 ? (
-                words.map((item) => (
+                <>
+                {words.map((item) => (
                   <Card key={item._id} className="p-3 rounded-2xl">
                     <div className="flex justify-between items-start mb-2">
                       <div className="flex items-center gap-2">
@@ -492,7 +523,33 @@ const Collection = () => {
                       )}
                     </div>
                   </Card>
-                ))
+                ))}
+                {pagination.hasMore && (
+                  <div className="col-span-full flex flex-col items-center gap-2 py-4">
+                    <span className="text-sm text-muted-foreground">
+                      {t("collectionPage.showingWords", {
+                        current: words.length,
+                        total: pagination.totalCount,
+                      })}
+                    </span>
+                    <Button
+                      variant="outline"
+                      onClick={handleLoadMore}
+                      disabled={loadingMore}
+                      className="min-w-[150px]"
+                    >
+                      {loadingMore ? (
+                        <>
+                          <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                          {t("common.loading")}
+                        </>
+                      ) : (
+                        t("collectionPage.loadMore")
+                      )}
+                    </Button>
+                  </div>
+                )}
+              </>
               ) : (
                 <div className="col-span-full w-full max-w-md mx-auto border-0">
                   <CardContent className="pt-6 pb-4 text-center">

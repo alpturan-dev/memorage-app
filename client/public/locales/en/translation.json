@@ -135,7 +135,9 @@
     "translationSuggestion": "Translation suggestion",
     "wordAlreadyExists": "Word already exists in your collection!",
     "options": "More Options",
-    "exportToExcel": "Export to Excel"
+    "exportToExcel": "Export to Excel",
+    "loadMore": "Load More",
+    "showingWords": "Showing {{current}} of {{total}} words"
   },
   "exercisesPage": {
     "title": "Exercises",
