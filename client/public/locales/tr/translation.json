@@ -135,7 +135,9 @@
     "translationSuggestion": "Çeviri önerisi",
     "wordAlreadyExists": "Kelime koleksiyonunda zaten mevcut!",
     "options": "Diğer İşlemler",
-    "exportToExcel": "Excel olarak indir"
+    "exportToExcel": "Excel olarak indir",
+    "loadMore": "Daha fazla yükle",
+    "showingWords": "{{total}} kelimeden {{current}}'si gösteriliyor"
   },
   "exercisesPage": {
     "title": "Egzersizler",

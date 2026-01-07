@@ -70,7 +70,7 @@ const Shuffle = () => {
   };
 
   const nextWord = (wordsArray) => {
-    const remainingWords = wordsArray.filter(
+    const remainingWords = wordsArray.words.filter(
       (word) => !usedWords.includes(word.targetWord)
     );
 
