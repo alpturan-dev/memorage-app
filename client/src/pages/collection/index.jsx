@@ -14,6 +14,7 @@ import {
   MoreVertical,
   Save,
   Volume2,
+  X,
 } from "lucide-react";
 import ExerciseDialog from "./components/exercise-dialog";
 import { Card, CardContent } from "@/components/ui/card";
@@ -44,7 +45,7 @@ const Collection = () => {
   const [editWord, setEditWord] = useState({});
   const [formAction, setFormAction] = useState("add");
   const [selectedCollection, setSelectedCollection] = useState({});
-  const [suggestedTranslation, setSuggestedTranslation] = useState(null); // To store API suggestions
+  const [suggestedTranslations, setSuggestedTranslations] = useState([]); // To store API suggestions
   const [showDropdown, setShowDropdown] = useState(false);
   const [isTranslating, setIsTranslating] = useState(false);
   const translationTimer = useRef(null);
@@ -52,7 +53,7 @@ const Collection = () => {
   const [pagination, setPagination] = useState({
     totalCount: 0,
     offset: 0,
-    hasMore: false
+    hasMore: false,
   });
   const PAGE_SIZE = 20;
 
@@ -184,23 +185,29 @@ const Collection = () => {
     debounce(async (nativeWord) => {
       if (nativeWord.trim()) {
         try {
-          const response = await apiRequest.post("/api/translate", {
+          const response = await apiRequest.post("/api/translate/suggestions", {
             text: nativeWord,
-            targetLang: "tr",
+            sourceLang: selectedCollection?.targetLanguage?.name || "English",
+            targetLang: selectedCollection?.nativeLanguage?.name || "Turkish",
           });
-          setSuggestedTranslation(response.data?.translatedText);
+          setSuggestedTranslations(response.data?.suggestions || []);
           setShowDropdown(true); // Show dropdown when we have suggestions
         } catch (error) {
           console.error(error);
         }
       }
     }, 200),
-    [] // 0.2 seconds delay
+    [selectedCollection] // 0.2 seconds delay
   );
 
   const handleSuggestionClick = (suggestion) => {
-    setNewWord((prev) => ({ ...prev, targetWord: suggestion }));
-    setShowDropdown(false); // Hide dropdown after selection
+    setNewWord((prev) => ({
+      ...prev,
+      targetWord: prev.targetWord
+        ? `${prev.targetWord}, ${suggestion}`
+        : suggestion,
+    }));
+    // Keep dropdown open for multiple selections
     setIsTranslating(false);
   };
 
@@ -244,10 +251,10 @@ const Collection = () => {
   };
 
   useEffect(() => {
-    if (suggestedTranslation !== null) {
+    if (suggestedTranslations.length > 0) {
       setIsTranslating(false);
     }
-  }, [suggestedTranslation]);
+  }, [suggestedTranslations]);
 
   useEffect(() => {
     if (newWord.nativeWord === "" && newWord.targetWord === "") {
@@ -286,7 +293,8 @@ const Collection = () => {
           ) : (
             <div className="flex gap-2 items-center justify-center">
               <span className="text-xs sm:text-base">
-                {t("collectionPage.totalWords")} {words.length} / {pagination.totalCount}
+                {t("collectionPage.totalWords")} {words.length} /{" "}
+                {pagination.totalCount}
               </span>
             </div>
           )}
@@ -343,18 +351,29 @@ const Collection = () => {
             </div>
 
             {/* Dropdown for translation suggestions */}
-            {showDropdown && suggestedTranslation !== null && (
-              <div className="absolute top-full left-0 w-full bg-white border border-gray-300 mt-1 rounded-md shadow-lg z-50 overflow-hidden">
-                <div className="px-3 py-2 bg-green-50 border-b border-green-100">
-                  <span className="text-xs text-green-700 font-semibold">
-                    {t("collectionPage.translationSuggestion")}
+            {showDropdown && suggestedTranslations.length > 0 && (
+              <div className="absolute top-full left-0 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 mt-1 rounded-md shadow-lg z-50 overflow-hidden">
+                <div className="px-3 py-2 bg-green-50 dark:bg-green-900/30 border-b border-green-100 dark:border-green-800 flex justify-between items-center">
+                  <span className="text-xs text-green-700 dark:text-green-300 font-semibold">
+                    {t("collectionPage.translationSuggestions")}
                   </span>
+                  <button
+                    onClick={() => setShowDropdown(false)}
+                    className="text-gray-500 hover:text-gray-700 dark:text-gray-400"
+                  >
+                    <X className="h-3 w-3" />
+                  </button>
                 </div>
-                <div
-                  className="px-3 py-2 cursor-pointer hover:bg-gray-50 transition-colors duration-150"
-                  onClick={() => handleSuggestionClick(suggestedTranslation)}
-                >
-                  {suggestedTranslation}
+                <div className="max-h-40 overflow-y-auto">
+                  {suggestedTranslations.map((suggestion, index) => (
+                    <div
+                      key={index}
+                      className="px-3 py-2 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150 border-b border-gray-100 dark:border-gray-700 last:border-b-0"
+                      onClick={() => handleSuggestionClick(suggestion)}
+                    >
+                      {suggestion}
+                    </div>
+                  ))}
                 </div>
               </div>
             )}
@@ -415,141 +434,145 @@ const Collection = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {words.length > 0 ? (
                 <>
-                {words.map((item) => (
-                  <Card key={item._id} className="p-3 rounded-2xl">
-                    <div className="flex justify-between items-start mb-2">
-                      <div className="flex items-center gap-2">
-                        <div className="font-medium">
-                          {formAction === "edit" && editWord.id === item._id ? (
-                            <input
-                              value={editWord.nativeWord}
-                              onChange={(e) =>
-                                setEditWord({
-                                  ...editWord,
-                                  nativeWord: e.target.value,
-                                })
-                              }
-                              className="outline rounded-sm animate-pulse"
-                            />
-                          ) : (
-                            <span>{item.nativeWord}</span>
-                          )}
-                        </div>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className={twJoin(
-                            "h-6 w-6 p-0",
-                            formAction === "edit" &&
-                              editWord.id === item._id &&
-                              "hidden"
-                          )}
-                          onClick={() =>
-                            playAudio(
-                              item.nativeWord,
-                              selectedCollection.targetLanguage.code
-                            )
-                          }
-                        >
-                          <Volume2 className="h-4 w-4" />
-                          <span className="sr-only">
-                            {t("common.playAudio")}
-                          </span>
-                        </Button>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-6 w-6 p-0 hover:animate-pulse"
-                          onClick={(e) => {
-                            if (
+                  {words.map((item) => (
+                    <Card key={item._id} className="p-3 rounded-2xl">
+                      <div className="flex justify-between items-start mb-2">
+                        <div className="flex items-center gap-2">
+                          <div className="font-medium">
+                            {formAction === "edit" &&
+                            editWord.id === item._id ? (
+                              <input
+                                value={editWord.nativeWord}
+                                onChange={(e) =>
+                                  setEditWord({
+                                    ...editWord,
+                                    nativeWord: e.target.value,
+                                  })
+                                }
+                                className="outline rounded-sm animate-pulse"
+                              />
+                            ) : (
+                              <span>{item.nativeWord}</span>
+                            )}
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className={twJoin(
+                              "h-6 w-6 p-0",
                               formAction === "edit" &&
-                              editWord.id === item._id
-                            ) {
-                              handleAddOrEditWord(e);
+                                editWord.id === item._id &&
+                                "hidden"
+                            )}
+                            onClick={() =>
+                              playAudio(
+                                item.nativeWord,
+                                selectedCollection.targetLanguage.code
+                              )
                             }
-                            setEditWord({
-                              nativeWord: item.nativeWord,
-                              targetWord: item.targetWord,
-                              id: item._id,
-                            });
-                            setFormAction("edit");
-                          }}
-                        >
-                          {formAction === "edit" && editWord.id === item._id ? (
-                            <div>
-                              <Save className="h-3 w-3" />
-                              <span className="sr-only">
-                                {t("common.edit")}
-                              </span>
-                            </div>
-                          ) : (
-                            <div>
-                              <FilePenIcon className="h-3 w-3" />
-                              <span className="sr-only">
-                                {t("common.edit")}
-                              </span>
-                            </div>
-                          )}
-                        </Button>
-                        <Button
-                          variant="link"
-                          size="sm"
-                          className="h-6 w-6 p-0 text-red-600 hover:animate-shake"
-                          onClick={() => {
-                            handleDeleteWord(item._id);
-                          }}
-                        >
-                          <TrashIcon className="h-3 w-3" />
-                          <span className="sr-only">{t("common.delete")}</span>
-                        </Button>
+                          >
+                            <Volume2 className="h-4 w-4" />
+                            <span className="sr-only">
+                              {t("common.playAudio")}
+                            </span>
+                          </Button>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-6 w-6 p-0 hover:animate-pulse"
+                            onClick={(e) => {
+                              if (
+                                formAction === "edit" &&
+                                editWord.id === item._id
+                              ) {
+                                handleAddOrEditWord(e);
+                              }
+                              setEditWord({
+                                nativeWord: item.nativeWord,
+                                targetWord: item.targetWord,
+                                id: item._id,
+                              });
+                              setFormAction("edit");
+                            }}
+                          >
+                            {formAction === "edit" &&
+                            editWord.id === item._id ? (
+                              <div>
+                                <Save className="h-3 w-3" />
+                                <span className="sr-only">
+                                  {t("common.edit")}
+                                </span>
+                              </div>
+                            ) : (
+                              <div>
+                                <FilePenIcon className="h-3 w-3" />
+                                <span className="sr-only">
+                                  {t("common.edit")}
+                                </span>
+                              </div>
+                            )}
+                          </Button>
+                          <Button
+                            variant="link"
+                            size="sm"
+                            className="h-6 w-6 p-0 text-red-600 hover:animate-shake"
+                            onClick={() => {
+                              handleDeleteWord(item._id);
+                            }}
+                          >
+                            <TrashIcon className="h-3 w-3" />
+                            <span className="sr-only">
+                              {t("common.delete")}
+                            </span>
+                          </Button>
+                        </div>
                       </div>
+                      <div className="opacity-70 text-sm font-light">
+                        {formAction === "edit" && editWord.id === item._id ? (
+                          <input
+                            value={editWord.targetWord}
+                            onChange={(e) =>
+                              setEditWord({
+                                ...editWord,
+                                targetWord: e.target.value,
+                              })
+                            }
+                            className="outline rounded-sm animate-pulse"
+                          />
+                        ) : (
+                          <span>{item.targetWord}</span>
+                        )}
+                      </div>
+                    </Card>
+                  ))}
+                  {pagination.hasMore && (
+                    <div className="col-span-full flex flex-col items-center gap-2 py-4">
+                      <span className="text-sm text-muted-foreground">
+                        {t("collectionPage.showingWords", {
+                          current: words.length,
+                          total: pagination.totalCount,
+                        })}
+                      </span>
+                      <Button
+                        variant="outline"
+                        onClick={handleLoadMore}
+                        disabled={loadingMore}
+                        className="min-w-[150px]"
+                      >
+                        {loadingMore ? (
+                          <>
+                            <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                            {t("common.loading")}
+                          </>
+                        ) : (
+                          t("collectionPage.loadMore")
+                        )}
+                      </Button>
                     </div>
-                    <div className="opacity-70 text-sm font-light">
-                      {formAction === "edit" && editWord.id === item._id ? (
-                        <input
-                          value={editWord.targetWord}
-                          onChange={(e) =>
-                            setEditWord({
-                              ...editWord,
-                              targetWord: e.target.value,
-                            })
-                          }
-                          className="outline rounded-sm animate-pulse"
-                        />
-                      ) : (
-                        <span>{item.targetWord}</span>
-                      )}
-                    </div>
-                  </Card>
-                ))}
-                {pagination.hasMore && (
-                  <div className="col-span-full flex flex-col items-center gap-2 py-4">
-                    <span className="text-sm text-muted-foreground">
-                      {t("collectionPage.showingWords", {
-                        current: words.length,
-                        total: pagination.totalCount,
-                      })}
-                    </span>
-                    <Button
-                      variant="outline"
-                      onClick={handleLoadMore}
-                      disabled={loadingMore}
-                      className="min-w-[150px]"
-                    >
-                      {loadingMore ? (
-                        <>
-                          <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                          {t("common.loading")}
-                        </>
-                      ) : (
-                        t("collectionPage.loadMore")
-                      )}
-                    </Button>
-                  </div>
-                )}
-              </>
+                  )}
+                </>
               ) : (
                 <div className="col-span-full w-full max-w-md mx-auto border-0">
                   <CardContent className="pt-6 pb-4 text-center">

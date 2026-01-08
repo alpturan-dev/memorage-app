@@ -133,6 +133,7 @@
     "noWordTitle": "Henüz kelime eklemedin",
     "noWordDescription": "İlk kelimeni ekleyerek egzersizlere başla.",
     "translationSuggestion": "Çeviri önerisi",
+    "translationSuggestions": "Çeviri önerileri",
     "wordAlreadyExists": "Kelime koleksiyonunda zaten mevcut!",
     "options": "Diğer İşlemler",
     "exportToExcel": "Excel olarak indir",
