@@ -23,6 +23,15 @@ const userSchema = new mongoose.Schema(
             type: String,
             default: 'tr'
         },
+        streak: {
+            current: { type: Number, default: 0 },
+            lastActivityDate: { type: Date, default: null }
+        },
+        activityLog: [{
+            date: { type: Date },
+            wordsAdded: { type: Number, default: 0 },
+            exercisesCompleted: { type: Number, default: 0 }
+        }]
     },
     {
         timestamps: true
@@ -30,6 +39,7 @@ const userSchema = new mongoose.Schema(
 );
 
 userSchema.pre("save", async function () {
+    if (!this.isModified("password")) return;
     this.password = await bcrypt.hash(this.password, 12);
 });
 

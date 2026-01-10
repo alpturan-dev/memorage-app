@@ -9,6 +9,7 @@ import AIRoute from './routes/AIRoute.js'
 import PresetCollectionRoute from './routes/PresetCollectionRoute.js'
 import TranslateRoute from './routes/TranslateRoute.js'
 import TTSRoute from './routes/TTSRoute.js'
+import DashboardRoute from './routes/DashboardRoute.js'
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use('/api/ai', AIRoute);
 app.use('/api/preset-collections', PresetCollectionRoute);
 app.use('/api/translate', TranslateRoute);
 app.use('/api/tts', TTSRoute);
+app.use('/api/dashboard', DashboardRoute);
 
 mongoose
     .connect(process.env.ATLAS_URI)

@@ -47,22 +47,59 @@
     "description": "Your personal word storage and learning companion. Create collections, store words, and practice efficiently.",
     "getStarted": "Get Started",
     "learnMore": "Learn More",
+    "tagline1": "Build vocabulary.",
+    "tagline2": "Learn smarter.",
+    "tagline3": "Remember forever.",
     "feature1": {
       "title": "Create Collections",
       "description": "Organize your words into themed collections for efficient learning and review."
     },
     "feature2": {
-      "title": "Add Words",
-      "description": "Easily add new words to your collections. Import words from images and add to collections!"
+      "title": "AI-Powered Import",
+      "description": "Extract words from images instantly using AI. Just snap a photo of your textbook or notes."
     },
     "feature3": {
       "title": "Practice Exercises",
-      "description": "Test your knowledge with various exercise types designed to reinforce your learning."
+      "description": "Test your knowledge with flashcards and shuffle exercises designed to reinforce learning."
+    },
+    "feature4": {
+      "title": "Smart Learning",
+      "description": "Track your progress, maintain streaks, and get personalized word suggestions to boost your vocabulary."
     },
     "callToActionTitle": "Ready to enhance your vocabulary?",
     "callToActionDescription": "Start creating your word collections and begin your learning journey with Memorage today.",
     "createCollection": "Create Collection",
-    "practiceNow": "Practice Now"
+    "practiceNow": "Practice Now",
+    "welcomeBack": "Welcome back, {{username}}",
+    "goodMorning": "Good morning",
+    "goodAfternoon": "Good afternoon",
+    "goodEvening": "Good evening",
+    "totalWords": "words",
+    "totalCollections": "collections",
+    "languagesLearning": "languages",
+    "recentCollections": "Recent Collections",
+    "viewAll": "View All",
+    "newCollection": "New Collection",
+    "startPractice": "Start Practice",
+    "noCollectionsYet": "No collections yet",
+    "createFirstCollection": "Create your first collection to start learning",
+    "wordsCount": "{{count}} words",
+    "streak": "day streak",
+    "wordOfTheDay": "Word of the day",
+    "tapToReveal": "Tap to reveal",
+    "thisWeek": "This week",
+    "quickActions": "Quick Actions",
+    "onFire": "You're on fire!",
+    "streakMessage": "{{count}} days in a row. Keep it up!",
+    "aiPowered": "AI-Powered Learning",
+    "heroTitle": "Master any language with",
+    "heroTitleAccent": "Memorage",
+    "alreadyHaveAccount": "I have an account",
+    "supportedLanguages": "50+ languages supported",
+    "featuresTitle": "Everything you need to learn",
+    "featuresSubtitle": "Powerful tools designed to make vocabulary learning effective and enjoyable",
+    "ctaTitle": "Start your learning journey",
+    "startLearning": "Start Learning Free"
   },
   "profilePage": {
     "title": "Profile Settings",

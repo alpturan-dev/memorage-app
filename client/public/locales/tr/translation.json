@@ -45,24 +45,61 @@
   "dashboardPage": {
     "title": "Memorage",
     "description": "Kişisel kelime depolama ve öğrenme asistanınız. Koleksiyonlar oluşturun, kelimeleri saklayın ve etkili bir şekilde pratik yapın.",
-    "getStarted": "Başlayın",
+    "getStarted": "Başla",
     "learnMore": "Daha Fazla Bilgi",
+    "tagline1": "Kelime hazineni geliştir.",
+    "tagline2": "Akıllıca öğren.",
+    "tagline3": "Sonsuza dek hatırla.",
     "feature1": {
-      "title": "Koleksiyonlar Oluşturun",
-      "description": "Verimli öğrenme ve gözden geçirme için, kelimelerinizi temalı koleksiyonlara kaydedin."
+      "title": "Koleksiyonlar Oluştur",
+      "description": "Verimli öğrenme ve gözden geçirme için kelimelerini temalı koleksiyonlara kaydet."
     },
     "feature2": {
-      "title": "Kelimeler Ekleyin",
-      "description": "Koleksiyonlarınıza yeni kelimeler kolayca ekleyin. Kelimeleri resimlerden içe aktarın ve koleksiyona ekleyin!"
+      "title": "Yapay Zeka ile İçe Aktar",
+      "description": "Yapay zeka ile görsellerden anında kelime çıkar. Ders kitabının veya notlarının fotoğrafını çek yeter."
     },
     "feature3": {
-      "title": "Pratik Egzersizler",
-      "description": "Öğrenmenizi pekiştirmek için çeşitli egzersiz türleri ile bilginizi test edin."
+      "title": "Pratik Egzersizleri",
+      "description": "Bilgini pekiştirmek için tasarlanmış flash kartlar ve karıştırma egzersizleriyle kendini test et."
+    },
+    "feature4": {
+      "title": "Akıllı Öğrenme",
+      "description": "İlerlemenizi takip edin, serileri koruyun ve kelime dağarcığınızı artırmak için kişiselleştirilmiş kelime önerileri alın."
     },
     "callToActionTitle": "Kelime bilginizi geliştirmeye hazır mısınız?",
     "callToActionDescription": "Kelime koleksiyonlarınızı oluşturmaya başlayın ve Memorage ile öğrenme yolculuğunuza bugün başlayın.",
     "createCollection": "Koleksiyon Oluştur",
-    "practiceNow": "Şimdi Pratik Yap"
+    "practiceNow": "Şimdi Pratik Yap",
+    "welcomeBack": "Tekrar hoş geldin, {{username}}",
+    "goodMorning": "Günaydın",
+    "goodAfternoon": "İyi günler",
+    "goodEvening": "İyi akşamlar",
+    "totalWords": "kelime",
+    "totalCollections": "koleksiyon",
+    "languagesLearning": "dil",
+    "recentCollections": "Son Koleksiyonlar",
+    "viewAll": "Tümünü Gör",
+    "newCollection": "Yeni Koleksiyon",
+    "startPractice": "Pratik Başlat",
+    "noCollectionsYet": "Henüz koleksiyon yok",
+    "createFirstCollection": "Öğrenmeye başlamak için ilk koleksiyonunu oluştur",
+    "wordsCount": "{{count}} kelime",
+    "streak": "günlük seri",
+    "wordOfTheDay": "Günün kelimesi",
+    "tapToReveal": "Çeviriyi göster",
+    "thisWeek": "Bu hafta",
+    "quickActions": "Hızlı İşlemler",
+    "onFire": "Ateş gibisin!",
+    "streakMessage": "{{count}} gün üst üste. Böyle devam!",
+    "aiPowered": "Yapay Zeka Destekli",
+    "heroTitle": "İstediğin dili öğren",
+    "heroTitleAccent": "Memorage ile",
+    "alreadyHaveAccount": "Hesabım var",
+    "supportedLanguages": "50+ dil desteği",
+    "featuresTitle": "Öğrenmek için ihtiyacın olan her şey",
+    "featuresSubtitle": "Kelime öğrenimini etkili ve keyifli hale getirmek için tasarlanmış güçlü araçlar",
+    "ctaTitle": "Öğrenme yolculuğuna başla",
+    "startLearning": "Ücretsiz Başla"
   },
   "profilePage": {
     "title": "Profil Ayarları",
