@@ -337,15 +337,20 @@ const UserDashboard = () => {
                   <h3 className="text-sm font-semibold text-foreground mb-4">
                     {t("dashboardPage.thisWeek")}
                   </h3>
-                  <div className="flex items-end justify-between gap-1 h-20">
+                  <div className="flex items-end justify-between gap-1" style={{ height: "80px" }}>
                     {stats.activityChart.map((day, index) => {
                       const isToday = index === stats.activityChart.length - 1;
                       const hasActivity = day.count > 0;
+                      // Calculate height in pixels (min 6px, max 60px for bars)
+                      const barHeight = hasActivity
+                        ? Math.max(12, Math.round((day.percentage / 100) * 60))
+                        : 6;
                       return (
                         <div
                           key={index}
-                          className="flex-1 flex flex-col items-center gap-2"
-                          title={`${day.count} words added`}
+                          className="flex-1 flex flex-col items-center justify-end gap-1"
+                          style={{ height: "100%" }}
+                          title={`${day.wordsAdded || 0} words, ${day.exercisesCompleted || 0} exercises`}
                         >
                           <div
                             className={`w-full rounded-md transition-all ${
@@ -355,9 +360,7 @@ const UserDashboard = () => {
                                 ? "bg-secondary"
                                 : "bg-secondary/30"
                             }`}
-                            style={{
-                              height: `${Math.max(8, day.percentage || 0)}%`,
-                            }}
+                            style={{ height: `${barHeight}px` }}
                           />
                           <span
                             className={`text-[10px] ${

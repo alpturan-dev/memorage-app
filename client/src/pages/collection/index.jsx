@@ -113,6 +113,10 @@ const Collection = () => {
         const response = await apiRequest.post("/api/words", newWord);
         if (response.status === 201) {
           await getAllWordsByCollection();
+          // Record activity when word is added
+          apiRequest
+            .post("/api/dashboard/activity", { type: "word" })
+            .catch(console.error);
         }
       } else if (formAction === "edit") {
         const response = await apiRequest.put(

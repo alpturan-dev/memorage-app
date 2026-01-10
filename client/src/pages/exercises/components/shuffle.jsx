@@ -29,7 +29,8 @@ const Shuffle = () => {
         );
       } else {
         response = await apiRequest.get(
-          `/api/words/wordCollection/${selectedCollectionId}`
+          `/api/words/wordCollection/${selectedCollectionId}`,
+          { params: { limit: 10000 } }
         );
       }
       if (response.status === 200) {
@@ -42,13 +43,13 @@ const Shuffle = () => {
           setWords(response.data.words);
           nextWord(response.data.words);
         } else {
-          if (response.data.length < 4) {
+          if (response.data.words.length < 4) {
             toast.error(t("exercisesPage.notEnoughWords"));
             navigate(-1);
             return;
           }
-          setWords(response.data);
-          nextWord(response.data);
+          setWords(response.data.words);
+          nextWord(response.data.words);
         }
       }
     } catch (error) {
@@ -70,7 +71,7 @@ const Shuffle = () => {
   };
 
   const nextWord = (wordsArray) => {
-    const remainingWords = wordsArray.words.filter(
+    const remainingWords = wordsArray.filter(
       (word) => !usedWords.includes(word.targetWord)
     );
 
@@ -103,7 +104,11 @@ const Shuffle = () => {
 
     if (selectedOption === currentWord.targetWord) {
       setIsCorrect(true);
-      setScore(score + 1);
+      setScore((prev) => prev + 1);
+      // Record each correct answer as an exercise activity
+      apiRequest
+        .post("/api/dashboard/activity", { type: "exercise" })
+        .catch(console.error);
       setTimeout(() => {
         nextWord(words);
       }, 700);

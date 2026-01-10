@@ -51,8 +51,8 @@ export const getDashboardStats = async (req, res) => {
     // Get random word of the day (from user's collections)
     const wordOfTheDay = await getWordOfTheDay(collectionIds);
 
-    // Get activity data for chart (last 7 days based on collection updates)
-    const activityChart = await getActivityChart(userId, collectionIds);
+    // Get activity data for chart (last 7 days)
+    const activityChart = getActivityChart(user);
 
     res.json({
       totalWords,
@@ -68,11 +68,12 @@ export const getDashboardStats = async (req, res) => {
   }
 };
 
-// Update user streak when they perform an activity
+// Update user streak and activity log when they perform an activity
 export const recordActivity = async (req, res) => {
   try {
     const userId = req.user.id;
-    const user = await User.findById(userId).select('streak').lean();
+    const { type } = req.body; // 'word' or 'exercise'
+    const user = await User.findById(userId).select('streak activityLog').lean();
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -104,13 +105,50 @@ export const recordActivity = async (req, res) => {
       }
     }
 
-    // Use findByIdAndUpdate to avoid triggering pre-save hooks
-    await User.findByIdAndUpdate(userId, {
-      streak: {
-        current: newStreak,
-        lastActivityDate: new Date()
-      }
+    // Find or create today's activity log entry
+    const activityLog = user?.activityLog || [];
+    const todayStr = today.toISOString().split('T')[0];
+    const todayLog = activityLog.find(log => {
+      const logDate = new Date(log.date);
+      const logStr = logDate.toISOString().split('T')[0];
+      return logStr === todayStr;
     });
+
+    if (todayLog) {
+      // Update existing log entry
+      const incField = type === 'word' ? 'activityLog.$.wordsAdded' :
+                       type === 'exercise' ? 'activityLog.$.exercisesCompleted' : null;
+
+      const updateOps = {
+        $set: {
+          'streak.current': newStreak,
+          'streak.lastActivityDate': new Date()
+        }
+      };
+
+      if (incField) {
+        updateOps.$inc = { [incField]: 1 };
+      }
+
+      await User.updateOne(
+        { _id: userId, 'activityLog.date': todayLog.date },
+        updateOps
+      );
+    } else {
+      // Create new log entry for today
+      const newLogEntry = {
+        date: today,
+        wordsAdded: type === 'word' ? 1 : 0,
+        exercisesCompleted: type === 'exercise' ? 1 : 0
+      };
+      await User.findByIdAndUpdate(userId, {
+        $set: {
+          'streak.current': newStreak,
+          'streak.lastActivityDate': new Date()
+        },
+        $push: { activityLog: newLogEntry }
+      });
+    }
 
     res.json({ streak: newStreak });
   } catch (error) {
@@ -168,52 +206,49 @@ async function getWordOfTheDay(collectionIds) {
   };
 }
 
-async function getActivityChart(userId, collectionIds) {
+function getActivityChart(user) {
   const days = [];
   const today = new Date();
   today.setHours(23, 59, 59, 999);
 
-  const sevenDaysAgo = new Date(today);
-  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
-  sevenDaysAgo.setHours(0, 0, 0, 0);
+  const activityLog = user?.activityLog || [];
 
-  // Get word counts per day for the last 7 days
-  const wordsByDay = await Word.aggregate([
-    {
-      $match: {
-        wordCollection: { $in: collectionIds },
-        createdAt: { $gte: sevenDaysAgo, $lte: today }
-      }
-    },
-    {
-      $group: {
-        _id: {
-          $dateToString: { format: "%Y-%m-%d", date: "$createdAt" }
-        },
-        count: { $sum: 1 }
-      }
-    }
-  ]);
-
-  const countMap = {};
-  wordsByDay.forEach(item => {
-    countMap[item._id] = item.count;
+  // Create a map of date -> activity data
+  const activityMap = {};
+  activityLog.forEach(log => {
+    const logDate = new Date(log.date);
+    const dateStr = logDate.toISOString().split('T')[0];
+    activityMap[dateStr] = {
+      wordsAdded: log.wordsAdded || 0,
+      exercisesCompleted: log.exercisesCompleted || 0
+    };
   });
 
-  // Find max count for normalization
-  const maxCount = Math.max(...wordsByDay.map(d => d.count), 1);
+  // Find max total count for normalization
+  let maxCount = 1;
+  for (let i = 6; i >= 0; i--) {
+    const date = new Date(today);
+    date.setDate(date.getDate() - i);
+    const dateStr = date.toISOString().split('T')[0];
+    const activity = activityMap[dateStr] || { wordsAdded: 0, exercisesCompleted: 0 };
+    const total = activity.wordsAdded + activity.exercisesCompleted;
+    if (total > maxCount) maxCount = total;
+  }
 
   for (let i = 6; i >= 0; i--) {
     const date = new Date(today);
     date.setDate(date.getDate() - i);
     const dateStr = date.toISOString().split('T')[0];
-    const count = countMap[dateStr] || 0;
+    const activity = activityMap[dateStr] || { wordsAdded: 0, exercisesCompleted: 0 };
+    const total = activity.wordsAdded + activity.exercisesCompleted;
 
     days.push({
       date: dateStr,
       dayLabel: date.toLocaleDateString('en-US', { weekday: 'short' }),
-      count,
-      percentage: maxCount > 0 ? Math.round((count / maxCount) * 100) : 0
+      wordsAdded: activity.wordsAdded,
+      exercisesCompleted: activity.exercisesCompleted,
+      count: total,
+      percentage: maxCount > 0 ? Math.round((total / maxCount) * 100) : 0
     });
   }
 
