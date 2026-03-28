@@ -8,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "react-i18next";
 import {
   ArrowLeft,
+  Check,
   DownloadIcon,
   FileX2,
   Loader2,
@@ -50,12 +51,21 @@ const Collection = () => {
   const [isTranslating, setIsTranslating] = useState(false);
   const translationTimer = useRef(null);
   const [loadingMore, setLoadingMore] = useState(false);
+  const [statusMessage, setStatusMessage] = useState(null); // { type: 'added' | 'edited' | 'deleted', cardId?: string }
+  const statusTimer = useRef(null);
+  const [deletingId, setDeletingId] = useState(null);
   const [pagination, setPagination] = useState({
     totalCount: 0,
     offset: 0,
     hasMore: false,
   });
   const PAGE_SIZE = 20;
+
+  const showStatus = (type, cardId = null) => {
+    if (statusTimer.current) clearTimeout(statusTimer.current);
+    setStatusMessage({ type, cardId });
+    statusTimer.current = setTimeout(() => setStatusMessage(null), 2000);
+  };
 
   const getAllWordsByCollection = async (offset = 0, append = false) => {
     try {
@@ -113,6 +123,7 @@ const Collection = () => {
         const response = await apiRequest.post("/api/words", newWord);
         if (response.status === 201) {
           await getAllWordsByCollection();
+          showStatus("added");
           // Record activity when word is added
           apiRequest
             .post("/api/dashboard/activity", { type: "word" })
@@ -125,6 +136,7 @@ const Collection = () => {
         );
         if (response.status === 200) {
           await getAllWordsByCollection();
+          showStatus("edited", editWord.id);
         }
       }
     } catch (error) {
@@ -142,16 +154,24 @@ const Collection = () => {
 
   const handleDeleteWord = async (id) => {
     try {
-      setLoading(true);
+      setDeletingId(id);
       const response = await apiRequest.delete(`/api/words/${id}`);
       if (response.status === 200) {
-        setWords(words.filter((item) => item._id !== id));
-        setPagination((prev) => ({ ...prev, totalCount: prev.totalCount - 1 }));
+        // Wait for slide-out animation to finish
+        setTimeout(() => {
+          setWords((prev) => prev.filter((item) => item._id !== id));
+          setPagination((prev) => ({
+            ...prev,
+            totalCount: prev.totalCount - 1,
+          }));
+          setDeletingId(null);
+          showStatus("deleted");
+        }, 300);
       }
     } catch (error) {
       console.error(error);
+      setDeletingId(null);
     } finally {
-      setLoading(false);
       setShowDropdown(false);
     }
   };
@@ -354,6 +374,25 @@ const Collection = () => {
               </Button>
             </div>
 
+            {/* Inline status indicator for add and delete */}
+            {statusMessage && !statusMessage.cardId && (
+              <div
+                key={Date.now()}
+                className={twJoin(
+                  "absolute -bottom-6 left-0 flex items-center gap-1 text-xs font-medium animate-fade-in-out",
+                  statusMessage.type === "deleted"
+                    ? "text-red-500"
+                    : "text-green-600 dark:text-green-400",
+                )}
+              >
+                <Check className="h-3 w-3" />
+                {statusMessage.type === "added" &&
+                  t("collectionPage.wordAdded")}
+                {statusMessage.type === "deleted" &&
+                  t("collectionPage.wordDeleted")}
+              </div>
+            )}
+
             {/* Dropdown for translation suggestions */}
             {showDropdown && suggestedTranslations.length > 0 && (
               <div className="absolute top-full left-0 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 mt-1 rounded-md shadow-lg z-50 overflow-hidden">
@@ -439,7 +478,13 @@ const Collection = () => {
               {words.length > 0 ? (
                 <>
                   {words.map((item) => (
-                    <Card key={item._id} className="p-3 rounded-2xl">
+                    <Card
+                      key={item._id}
+                      className={twJoin(
+                        "p-3 rounded-2xl transition-all",
+                        deletingId === item._id && "animate-slide-out-right",
+                      )}
+                    >
                       <div className="flex justify-between items-start mb-2">
                         <div className="flex items-center gap-2">
                           <div className="font-medium">
@@ -553,6 +598,16 @@ const Collection = () => {
                           <span>{item.targetWord}</span>
                         )}
                       </div>
+                      {statusMessage &&
+                        statusMessage.cardId === item._id && (
+                          <div
+                            key={Date.now()}
+                            className="flex items-center gap-1 text-xs font-medium text-green-600 dark:text-green-400 mt-1 animate-fade-in-out"
+                          >
+                            <Check className="h-3 w-3" />
+                            {t("collectionPage.wordEdited")}
+                          </div>
+                        )}
                     </Card>
                   ))}
                   {pagination.hasMore && (

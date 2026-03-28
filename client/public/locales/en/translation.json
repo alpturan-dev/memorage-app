@@ -175,7 +175,10 @@
     "options": "More Options",
     "exportToExcel": "Export to Excel",
     "loadMore": "Load More",
-    "showingWords": "Showing {{current}} of {{total}} words"
+    "showingWords": "Showing {{current}} of {{total}} words",
+    "wordAdded": "Word added",
+    "wordEdited": "Word updated",
+    "wordDeleted": "Word deleted"
   },
   "exercisesPage": {
     "title": "Exercises",

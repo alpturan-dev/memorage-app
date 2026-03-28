@@ -175,7 +175,10 @@
     "options": "Diğer İşlemler",
     "exportToExcel": "Excel olarak indir",
     "loadMore": "Daha fazla yükle",
-    "showingWords": "{{total}} kelimeden {{current}}'si gösteriliyor"
+    "showingWords": "{{total}} kelimeden {{current}}'si gösteriliyor",
+    "wordAdded": "Kelime eklendi",
+    "wordEdited": "Kelime güncellendi",
+    "wordDeleted": "Kelime silindi"
   },
   "exercisesPage": {
     "title": "Egzersizler",
