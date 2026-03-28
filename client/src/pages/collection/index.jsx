@@ -68,7 +68,7 @@ const Collection = () => {
 
       const response = await apiRequest.get(
         `/api/words/wordCollection/${params.id}`,
-        { params: { limit: PAGE_SIZE, offset } }
+        { params: { limit: PAGE_SIZE, offset } },
       );
 
       if (response.status === 200) {
@@ -121,7 +121,7 @@ const Collection = () => {
       } else if (formAction === "edit") {
         const response = await apiRequest.put(
           `/api/words/${editWord.id}`,
-          editWord
+          editWord,
         );
         if (response.status === 200) {
           await getAllWordsByCollection();
@@ -166,7 +166,7 @@ const Collection = () => {
       words.map((item) => ({
         Kelime: item.nativeWord,
         Çeviri: item.targetWord,
-      }))
+      })),
     );
 
     const workbook = XLSX.utils.book_new();
@@ -201,7 +201,7 @@ const Collection = () => {
         }
       }
     }, 200),
-    [selectedCollection] // 0.2 seconds delay
+    [selectedCollection], // 0.2 seconds delay
   );
 
   const handleSuggestionClick = (suggestion) => {
@@ -243,7 +243,7 @@ const Collection = () => {
       const response = await apiRequest.post(
         "/api/tts/synthesize",
         { text, languageCode: lang },
-        { responseType: "blob" }
+        { responseType: "blob" },
       );
       const audioBlob = new Blob([response.data], { type: "audio/mpeg" });
       const audioUrl = URL.createObjectURL(audioBlob);
@@ -466,12 +466,12 @@ const Collection = () => {
                               "h-6 w-6 p-0",
                               formAction === "edit" &&
                                 editWord.id === item._id &&
-                                "hidden"
+                                "hidden",
                             )}
                             onClick={() =>
                               playAudio(
                                 item.nativeWord,
-                                selectedCollection.targetLanguage.code
+                                selectedCollection.targetLanguage.code,
                               )
                             }
                           >
@@ -518,19 +518,23 @@ const Collection = () => {
                               </div>
                             )}
                           </Button>
-                          <Button
-                            variant="link"
-                            size="sm"
-                            className="h-6 w-6 p-0 text-red-600 hover:animate-shake"
-                            onClick={() => {
-                              handleDeleteWord(item._id);
-                            }}
-                          >
-                            <TrashIcon className="h-3 w-3" />
-                            <span className="sr-only">
-                              {t("common.delete")}
-                            </span>
-                          </Button>
+                          {!(
+                            formAction === "edit" && editWord.id === item._id
+                          ) && (
+                            <Button
+                              variant="link"
+                              size="sm"
+                              className="h-6 w-6 p-0 text-red-600 hover:animate-shake"
+                              onClick={() => {
+                                handleDeleteWord(item._id);
+                              }}
+                            >
+                              <TrashIcon className="h-3 w-3" />
+                              <span className="sr-only">
+                                {t("common.delete")}
+                              </span>
+                            </Button>
+                          )}
                         </div>
                       </div>
                       <div className="opacity-70 text-sm font-light">
