@@ -95,6 +95,19 @@ module.exports = {
           '0%': { opacity: '1', transform: 'translateX(0)' },
           '100%': { opacity: '0', transform: 'translateX(30px)' },
         },
+        "fade-in-up": {
+          '0%': { opacity: '0', transform: 'translateY(12px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        "scale-in": {
+          '0%': { opacity: '0', transform: 'scale(0.9)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+        "pop": {
+          '0%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.15)' },
+          '100%': { transform: 'scale(1)' },
+        },
       },
       animation: {
         "shake": 'shake 0.3s ease-in-out',
@@ -103,6 +116,9 @@ module.exports = {
         "bounce": 'bounce 0.7s ease-out',
         "fade-in-out": 'fade-in-out 2s ease-in-out forwards',
         "slide-out-right": 'slide-out-right 0.3s ease-in forwards',
+        "fade-in-up": 'fade-in-up 0.35s ease-out',
+        "scale-in": 'scale-in 0.3s ease-out',
+        "pop": 'pop 0.3s ease-out',
       },
     },
   },

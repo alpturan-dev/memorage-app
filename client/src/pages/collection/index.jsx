@@ -604,16 +604,15 @@ const Collection = () => {
                           <span>{item.targetWord}</span>
                         )}
                       </div>
-                      {statusMessage &&
-                        statusMessage.cardId === item._id && (
-                          <div
-                            key={Date.now()}
-                            className="flex items-center gap-1 text-xs font-medium text-green-600 dark:text-green-400 mt-1 animate-fade-in-out"
-                          >
-                            <Check className="h-3 w-3" />
-                            {t("collectionPage.wordEdited")}
-                          </div>
-                        )}
+                      {statusMessage && statusMessage.cardId === item._id && (
+                        <div
+                          key={Date.now()}
+                          className="flex items-center gap-1 text-xs font-medium text-green-600 dark:text-green-400 mt-1 animate-fade-in-out"
+                        >
+                          <Check className="h-3 w-3" />
+                          {t("collectionPage.wordEdited")}
+                        </div>
+                      )}
                     </Card>
                   ))}
                   {pagination.hasMore && (
