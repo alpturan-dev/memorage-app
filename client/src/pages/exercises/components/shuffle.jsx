@@ -277,7 +277,7 @@ const Shuffle = () => {
 
   // Main exercise view
   return (
-    <main className="bg-background text-foreground py-4">
+    <main className="bg-background text-foreground py-4 animate-fade-in-up">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
@@ -357,7 +357,7 @@ const Shuffle = () => {
               disabled={isCorrect !== null}
               style={{ animationDelay: `${index * 60}ms` }}
               className={twJoin(
-                "relative py-4 px-5 text-base font-medium rounded-xl transition-all duration-200 animate-fade-in-up",
+                "relative py-4 px-5 text-base font-medium rounded-xl transition-all duration-200 animate-fade-in-up outline-none",
                 getOptionStyle(option),
                 isCorrect === null && "cursor-pointer active:scale-[0.97]",
                 isCorrect !== null && "cursor-default",
