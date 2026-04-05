@@ -370,7 +370,7 @@ const Shuffle = () => {
                 {isCorrect === false && option === selectedOption && (
                   <XCircle className="h-5 w-5 text-red-500 dark:text-red-400 shrink-0" />
                 )}
-                <span className="truncate">{option}</span>
+                <span className="break-words text-center">{option}</span>
               </span>
             </button>
           ))}
