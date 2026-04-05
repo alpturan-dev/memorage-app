@@ -27,6 +27,9 @@ axios.interceptors.response.use(
     },
     (error) => {
         if (error.response && error.response.status === 401) {
+            if (window.location.pathname.startsWith('/shared/')) {
+                return Promise.reject(error);
+            }
             const toastMessage = i18n.t('loginPage.needLogin');
             const state = {
                 message: 'Session expired, please log in again',

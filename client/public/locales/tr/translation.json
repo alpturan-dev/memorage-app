@@ -178,7 +178,20 @@
     "showingWords": "{{total}} kelimeden {{current}}'si gösteriliyor",
     "wordAdded": "Kelime eklendi",
     "wordEdited": "Kelime güncellendi",
-    "wordDeleted": "Kelime silindi"
+    "wordDeleted": "Kelime silindi",
+    "share": "Koleksiyonu Paylaş",
+    "shareDialogTitle": "Koleksiyonu Paylaş",
+    "shareDialogDescription": "Bu bağlantıya sahip herkes koleksiyondaki kelimeleri görüntüleyebilir.",
+    "copyLink": "Bağlantıyı Kopyala",
+    "linkCopied": "Bağlantı panoya kopyalandı!"
+  },
+  "sharedPage": {
+    "copyToMyCollections": "Koleksiyonlarıma Kopyala",
+    "copying": "Kopyalanıyor...",
+    "copiedSuccess": "Koleksiyon başarıyla kopyalandı!",
+    "loginToCopy": "Kopyalamak için giriş yap",
+    "collectionNotFound": "Bu paylaşılan koleksiyon bulunamadı veya bağlantının süresi dolmuş.",
+    "wordCount": "{{count}} kelime"
   },
   "exercisesPage": {
     "title": "Egzersizler",

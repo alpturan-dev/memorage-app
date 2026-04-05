@@ -20,6 +20,13 @@ const WordCollectionSchema = new Schema({
         type: Object,
         required: true
     },
+    shareToken: {
+        type: String,
+        default: null,
+        unique: true,
+        sparse: true,
+        index: true
+    },
 },
     { timestamps: true }
 );

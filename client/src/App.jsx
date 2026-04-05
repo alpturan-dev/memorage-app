@@ -14,6 +14,7 @@ import { Toaster } from "react-hot-toast"
 import { Suspense } from "react"
 import { Loader } from "lucide-react"
 import PresetCollection from "./pages/collection/components/preset-collection"
+import SharedCollection from "./pages/shared-collection"
 
 const ProviderLayout = () => {
   return (
@@ -41,6 +42,7 @@ const router = createBrowserRouter(
             { path: '/collections', element: <Collections /> },
             { path: '/collection/:id', element: <Collection /> },
             { path: '/preset-collection/:languageCode/:level', element: <PresetCollection /> },
+            { path: '/shared/:token', element: <SharedCollection /> },
             { path: '/exercises', element: <Exercises /> },
             { path: '/exercises/flashcards', element: <Flashcards /> },
             { path: '/exercises/shuffle', element: <Shuffle /> },

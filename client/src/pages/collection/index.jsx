@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ImportWordsComponent from "./components/import-words-component";
+import ShareDialog from "./components/share-dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "react-i18next";
 import {
@@ -440,7 +441,7 @@ const Collection = () => {
                   {t("collectionPage.options")}
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="p-0">
+                <DropdownMenuItem className="p-0" onSelect={(e) => e.preventDefault()}>
                   <div className="w-full">
                     <ImportWordsComponent
                       wordCollectionId={params.id}
@@ -460,6 +461,11 @@ const Collection = () => {
                       <DownloadIcon size="1rem" />
                       {t("collectionPage.exportToExcel")}
                     </Button>
+                  </div>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="p-0" onSelect={(e) => e.preventDefault()}>
+                  <div className="w-full">
+                    <ShareDialog collectionId={params.id} />
                   </div>
                 </DropdownMenuItem>
               </DropdownMenuContent>

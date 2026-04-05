@@ -178,7 +178,20 @@
     "showingWords": "Showing {{current}} of {{total}} words",
     "wordAdded": "Word added",
     "wordEdited": "Word updated",
-    "wordDeleted": "Word deleted"
+    "wordDeleted": "Word deleted",
+    "share": "Share Collection",
+    "shareDialogTitle": "Share Collection",
+    "shareDialogDescription": "Anyone with this link can view the words in this collection.",
+    "copyLink": "Copy Link",
+    "linkCopied": "Link copied to clipboard!"
+  },
+  "sharedPage": {
+    "copyToMyCollections": "Copy to My Collections",
+    "copying": "Copying...",
+    "copiedSuccess": "Collection copied successfully!",
+    "loginToCopy": "Log in to copy",
+    "collectionNotFound": "This shared collection was not found or the link has expired.",
+    "wordCount": "{{count}} words"
   },
   "exercisesPage": {
     "title": "Exercises",
