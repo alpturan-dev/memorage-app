@@ -10,7 +10,7 @@ export const createWord = async (req, res) => {
             return res.status(404).json({ message: 'WordCollection not found or unauthorized' });
         }
 
-        const existsWords = await Word.find({ nativeWord });
+        const existsWords = await Word.find({ nativeWord, wordCollection: wordCollectionId });
 
         if (existsWords.length > 0) {
             return res.status(400).json({ message: 'Word already exists.' });
