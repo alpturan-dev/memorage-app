@@ -26,7 +26,7 @@ import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 import { twJoin } from "tailwind-merge";
 
-const Shuffle = () => {
+const Shuffle = ({ reverse = false }) => {
   const { t } = useTranslation();
   const { state } = useLocation();
   const navigate = useNavigate();
@@ -36,7 +36,12 @@ const Shuffle = () => {
     return null;
   }
 
-  const { selectedCollectionId, preset, languageCode } = state;
+  const { selectedCollectionId, preset, languageCode, nativeLanguageCode } = state;
+  const translationNamespace = reverse ? "reverseShuffleExercise" : "shuffleExercise";
+  const tr = (key, opts) => t(`${translationNamespace}.${key}`, opts);
+  const getPromptWord = (word) => (reverse ? word.targetWord : word.nativeWord);
+  const getAnswerWord = (word) => (reverse ? word.nativeWord : word.targetWord);
+  const promptLanguageCode = reverse ? nativeLanguageCode : languageCode;
   const [words, setWords] = useState([]);
   const [currentWord, setCurrentWord] = useState(null);
   const [options, setOptions] = useState([]);
@@ -96,7 +101,7 @@ const Shuffle = () => {
   const nextWord = (wordsArray, usedWordsOverride) => {
     const used = usedWordsOverride ?? usedWords;
     const remainingWords = wordsArray.filter(
-      (word) => !used.includes(word.targetWord),
+      (word) => !used.includes(getAnswerWord(word)),
     );
 
     if (remainingWords.length === 0) {
@@ -107,17 +112,17 @@ const Shuffle = () => {
     const shuffledWords = shuffleArray(remainingWords);
     const newCurrentWord = shuffledWords[0];
     setCurrentWord(newCurrentWord);
-    setUsedWords((prev) => [...prev, newCurrentWord.targetWord]);
+    setUsedWords((prev) => [...prev, getAnswerWord(newCurrentWord)]);
 
     const incorrectOptions = shuffleArray(
       wordsArray.filter((word) => word !== newCurrentWord),
     )
       .slice(0, 3)
-      .map((word) => word.targetWord);
+      .map((word) => getAnswerWord(word));
 
     const allOptions = shuffleArray([
       ...incorrectOptions,
-      newCurrentWord.targetWord,
+      getAnswerWord(newCurrentWord),
     ]);
     setOptions(allOptions);
     setIsCorrect(null);
@@ -129,7 +134,7 @@ const Shuffle = () => {
     if (isCorrect !== null) return;
     setSelectedOption(option);
 
-    if (option === currentWord.targetWord) {
+    if (option === getAnswerWord(currentWord)) {
       setIsCorrect(true);
       setScore((prev) => prev + 1);
       apiRequest
@@ -188,7 +193,7 @@ const Shuffle = () => {
     if (isCorrect === null) {
       return "bg-card border-2 border-border hover:border-primary/50 hover:shadow-md text-foreground";
     }
-    if (option === currentWord.targetWord) {
+    if (option === getAnswerWord(currentWord)) {
       return "bg-green-50 dark:bg-green-950/40 border-2 border-green-500 text-green-800 dark:text-green-200";
     }
     if (option === selectedOption && isCorrect === false) {
@@ -233,15 +238,15 @@ const Shuffle = () => {
             </div>
 
             <h2 className="text-2xl font-bold mb-2">
-              {t("shuffleExercise.completed")}
+              {tr("completed")}
             </h2>
             <p className="text-muted-foreground text-sm mb-6">
-              {t("shuffleExercise.completedDescription")}
+              {tr("completedDescription")}
             </p>
 
             <div className="bg-muted/50 rounded-2xl p-6 mb-6">
               <span className="text-sm text-muted-foreground font-medium">
-                {t("shuffleExercise.finalScore")}
+                {tr("finalScore")}
               </span>
               <div className="text-5xl font-bold text-primary mt-1">
                 {score}
@@ -258,7 +263,7 @@ const Shuffle = () => {
             <div className="flex flex-col gap-3">
               <Button onClick={resetGame} className="w-full gap-2">
                 <RotateCcw className="h-4 w-4" />
-                {t("shuffleExercise.restart")}
+                {tr("restart")}
               </Button>
               <Button
                 variant="outline"
@@ -266,7 +271,7 @@ const Shuffle = () => {
                 className="w-full gap-2"
               >
                 <ArrowLeft className="h-4 w-4" />
-                {t("shuffleExercise.goBack")}
+                {tr("goBack")}
               </Button>
             </div>
           </div>
@@ -286,12 +291,12 @@ const Shuffle = () => {
               <ArrowLeft className="w-4 h-4" />
             </Button>
             <h1 className="text-lg font-semibold">
-              {t("shuffleExercise.title")}
+              {tr("title")}
             </h1>
           </div>
           <div className="flex items-center gap-2">
             <span className="text-sm font-medium text-muted-foreground">
-              {t("shuffleExercise.questionOf", {
+              {tr("questionOf", {
                 current: currentQuestion,
                 total: totalWords,
               })}
@@ -311,7 +316,7 @@ const Shuffle = () => {
             )}
           >
             <span className="text-muted-foreground">
-              {t("shuffleExercise.score")}:
+              {tr("score")}:
             </span>
             <span
               className={twJoin(
@@ -334,13 +339,13 @@ const Shuffle = () => {
               variant="ghost"
               size="sm"
               className="rounded-full h-10 w-10 p-0 hover:bg-primary/10"
-              onClick={() => playAudio(currentWord.nativeWord, languageCode)}
+              onClick={() => playAudio(getPromptWord(currentWord), promptLanguageCode)}
             >
               <Volume2 className="h-5 w-5" />
               <span className="sr-only">{t("common.playAudio")}</span>
             </Button>
             <span className="text-3xl font-bold tracking-tight font-serif">
-              {currentWord.nativeWord}
+              {getPromptWord(currentWord)}
             </span>
           </div>
         </div>
@@ -364,7 +369,7 @@ const Shuffle = () => {
               )}
             >
               <span className="flex items-center justify-center gap-2">
-                {isCorrect !== null && option === currentWord.targetWord && (
+                {isCorrect !== null && option === getAnswerWord(currentWord) && (
                   <CheckCircle2 className="h-5 w-5 text-green-600 dark:text-green-400 shrink-0" />
                 )}
                 {isCorrect === false && option === selectedOption && (
@@ -381,7 +386,7 @@ const Shuffle = () => {
           <div className="mt-5 text-center animate-fade-in-up">
             <span className="inline-flex items-center gap-2 text-green-600 dark:text-green-400 font-semibold text-sm">
               <CheckCircle2 className="h-4 w-4" />
-              {t("shuffleExercise.correct")}
+              {tr("correct")}
             </span>
           </div>
         )}
@@ -390,8 +395,8 @@ const Shuffle = () => {
           <div className="mt-5 text-center animate-fade-in-up">
             <p className="inline-flex items-center gap-2 text-red-600 dark:text-red-400 font-semibold text-sm mb-4">
               <XCircle className="h-4 w-4" />
-              {t("shuffleExercise.incorrect")}{" "}
-              <span className="font-bold font-serif">{currentWord.targetWord}</span>
+              {tr("incorrect")}{" "}
+              <span className="font-bold font-serif">{getAnswerWord(currentWord)}</span>
             </p>
             <div className="flex justify-center gap-3">
               <Button
@@ -401,7 +406,7 @@ const Shuffle = () => {
                 className="gap-2"
               >
                 <RefreshCcw className="h-4 w-4" />
-                {t("shuffleExercise.nextWord")}
+                {tr("nextWord")}
               </Button>
             </div>
           </div>
@@ -412,9 +417,9 @@ const Shuffle = () => {
       <Dialog open={showExitDialog} onOpenChange={setShowExitDialog}>
         <DialogContent className="sm:max-w-sm" aria-describedby="exit-desc">
           <DialogHeader className="text-center sm:text-center">
-            <DialogTitle>{t("shuffleExercise.exitTitle")}</DialogTitle>
+            <DialogTitle>{tr("exitTitle")}</DialogTitle>
             <DialogDescription id="exit-desc">
-              {t("shuffleExercise.exitDescription")}
+              {tr("exitDescription")}
             </DialogDescription>
           </DialogHeader>
 
@@ -428,7 +433,7 @@ const Shuffle = () => {
                 </span>
               </div>
               <span className="text-xs text-muted-foreground">
-                {t("shuffleExercise.wordsCompleted")}
+                {tr("wordsCompleted")}
               </span>
             </div>
             <div className="bg-muted/50 rounded-xl p-4 text-center">
@@ -440,7 +445,7 @@ const Shuffle = () => {
                 </span>
               </div>
               <span className="text-xs text-muted-foreground">
-                {t("shuffleExercise.correctAnswers")}
+                {tr("correctAnswers")}
               </span>
             </div>
           </div>
@@ -451,7 +456,7 @@ const Shuffle = () => {
               className="flex-1 gap-2"
               onClick={() => setShowExitDialog(false)}
             >
-              {t("shuffleExercise.exitContinue")}
+              {tr("exitContinue")}
             </Button>
             <Button
               variant="destructive"
@@ -462,7 +467,7 @@ const Shuffle = () => {
               }}
             >
               <LogOut className="h-4 w-4" />
-              {t("shuffleExercise.exitEnd")}
+              {tr("exitEnd")}
             </Button>
           </DialogFooter>
         </DialogContent>

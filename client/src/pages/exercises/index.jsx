@@ -126,6 +126,7 @@ const Exercises = () => {
                           state: {
                             selectedCollectionId,
                             languageCode: collection.targetLanguage.code,
+                            nativeLanguageCode: collection.nativeLanguage?.code,
                           },
                         });
                       }

@@ -46,6 +46,7 @@ const router = createBrowserRouter(
             { path: '/exercises', element: <Exercises /> },
             { path: '/exercises/flashcards', element: <Flashcards /> },
             { path: '/exercises/shuffle', element: <Shuffle /> },
+            { path: '/exercises/reverse-shuffle', element: <Shuffle reverse /> },
           ]
         },
       ]

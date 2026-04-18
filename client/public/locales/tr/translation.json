@@ -209,6 +209,28 @@
     "start": "Başla",
     "notEnoughWords": "Egzersiz yapmak için en az 4 kelime eklemen gerekli."
   },
+  "reverseShuffleExercise": {
+    "name": "Ters Karıştırma",
+    "description": "Hedef dildeki kelimeyi gör ve kendi dilindeki doğru çeviriyi seç.",
+    "title": "Ters Karıştırma Egzersizi",
+    "score": "Puan",
+    "incorrect": "Yanlış! Doğru cevap:",
+    "correct": "Doğru!",
+    "tryAgain": "Tekrar Dene",
+    "nextWord": "Sonraki",
+    "questionOf": "{{current}} / {{total}}",
+    "completed": "Egzersiz Tamamlandı!",
+    "completedDescription": "Bu koleksiyondaki tüm kelimeleri bitirdin.",
+    "finalScore": "Puanın",
+    "restart": "Tekrar Oyna",
+    "goBack": "Koleksiyona Dön",
+    "exitTitle": "Egzersizi Bitir?",
+    "exitDescription": "Henüz kelimelerin kaldı. İşte şu anki durumun:",
+    "exitContinue": "Devam Et",
+    "exitEnd": "Egzersizi Bitir",
+    "wordsCompleted": "Tamamlanan Kelimeler",
+    "correctAnswers": "Doğru Cevaplar"
+  },
   "shuffleExercise": {
     "name": "Karıştırma",
     "description": "Kartları karıştırın ve çeviri kelimeyi bulun.",

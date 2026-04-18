@@ -13,6 +13,11 @@ export const useExercises = () => {
                 description: t('shuffleExercise.description')
             },
             {
+                path: "reverse-shuffle",
+                name: t('reverseShuffleExercise.name'),
+                description: t('reverseShuffleExercise.description')
+            },
+            {
                 path: "flashcards",
                 name: t('flashcardsExercise.name'),
                 description: t('flashcardsExercise.description')
