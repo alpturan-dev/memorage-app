@@ -1,5 +1,13 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Sparkles, Layers, Zap, Globe2, BookOpen, Brain } from "lucide-react";
+import {
+  ArrowRight,
+  Sparkles,
+  Layers,
+  Zap,
+  Globe2,
+  BookOpen,
+  Brain,
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { scrollToTop } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -15,7 +23,7 @@ const VisitorDashboard = () => {
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2" />
         <div className="absolute top-1/2 right-0 w-80 h-80 bg-accent/10 rounded-full blur-3xl translate-x-1/2" />
 
-        <div className="relative max-w-6xl mx-auto">
+        <div className="relative max-w-7xl mx-auto">
           <div className="max-w-3xl">
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-6">
@@ -28,27 +36,43 @@ const VisitorDashboard = () => {
             {/* Main heading */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground tracking-tight mb-6 leading-[1.1]">
               {t("dashboardPage.heroTitle")}
-              <span className="text-primary"> {t("dashboardPage.heroTitleAccent")}</span>
+              <span className="text-primary">
+                {" "}
+                {t("dashboardPage.heroTitleAccent")}
+              </span>
             </h1>
 
             {/* Taglines */}
             <div className="space-y-1 mb-8">
               <p className="text-xl sm:text-2xl text-muted-foreground">
                 {t("dashboardPage.tagline1")}{" "}
-                <span className="text-foreground font-medium">{t("dashboardPage.tagline2")}</span>{" "}
-                <span className="text-primary font-medium">{t("dashboardPage.tagline3")}</span>
+                <span className="text-foreground font-medium">
+                  {t("dashboardPage.tagline2")}
+                </span>{" "}
+                <span className="text-primary font-medium">
+                  {t("dashboardPage.tagline3")}
+                </span>
               </p>
             </div>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 mb-12">
-              <Button asChild size="lg" className="text-base px-6 h-12 rounded-xl">
+              <Button
+                asChild
+                size="lg"
+                className="text-base px-6 h-12 rounded-xl"
+              >
                 <Link to="/signup" onClick={scrollToTop}>
                   {t("dashboardPage.getStarted")}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="text-base px-6 h-12 rounded-xl">
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="text-base px-6 h-12 rounded-xl"
+              >
                 <Link to="/login" onClick={scrollToTop}>
                   {t("dashboardPage.alreadyHaveAccount")}
                 </Link>
@@ -75,7 +99,7 @@ const VisitorDashboard = () => {
 
       {/* Features Section - Bento Grid */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
               {t("dashboardPage.featuresTitle")}
@@ -170,7 +194,11 @@ const VisitorDashboard = () => {
               <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
                 {t("dashboardPage.callToActionDescription")}
               </p>
-              <Button asChild size="lg" className="text-base px-8 h-12 rounded-xl">
+              <Button
+                asChild
+                size="lg"
+                className="text-base px-8 h-12 rounded-xl"
+              >
                 <Link to="/signup" onClick={scrollToTop}>
                   {t("dashboardPage.startLearning")}
                   <ArrowRight className="ml-2 h-4 w-4" />

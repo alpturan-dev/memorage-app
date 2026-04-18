@@ -493,7 +493,7 @@ const Collection = () => {
                     >
                       <div className="flex justify-between items-start mb-2">
                         <div className="flex items-center gap-2">
-                          <div className="font-medium">
+                          <div className="font-medium font-serif text-lg">
                             {formAction === "edit" &&
                             editWord.id === item._id ? (
                               <input
@@ -504,7 +504,7 @@ const Collection = () => {
                                     nativeWord: e.target.value,
                                   })
                                 }
-                                className="outline rounded-sm animate-pulse"
+                                className="outline rounded-sm animate-pulse font-serif"
                               />
                             ) : (
                               <span>{item.nativeWord}</span>
@@ -588,7 +588,7 @@ const Collection = () => {
                           )}
                         </div>
                       </div>
-                      <div className="opacity-70 text-sm font-light">
+                      <div className="opacity-70 text-sm font-light font-serif">
                         {formAction === "edit" && editWord.id === item._id ? (
                           <input
                             value={editWord.targetWord}
@@ -598,7 +598,7 @@ const Collection = () => {
                                 targetWord: e.target.value,
                               })
                             }
-                            className="outline rounded-sm animate-pulse"
+                            className="outline rounded-sm animate-pulse font-serif"
                           />
                         ) : (
                           <span>{item.targetWord}</span>

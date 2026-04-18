@@ -48,7 +48,7 @@ const UserDashboard = () => {
       const response = await apiRequest.post(
         "/api/tts/synthesize",
         { text, languageCode },
-        { responseType: "blob" }
+        { responseType: "blob" },
       );
       const audioUrl = URL.createObjectURL(response.data);
       const audio = new Audio(audioUrl);
@@ -70,7 +70,7 @@ const UserDashboard = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-background">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Skeleton className="h-8 w-48 mb-2" />
           <Skeleton className="h-12 w-72 mb-8" />
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
@@ -92,7 +92,7 @@ const UserDashboard = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0 py-8">
         {/* Header with greeting */}
         <div className="mb-8">
           <p className="text-muted-foreground text-sm font-medium mb-1">
@@ -239,7 +239,7 @@ const UserDashboard = () => {
                         onClick={() =>
                           playAudio(
                             stats.wordOfTheDay.nativeWord,
-                            stats.wordOfTheDay.nativeWord?.code
+                            stats.wordOfTheDay.nativeWord?.code,
                           )
                         }
                         disabled={isPlaying}
@@ -337,7 +337,10 @@ const UserDashboard = () => {
                   <h3 className="text-sm font-semibold text-foreground mb-4">
                     {t("dashboardPage.thisWeek")}
                   </h3>
-                  <div className="flex items-end justify-between gap-1" style={{ height: "80px" }}>
+                  <div
+                    className="flex items-end justify-between gap-1"
+                    style={{ height: "80px" }}
+                  >
                     {stats.activityChart.map((day, index) => {
                       const isToday = index === stats.activityChart.length - 1;
                       const hasActivity = day.count > 0;
@@ -357,8 +360,8 @@ const UserDashboard = () => {
                               isToday
                                 ? "bg-primary"
                                 : hasActivity
-                                ? "bg-secondary"
-                                : "bg-secondary/30"
+                                  ? "bg-secondary"
+                                  : "bg-secondary/30"
                             }`}
                             style={{ height: `${barHeight}px` }}
                           />

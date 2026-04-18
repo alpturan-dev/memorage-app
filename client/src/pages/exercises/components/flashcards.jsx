@@ -66,7 +66,7 @@ const Flashcards = () => {
           <span>Flashcards Exercise</span>
         </div>
         <div
-          className="mx-auto py-8 w-full h-40 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:text-white flex items-center justify-center perspective-1000 cursor-pointer transform-style-preserve-3d transition-transform duration-600 ease-in-out hover:shadow-lg"
+          className="mx-auto py-8 w-full h-40 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:text-white flex items-center justify-center perspective-1000 cursor-pointer transform-style-preserve-3d transition-transform duration-600 ease-in-out hover:shadow-lg font-serif text-3xl"
           onClick={flipCard}
         >
           {isFlipped ? currentWord.targetWord : currentWord.nativeWord}

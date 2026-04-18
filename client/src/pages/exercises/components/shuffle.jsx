@@ -339,7 +339,7 @@ const Shuffle = () => {
               <Volume2 className="h-5 w-5" />
               <span className="sr-only">{t("common.playAudio")}</span>
             </Button>
-            <span className="text-3xl font-bold tracking-tight">
+            <span className="text-3xl font-bold tracking-tight font-serif">
               {currentWord.nativeWord}
             </span>
           </div>
@@ -370,7 +370,7 @@ const Shuffle = () => {
                 {isCorrect === false && option === selectedOption && (
                   <XCircle className="h-5 w-5 text-red-500 dark:text-red-400 shrink-0" />
                 )}
-                <span className="break-words text-center">{option}</span>
+                <span className="break-words text-center font-serif text-lg">{option}</span>
               </span>
             </button>
           ))}
@@ -391,7 +391,7 @@ const Shuffle = () => {
             <p className="inline-flex items-center gap-2 text-red-600 dark:text-red-400 font-semibold text-sm mb-4">
               <XCircle className="h-4 w-4" />
               {t("shuffleExercise.incorrect")}{" "}
-              <span className="font-bold">{currentWord.targetWord}</span>
+              <span className="font-bold font-serif">{currentWord.targetWord}</span>
             </p>
             <div className="flex justify-center gap-3">
               <Button
