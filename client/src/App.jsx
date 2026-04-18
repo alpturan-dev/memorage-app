@@ -10,6 +10,7 @@ import Collection from "./pages/collection"
 import Exercises from "./pages/exercises"
 import Flashcards from "./pages/exercises/components/flashcards"
 import Shuffle from "./pages/exercises/components/shuffle"
+import WordMatch from "./pages/exercises/components/word-match"
 import { Toaster } from "react-hot-toast"
 import { Suspense } from "react"
 import { Loader } from "lucide-react"
@@ -47,6 +48,7 @@ const router = createBrowserRouter(
             { path: '/exercises/flashcards', element: <Flashcards /> },
             { path: '/exercises/shuffle', element: <Shuffle /> },
             { path: '/exercises/reverse-shuffle', element: <Shuffle reverse /> },
+            { path: '/exercises/word-match', element: <WordMatch /> },
           ]
         },
       ]

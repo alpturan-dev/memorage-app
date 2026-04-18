@@ -257,6 +257,25 @@
     "name": "Fill in the Blanks",
     "description": "Read the sentences and fill in the missing words."
   },
+  "wordMatchExercise": {
+    "name": "Word Match",
+    "description": "Match pairs of words between languages as fast as you can.",
+    "title": "Word Match Exercise",
+    "score": "Matches",
+    "instruction": "Tap a word, then tap its match on the other side.",
+    "progressOf": "{{current}} / {{total}}",
+    "completed": "Exercise Complete!",
+    "completedDescription": "You matched every pair in this collection.",
+    "accuracy": "Accuracy",
+    "matchesOf": "{{score}} matched of {{attempts}} tries",
+    "restart": "Play Again",
+    "goBack": "Back to Exercises",
+    "exitTitle": "End Exercise?",
+    "exitDescription": "You still have pairs left to match.",
+    "exitContinue": "Continue",
+    "exitEnd": "End Exercise",
+    "wordsMatched": "Words Matched"
+  },
   "flashcardsExercise": {
     "name": "Flashcards",
     "description": "Flip cards and practice translations at your own pace.",

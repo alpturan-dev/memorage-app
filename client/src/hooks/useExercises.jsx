@@ -21,6 +21,11 @@ export const useExercises = () => {
                 path: "flashcards",
                 name: t('flashcardsExercise.name'),
                 description: t('flashcardsExercise.description')
+            },
+            {
+                path: "word-match",
+                name: t('wordMatchExercise.name'),
+                description: t('wordMatchExercise.description')
             }
         ];
         setExercises(updatedExercises);

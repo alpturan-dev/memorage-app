@@ -257,6 +257,25 @@
     "name": "Boşlukları Doldur",
     "description": "Cümleleri oku ve kayıp kelimeleri doldur."
   },
+  "wordMatchExercise": {
+    "name": "Kelime Eşleştir",
+    "description": "Diller arasında kelime çiftlerini olabildiğince hızlı eşleştir.",
+    "title": "Kelime Eşleştirme Egzersizi",
+    "score": "Eşleşme",
+    "instruction": "Bir kelimeye dokun, ardından diğer taraftaki karşılığına dokun.",
+    "progressOf": "{{current}} / {{total}}",
+    "completed": "Egzersiz Tamamlandı!",
+    "completedDescription": "Bu koleksiyondaki tüm çiftleri eşleştirdin.",
+    "accuracy": "Doğruluk",
+    "matchesOf": "{{attempts}} denemeden {{score}} doğru",
+    "restart": "Tekrar Oyna",
+    "goBack": "Egzersizlere Dön",
+    "exitTitle": "Egzersizi Bitir?",
+    "exitDescription": "Henüz eşleşmemiş çiftlerin var.",
+    "exitContinue": "Devam Et",
+    "exitEnd": "Egzersizi Bitir",
+    "wordsMatched": "Eşleşen Kelimeler"
+  },
   "flashcardsExercise": {
     "name": "Kelime Kartları",
     "description": "Kartları çevirerek kendi hızında çevirileri pratik yap.",
