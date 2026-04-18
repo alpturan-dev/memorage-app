@@ -186,6 +186,7 @@
     "wordAdded": "Kelime eklendi",
     "wordEdited": "Kelime güncellendi",
     "wordDeleted": "Kelime silindi",
+    "confirmDelete": "Emin misin?",
     "share": "Koleksiyonu Paylaş",
     "shareDialogTitle": "Koleksiyonu Paylaş",
     "shareDialogDescription": "Bu bağlantıya sahip herkes koleksiyondaki kelimeleri görüntüleyebilir.",

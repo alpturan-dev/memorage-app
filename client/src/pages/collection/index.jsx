@@ -55,6 +55,8 @@ const Collection = () => {
   const [statusMessage, setStatusMessage] = useState(null); // { type: 'added' | 'edited' | 'deleted', cardId?: string }
   const statusTimer = useRef(null);
   const [deletingId, setDeletingId] = useState(null);
+  const [confirmingDeleteId, setConfirmingDeleteId] = useState(null);
+  const confirmDeleteTimer = useRef(null);
   const [pagination, setPagination] = useState({
     totalCount: 0,
     offset: 0,
@@ -151,6 +153,20 @@ const Collection = () => {
       setLoading(false);
       setShowDropdown(false);
     }
+  };
+
+  const requestDeleteWord = (id) => {
+    if (confirmingDeleteId === id) {
+      if (confirmDeleteTimer.current) clearTimeout(confirmDeleteTimer.current);
+      setConfirmingDeleteId(null);
+      handleDeleteWord(id);
+      return;
+    }
+    if (confirmDeleteTimer.current) clearTimeout(confirmDeleteTimer.current);
+    setConfirmingDeleteId(id);
+    confirmDeleteTimer.current = setTimeout(() => {
+      setConfirmingDeleteId(null);
+    }, 3000);
   };
 
   const handleDeleteWord = async (id) => {
@@ -547,7 +563,10 @@ const Collection = () => {
                           <Button
                             variant="ghost"
                             size="sm"
-                            className="h-6 w-6 p-0 hover:animate-pulse"
+                            className={twJoin(
+                              "h-6 w-6 p-0 hover:animate-pulse",
+                              confirmingDeleteId === item._id && "hidden",
+                            )}
                             onClick={(e) => {
                               if (
                                 formAction === "edit" &&
@@ -586,14 +605,33 @@ const Collection = () => {
                             <Button
                               variant="link"
                               size="sm"
-                              className="h-6 w-6 p-0 text-red-600 hover:animate-shake"
+                              className={twJoin(
+                                "h-6 p-0 text-red-600 transition-all",
+                                confirmingDeleteId === item._id
+                                  ? "w-auto px-2 bg-red-600 text-white rounded-md animate-pulse"
+                                  : "w-6",
+                              )}
                               onClick={() => {
-                                handleDeleteWord(item._id);
+                                requestDeleteWord(item._id);
                               }}
+                              title={
+                                confirmingDeleteId === item._id
+                                  ? t("collectionPage.confirmDelete")
+                                  : t("common.delete")
+                              }
                             >
-                              <TrashIcon className="h-3 w-3" />
+                              {confirmingDeleteId === item._id ? (
+                                <span className="text-[10px] font-semibold flex items-center gap-1">
+                                  <TrashIcon className="h-3 w-3" />
+                                  {t("collectionPage.confirmDelete")}
+                                </span>
+                              ) : (
+                                <TrashIcon className="h-3 w-3" />
+                              )}
                               <span className="sr-only">
-                                {t("common.delete")}
+                                {confirmingDeleteId === item._id
+                                  ? t("collectionPage.confirmDelete")
+                                  : t("common.delete")}
                               </span>
                             </Button>
                           )}

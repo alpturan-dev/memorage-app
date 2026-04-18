@@ -186,6 +186,7 @@
     "wordAdded": "Word added",
     "wordEdited": "Word updated",
     "wordDeleted": "Word deleted",
+    "confirmDelete": "Sure?",
     "share": "Share Collection",
     "shareDialogTitle": "Share Collection",
     "shareDialogDescription": "Anyone with this link can view the words in this collection.",
