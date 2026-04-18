@@ -11,6 +11,11 @@ export const useExercises = () => {
                 path: "shuffle",
                 name: t('shuffleExercise.name'),
                 description: t('shuffleExercise.description')
+            },
+            {
+                path: "flashcards",
+                name: t('flashcardsExercise.name'),
+                description: t('flashcardsExercise.description')
             }
         ];
         setExercises(updatedExercises);

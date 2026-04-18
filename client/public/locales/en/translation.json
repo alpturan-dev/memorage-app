@@ -234,5 +234,26 @@
   "fillInTheBlanksExercise": {
     "name": "Fill in the Blanks",
     "description": "Read the sentences and fill in the missing words."
+  },
+  "flashcardsExercise": {
+    "name": "Flashcards",
+    "description": "Flip cards and practice translations at your own pace.",
+    "title": "Flashcards Exercise",
+    "cardOf": "Card {{current}} of {{total}}",
+    "flipHint": "Tap the card to flip",
+    "previous": "Previous",
+    "next": "Next",
+    "flip": "Flip",
+    "shuffle": "Shuffle",
+    "reset": "Reset",
+    "completed": "Deck Complete!",
+    "completedDescription": "You've gone through every card in this collection.",
+    "cardsReviewed": "Cards Reviewed",
+    "restart": "Start Again",
+    "goBack": "Back to Exercises",
+    "exitTitle": "End Practice?",
+    "exitDescription": "You still have cards left to review.",
+    "exitContinue": "Continue",
+    "exitEnd": "End Practice"
   }
 }

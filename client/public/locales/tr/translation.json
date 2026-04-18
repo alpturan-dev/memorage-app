@@ -234,5 +234,26 @@
   "fillInTheBlanksExercise": {
     "name": "Boşlukları Doldur",
     "description": "Cümleleri oku ve kayıp kelimeleri doldur."
+  },
+  "flashcardsExercise": {
+    "name": "Kelime Kartları",
+    "description": "Kartları çevirerek kendi hızında çevirileri pratik yap.",
+    "title": "Kelime Kartları Egzersizi",
+    "cardOf": "Kart {{current}} / {{total}}",
+    "flipHint": "Çevirmek için karta dokun",
+    "previous": "Önceki",
+    "next": "Sonraki",
+    "flip": "Çevir",
+    "shuffle": "Karıştır",
+    "reset": "Sıfırla",
+    "completed": "Deste Tamamlandı!",
+    "completedDescription": "Bu koleksiyondaki tüm kartları gözden geçirdin.",
+    "cardsReviewed": "Gözden Geçirilen Kartlar",
+    "restart": "Yeniden Başla",
+    "goBack": "Egzersizlere Dön",
+    "exitTitle": "Pratiği Bitir?",
+    "exitDescription": "Henüz gözden geçirilecek kartların var.",
+    "exitContinue": "Devam Et",
+    "exitEnd": "Pratiği Bitir"
   }
 }
