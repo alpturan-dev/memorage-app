@@ -10,7 +10,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { apiRequest } from "@/api/config";
 import { useTranslation } from "react-i18next";
-import { ImageUp } from "lucide-react";
+import { AlertCircle, Check, ImageUp } from "lucide-react";
+import toast from "react-hot-toast";
 
 const ImportWordsComponent = ({
   wordCollectionId,
@@ -22,17 +23,26 @@ const ImportWordsComponent = ({
   const [loadingText, setLoadingText] = useState("");
   const [open, setOpen] = useState(false);
   const [images, setImages] = useState([]);
+  const [result, setResult] = useState(null);
 
   const handleImageChange = (e) => {
     if (e.target.files) {
       setImages(Array.from(e.target.files));
+      setResult(null);
     }
+  };
+
+  const resetDialogState = () => {
+    setImages([]);
+    setLoadingText("");
+    setResult(null);
   };
 
   const handleSubmit = async (e) => {
     e.stopPropagation();
-    setLoading(true);
     if (images.length === 0) return;
+    setLoading(true);
+    setResult(null);
 
     const formData = new FormData();
     images.forEach((image, index) => {
@@ -46,27 +56,62 @@ const ImportWordsComponent = ({
       setLoadingText(t("collectionPage.processingImages"));
       const aiRes = await apiRequest.post(
         `/api/ai/importWordsFromImages`,
-        formData
+        formData,
       );
       if (aiRes.status === 200) {
         setLoadingText(t("collectionPage.findingWords"));
-        const words = aiRes.data;
-        words.map(async (word) => {
-          const res = await apiRequest.post("/api/words", {
-            ...word,
-            wordCollectionId,
-          });
-          if (res.status === 201) {
-            console.log("yeni kelime eklendi.");
+        const words = aiRes.data || [];
+
+        // Dedupe within the extracted batch itself (case-insensitive on nativeWord)
+        const seen = new Set();
+        const uniqueWords = [];
+        let batchDuplicates = 0;
+        for (const word of words) {
+          const key = String(word?.nativeWord || "").trim().toLowerCase();
+          if (!key) continue;
+          if (seen.has(key)) {
+            batchDuplicates += 1;
+            continue;
           }
-        });
-        await getAllWordsByCollection();
-        setOpen(false);
+          seen.add(key);
+          uniqueWords.push(word);
+        }
+
+        const outcomes = await Promise.all(
+          uniqueWords.map((word) =>
+            apiRequest
+              .post("/api/words", { ...word, wordCollectionId })
+              .then(() => "added")
+              .catch((err) => {
+                if (err?.response?.status === 400) return "duplicate";
+                return "failed";
+              }),
+          ),
+        );
+
+        const added = outcomes.filter((o) => o === "added").length;
+        const duplicates =
+          outcomes.filter((o) => o === "duplicate").length + batchDuplicates;
+        const failed = outcomes.filter((o) => o === "failed").length;
+
+        setResult({ added, duplicates, failed, total: words.length });
+
+        if (added > 0) {
+          toast.success(t("collectionPage.importAddedToast", { count: added }));
+          await getAllWordsByCollection();
+        } else if (duplicates > 0 && failed === 0) {
+          toast.error(t("collectionPage.importAllDuplicatesToast"));
+        } else if (failed > 0) {
+          toast.error(t("collectionPage.importFailedToast"));
+        }
       }
     } catch (error) {
       console.error(error);
+      toast.error(t("collectionPage.importFailedToast"));
+      setResult({ added: 0, duplicates: 0, failed: images.length, total: 0 });
     } finally {
       setLoading(false);
+      setLoadingText("");
       setImages([]);
     }
   };
@@ -76,8 +121,7 @@ const ImportWordsComponent = ({
       open={open}
       onOpenChange={(val) => {
         setOpen(val);
-        setImages([]);
-        setLoadingText("");
+        resetDialogState();
       }}
     >
       <DialogTrigger asChild>
@@ -110,6 +154,28 @@ const ImportWordsComponent = ({
               {images.length} {t("collectionPage.imagesSelected")}
             </div>
           )}
+          {result && (
+            <div className="grid gap-1 rounded-md border p-3 text-sm">
+              <div className="flex items-center gap-2 text-green-600 dark:text-green-400">
+                <Check className="h-4 w-4" />
+                {t("collectionPage.importAdded", { count: result.added })}
+              </div>
+              {result.duplicates > 0 && (
+                <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400">
+                  <AlertCircle className="h-4 w-4" />
+                  {t("collectionPage.importDuplicates", {
+                    count: result.duplicates,
+                  })}
+                </div>
+              )}
+              {result.failed > 0 && (
+                <div className="flex items-center gap-2 text-red-600 dark:text-red-400">
+                  <AlertCircle className="h-4 w-4" />
+                  {t("collectionPage.importFailed", { count: result.failed })}
+                </div>
+              )}
+            </div>
+          )}
           <Button
             className="col-span-3 float-right"
             onClick={handleSubmit}
@@ -117,6 +183,15 @@ const ImportWordsComponent = ({
           >
             {loading ? loadingText : t("collectionPage.extractWords")}
           </Button>
+          {result && !loading && (
+            <Button
+              variant="outline"
+              className="col-span-3"
+              onClick={() => setOpen(false)}
+            >
+              {t("common.cancel")}
+            </Button>
+          )}
         </div>
       </DialogContent>
     </Dialog>

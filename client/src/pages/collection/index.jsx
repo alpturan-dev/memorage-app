@@ -182,17 +182,28 @@ const Collection = () => {
     getAllWordsByCollection(newOffset, true);
   };
 
-  const exportToExcel = (words) => {
-    const worksheet = XLSX.utils.json_to_sheet(
-      words.map((item) => ({
-        Kelime: item.nativeWord,
-        Çeviri: item.targetWord,
-      })),
-    );
+  const exportToExcel = async () => {
+    try {
+      const response = await apiRequest.get(
+        `/api/words/wordCollection/${params.id}`,
+        { params: { limit: pagination.totalCount || 100000, offset: 0 } },
+      );
+      const allWords = response.data?.words || [];
 
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Kelimeler");
-    XLSX.writeFile(workbook, "kelime-listesi.xlsx");
+      const worksheet = XLSX.utils.json_to_sheet(
+        allWords.map((item) => ({
+          Kelime: item.nativeWord,
+          Çeviri: item.targetWord,
+        })),
+      );
+
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Kelimeler");
+      XLSX.writeFile(workbook, "kelime-listesi.xlsx");
+    } catch (error) {
+      console.error(error);
+      toast.error(t("common.error"));
+    }
   };
 
   function debounce(func, delay) {
@@ -456,7 +467,7 @@ const Collection = () => {
                       variant="ghost"
                       size="sm"
                       className="text-xs w-full md:w-auto flex justify-start"
-                      onClick={() => exportToExcel(words)}
+                      onClick={() => exportToExcel()}
                     >
                       <DownloadIcon size="1rem" />
                       {t("collectionPage.exportToExcel")}
