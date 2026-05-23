@@ -69,7 +69,7 @@ const UserDashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Skeleton className="h-8 w-48 mb-2" />
           <Skeleton className="h-12 w-72 mb-8" />
@@ -91,7 +91,7 @@ const UserDashboard = () => {
   const streakActive = stats?.streak?.current > 0;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0 py-8">
         {/* Header with greeting */}
         <div className="mb-8">

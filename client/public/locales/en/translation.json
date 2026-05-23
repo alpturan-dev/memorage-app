@@ -22,7 +22,12 @@
     "exercises": "Exercises",
     "myAccount": "My Account",
     "profile": "Profile",
-    "logout": "Logout"
+    "logout": "Logout",
+    "theme": "Theme",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "themeSystem": "System",
+    "toggleTheme": "Toggle theme"
   },
   "loginPage": {
     "title": "Sign in to your account",

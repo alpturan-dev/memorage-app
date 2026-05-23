@@ -168,7 +168,7 @@ const Flashcards = () => {
   // Loading state
   if (words.length === 0 && !isCompleted) {
     return (
-      <main className="bg-background text-foreground py-4">
+      <main className="text-foreground py-4">
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center gap-3 mb-6">
             <Skeleton className="h-9 w-9 rounded-md" />
@@ -188,7 +188,7 @@ const Flashcards = () => {
   // Completion screen
   if (isCompleted) {
     return (
-      <main className="bg-background text-foreground py-4">
+      <main className="text-foreground py-4">
         <div className="max-w-md mx-auto text-center animate-fade-in-up">
           <div className="bg-card rounded-3xl p-8 shadow-md border border-border">
             <div className="flex justify-center mb-4">
@@ -240,7 +240,7 @@ const Flashcards = () => {
   const currentWord = words[currentIndex];
 
   return (
-    <main className="bg-background text-foreground py-4 animate-fade-in-up">
+    <main className="text-foreground py-4 animate-fade-in-up">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">

@@ -323,7 +323,7 @@ const Collection = () => {
   }, []);
 
   return (
-    <div className="bg-background text-foreground py-4">
+    <div className="text-foreground py-4">
       <div className="grid gap-4">
         <div className="flex items-center justify-between">
           {loading ? (
@@ -468,7 +468,10 @@ const Collection = () => {
                   {t("collectionPage.options")}
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="p-0" onSelect={(e) => e.preventDefault()}>
+                <DropdownMenuItem
+                  className="p-0"
+                  onSelect={(e) => e.preventDefault()}
+                >
                   <div className="w-full">
                     <ImportWordsComponent
                       wordCollectionId={params.id}
@@ -490,7 +493,10 @@ const Collection = () => {
                     </Button>
                   </div>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="p-0" onSelect={(e) => e.preventDefault()}>
+                <DropdownMenuItem
+                  className="p-0"
+                  onSelect={(e) => e.preventDefault()}
+                >
                   <div className="w-full">
                     <ShareDialog collectionId={params.id} />
                   </div>
@@ -514,7 +520,7 @@ const Collection = () => {
                     <Card
                       key={item._id}
                       className={twJoin(
-                        "p-3 rounded-2xl transition-all",
+                        "p-3 rounded-xl transition-all border-gray-200 dark:border-gray-500",
                         deletingId === item._id && "animate-slide-out-right",
                       )}
                     >

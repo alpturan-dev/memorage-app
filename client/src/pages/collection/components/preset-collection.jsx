@@ -51,7 +51,7 @@ const PresetCollection = () => {
     }, []);
 
     return (
-        <div className="bg-background text-foreground py-4">
+        <div className="text-foreground py-4">
             <div className="grid gap-4">
                 <div className="flex items-center justify-between">
                     {loading ? (
@@ -88,7 +88,7 @@ const PresetCollection = () => {
                         : (
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {words.map((item, index) => (
-                                    <div key={index} className="grid grid-cols-[1fr_auto] items-center gap-2 p-3 rounded-md bg-gray-100">
+                                    <div key={index} className="grid grid-cols-[1fr_auto] items-center gap-2 p-3 rounded-md bg-muted">
                                         <div className="flex flex-col gap-2">
                                             <div className="flex items-center gap-2">
                                                 <div className="font-medium">{item.nativeWord}</div>

@@ -16,7 +16,7 @@ const VisitorDashboard = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="min-h-screen bg-background overflow-hidden">
+    <div className="min-h-screen overflow-hidden">
       {/* Hero Section */}
       <section className="relative pt-12 sm:pt-20 pb-16 px-4 sm:px-6 lg:px-8">
         {/* Background decorations */}

@@ -20,6 +20,19 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Memorage" />
   <title>Memorage</title>
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("theme");
+        var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var resolved = stored === "dark" || stored === "light"
+          ? stored
+          : (prefersDark ? "dark" : "light");
+        if (resolved === "dark") document.documentElement.classList.add("dark");
+        document.documentElement.style.colorScheme = resolved;
+      } catch (e) {}
+    })();
+  </script>
 </head>
 
 <body>

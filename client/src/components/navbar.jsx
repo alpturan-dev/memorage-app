@@ -15,6 +15,7 @@ import { useState } from "react";
 import logo from "../../public/logo1.png";
 import toast from "react-hot-toast";
 import { twJoin } from "tailwind-merge";
+import ThemeToggle from "./theme-toggle";
 
 function Navbar() {
   const { t } = useTranslation();
@@ -140,6 +141,9 @@ function Navbar() {
 
           {/* Right side */}
           <div className="flex items-center gap-2">
+            <div className="hidden lg:block">
+              <ThemeToggle />
+            </div>
             {username ? (
               <div className="hidden lg:block">
                 <AccountDropdown />
@@ -208,6 +212,10 @@ function Navbar() {
                       </span>
                     </div>
                   </nav>
+
+                  <div className="border-t border-border/60 px-4 py-3">
+                    <ThemeToggle variant="row" />
+                  </div>
 
                   <div className="border-t border-border/60 px-4 py-4">
                     {username ? (

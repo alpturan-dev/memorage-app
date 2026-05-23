@@ -60,7 +60,7 @@ const PresetCollections = ({ view }) => {
     },
   ];
   const [visibleLanguages, setVisibleLanguages] = useState(
-    languages.slice(0, view === "mobile" ? 2 : 4)
+    languages.slice(0, view === "mobile" ? 2 : 4),
   );
   const [startIndex, setStartIndex] = useState(0);
   const [presetCollections, setPresetCollections] = useState([]);
@@ -70,7 +70,7 @@ const PresetCollections = ({ view }) => {
     const newStartIndex = Math.min(startIndex + 1, languages.length - tabCount);
     setStartIndex(newStartIndex);
     setVisibleLanguages(
-      languages.slice(newStartIndex, newStartIndex + tabCount)
+      languages.slice(newStartIndex, newStartIndex + tabCount),
     );
   };
 
@@ -79,7 +79,7 @@ const PresetCollections = ({ view }) => {
     const newStartIndex = Math.max(startIndex - 1, 0);
     setStartIndex(newStartIndex);
     setVisibleLanguages(
-      languages.slice(newStartIndex, newStartIndex + tabCount)
+      languages.slice(newStartIndex, newStartIndex + tabCount),
     );
   };
 
@@ -125,7 +125,7 @@ const PresetCollections = ({ view }) => {
             <TabsList
               className={twJoin(
                 "flex-grow grid",
-                view === "mobile" ? "grid-cols-2" : "grid-cols-4"
+                view === "mobile" ? "grid-cols-2" : "grid-cols-4",
               )}
             >
               {visibleLanguages.map((lang) => (
@@ -174,10 +174,10 @@ const PresetCollections = ({ view }) => {
                         variant="outline"
                         onClick={() => {
                           let tempLang = constLangs.find(
-                            (item) => item.name === lang
+                            (item) => item.name === lang,
                           );
                           navigate(
-                            `/preset-collection/${tempLang.code}/${level.level}`
+                            `/preset-collection/${tempLang.code}/${level.level}`,
                           );
                           scrollToTop();
                         }}
@@ -191,7 +191,7 @@ const PresetCollections = ({ view }) => {
                         selectedCollectionId={
                           presetCollections.find((col) => {
                             let tempLang = constLangs.find(
-                              (item) => item.name === lang
+                              (item) => item.name === lang,
                             );
                             return (
                               col.languageCode === tempLang.code &&
@@ -203,7 +203,7 @@ const PresetCollections = ({ view }) => {
                         languageCode={
                           presetCollections.find((col) => {
                             let tempLang = constLangs.find(
-                              (item) => item.name === lang
+                              (item) => item.name === lang,
                             );
                             return (
                               col.languageCode === tempLang.code &&

@@ -159,7 +159,7 @@ const ImportWordsComponent = ({
             className="col-span-3"
           />
           {images.length > 0 && (
-            <div className="text-sm text-gray-500">
+            <div className="text-sm text-muted-foreground">
               {images.length} {t("collectionPage.imagesSelected")}
             </div>
           )}

@@ -1,5 +1,6 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom"
 import AuthContextProvider from "./context/AuthContext"
+import ThemeContextProvider from "./context/ThemeContext"
 import Layout from "./components/layout"
 import Login from "./pages/login"
 import SignUp from "./pages/signup"
@@ -11,7 +12,7 @@ import Exercises from "./pages/exercises"
 import Flashcards from "./pages/exercises/components/flashcards"
 import Shuffle from "./pages/exercises/components/shuffle"
 import WordMatch from "./pages/exercises/components/word-match"
-import { Toaster } from "react-hot-toast"
+import ThemedToaster from "./components/themed-toaster"
 import { Suspense } from "react"
 import { Loader } from "lucide-react"
 import PresetCollection from "./pages/collection/components/preset-collection"
@@ -20,10 +21,12 @@ import SharedCollection from "./pages/shared-collection"
 const ProviderLayout = () => {
   return (
     <Suspense fallback={<Loader />}>
-      <AuthContextProvider>
-        <Toaster position="bottom-right" />
-        <Outlet />
-      </AuthContextProvider>
+      <ThemeContextProvider>
+        <AuthContextProvider>
+          <ThemedToaster />
+          <Outlet />
+        </AuthContextProvider>
+      </ThemeContextProvider>
     </Suspense>
   )
 }

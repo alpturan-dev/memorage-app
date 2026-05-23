@@ -22,7 +22,12 @@
     "exercises": "Egzersizler",
     "myAccount": "Hesabım",
     "profile": "Profil",
-    "logout": "Çıkış yap"
+    "logout": "Çıkış yap",
+    "theme": "Tema",
+    "themeLight": "Açık",
+    "themeDark": "Koyu",
+    "themeSystem": "Sistem",
+    "toggleTheme": "Temayı değiştir"
   },
   "loginPage": {
     "title": "Hesabınıza giriş yapın",

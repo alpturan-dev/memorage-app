@@ -55,7 +55,7 @@ const SharedCollection = () => {
 
     if (!loading && notFound) {
         return (
-            <div className="bg-background text-foreground py-4">
+            <div className="text-foreground py-4">
                 <div className="flex flex-col items-center justify-center gap-4 py-12">
                     <p className="text-muted-foreground">{t("sharedPage.collectionNotFound")}</p>
                     <Button variant="outline" size="sm" onClick={() => navigate('/')}>
@@ -68,7 +68,7 @@ const SharedCollection = () => {
     }
 
     return (
-        <div className="bg-background text-foreground py-4">
+        <div className="text-foreground py-4">
             <div className="grid gap-4">
                 <div className="flex items-center justify-between">
                     {loading ? (
@@ -117,7 +117,7 @@ const SharedCollection = () => {
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                             {words.map((item, index) => (
-                                <div key={index} className="flex flex-col gap-2 p-3 rounded-md bg-gray-100">
+                                <div key={index} className="flex flex-col gap-2 p-3 rounded-md bg-muted">
                                     <div className="font-medium">{item.nativeWord}</div>
                                     <div className="opacity-70 text-sm">{item.targetWord}</div>
                                 </div>

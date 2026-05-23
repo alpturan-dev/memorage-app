@@ -205,7 +205,7 @@ const Shuffle = ({ reverse = false }) => {
   // Loading state
   if (!currentWord && !isCompleted) {
     return (
-      <main className="bg-background text-foreground py-4">
+      <main className="text-foreground py-4">
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center gap-3 mb-6">
             <Skeleton className="h-9 w-9 rounded-md" />
@@ -228,7 +228,7 @@ const Shuffle = ({ reverse = false }) => {
     const percentage =
       totalWords > 0 ? Math.round((score / totalWords) * 100) : 0;
     return (
-      <main className="bg-background text-foreground py-4">
+      <main className="text-foreground py-4">
         <div className="max-w-md mx-auto text-center animate-fade-in-up">
           <div className="bg-card rounded-3xl p-8 shadow-md border border-border">
             <div className="flex justify-center mb-4">
@@ -282,7 +282,7 @@ const Shuffle = ({ reverse = false }) => {
 
   // Main exercise view
   return (
-    <main className="bg-background text-foreground py-4 animate-fade-in-up">
+    <main className="text-foreground py-4 animate-fade-in-up">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">

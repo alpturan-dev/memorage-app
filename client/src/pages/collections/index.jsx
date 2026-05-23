@@ -130,7 +130,10 @@ const Collections = () => {
                     ))
                   ) : wordCollections.length > 0 ? (
                     wordCollections.map((item) => (
-                      <Card key={item._id}>
+                      <Card
+                        key={item._id}
+                        className="border-gray-200 dark:border-gray-500"
+                      >
                         <CardHeader>
                           <CardTitle className="text-xl">{item.name}</CardTitle>
                           <CardDescription className="text-xs">
@@ -206,7 +209,7 @@ const Collections = () => {
                                     onClick={async (e) => {
                                       e.stopPropagation();
                                       await handleDeleteWordCollection(
-                                        item._id
+                                        item._id,
                                       );
                                     }}
                                   >
@@ -277,7 +280,10 @@ const Collections = () => {
                   ))
                 ) : wordCollections.length > 0 ? (
                   wordCollections.map((item) => (
-                    <Card key={item._id}>
+                    <Card
+                      key={item._id}
+                      className="border-gray-200 dark:border-gray-500"
+                    >
                       <CardHeader>
                         <CardTitle className="text-xl">{item.name}</CardTitle>
                         <CardDescription className="text-xs">
@@ -351,7 +357,7 @@ const Collections = () => {
                                     onClick={async (e) => {
                                       e.stopPropagation();
                                       await handleDeleteWordCollection(
-                                        item._id
+                                        item._id,
                                       );
                                     }}
                                   >
