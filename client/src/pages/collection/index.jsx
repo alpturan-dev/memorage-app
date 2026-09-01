@@ -252,14 +252,16 @@ const Collection = () => {
     [selectedCollection], // 0.2 seconds delay
   );
 
-  const handleSuggestionClick = (suggestion) => {
+  const handleSuggestionClick = (suggestion, index) => {
     setNewWord((prev) => ({
       ...prev,
       targetWord: prev.targetWord
         ? `${prev.targetWord}, ${suggestion}`
         : suggestion,
     }));
-    // Keep dropdown open for multiple selections
+    // Remove the picked suggestion so it can't be selected twice
+    setSuggestedTranslations((prev) => prev.filter((_, i) => i !== index));
+    // Keep dropdown open for the remaining selections
     setIsTranslating(false);
   };
 
@@ -438,9 +440,9 @@ const Collection = () => {
                 <div className="max-h-40 overflow-y-auto">
                   {suggestedTranslations.map((suggestion, index) => (
                     <div
-                      key={index}
+                      key={`${suggestion}-${index}`}
                       className="px-3 py-2 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150 border-b border-gray-100 dark:border-gray-700 last:border-b-0"
-                      onClick={() => handleSuggestionClick(suggestion)}
+                      onClick={() => handleSuggestionClick(suggestion, index)}
                     >
                       {suggestion}
                     </div>
