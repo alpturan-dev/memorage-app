@@ -24,7 +24,7 @@ export const removeShareLink = async (req, res) => {
   try {
     const collection = await WordCollection.findOneAndUpdate(
       { _id: req.params.id, user: req.user.id },
-      { shareToken: null },
+      { $unset: { shareToken: 1 } },
       { new: true }
     );
     if (!collection) {
