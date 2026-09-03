@@ -10,7 +10,8 @@
     "delete": "Sil",
     "cancel": "İptal",
     "change": "Değiştir",
-    "playAudio": "Ses oynat"
+    "playAudio": "Ses oynat",
+    "or": "veya"
   },
   "comingSoon": {
     "comingSoon": "yakında...",
@@ -37,7 +38,8 @@
     "credentialsRequired": "E-posta ve şifre gerekli!",
     "loggedIn": "Başarıyla giriş yapıldı!",
     "loggedOut": "Başarıyla çıkış yapıldı!",
-    "needLogin": "Sayfaya erişebilmek için giriş yapmalısın!"
+    "needLogin": "Sayfaya erişebilmek için giriş yapmalısın!",
+    "googleFailed": "Google ile giriş başarısız oldu, lütfen tekrar deneyin."
   },
   "signupPage": {
     "title": "Kayıt ol",
@@ -121,7 +123,8 @@
     "userError": "Bilgilerinizi güncellerken bir hata oluştu. Lütfen daha sonra tekrar deneyin.",
     "passwordChanged": "Şifreniz başarıyla değiştirildi.",
     "passwordsDoNotMatch": "Yeni şifreler uyuşmuyor.",
-    "passwordError": "Şifrenizi değiştirirken bir hata oluştu. Lütfen mevcut şifrenizin doğru olduğundan emin olun ve tekrar deneyin."
+    "passwordError": "Şifrenizi değiştirirken bir hata oluştu. Lütfen mevcut şifrenizin doğru olduğundan emin olun ve tekrar deneyin.",
+    "googleAccount": "Google ile giriş yaptığınız için değiştirilecek bir şifreniz yok."
   },
   "collectionsPage": {
     "yourCollectionsTitle": "Senin Koleksiyonların",

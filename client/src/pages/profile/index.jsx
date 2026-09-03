@@ -37,6 +37,8 @@ const Profile = () => {
   const { i18n, t } = useTranslation();
 
   const localUser = JSON.parse(localStorage.getItem("user"));
+  // Accounts created through Google have no password of their own to change.
+  const isGoogleOnlyAccount = localUser?.authProvider === "google";
   const initialUser = useMemo(getUserFromStorage, []);
   const [user, setUser] = useState(initialUser);
 
@@ -295,8 +297,13 @@ const Profile = () => {
                   <ShieldCheck className="h-4 w-4 text-primary" />
                   {t("profilePage.changePassword")}
                 </CardTitle>
+                {isGoogleOnlyAccount && (
+                  <p className="mt-1.5 text-sm text-muted-foreground">
+                    {t("profilePage.googleAccount")}
+                  </p>
+                )}
               </div>
-              {!editingPassword ? (
+              {isGoogleOnlyAccount ? null : !editingPassword ? (
                 <Button
                   variant="outline"
                   size="sm"
@@ -317,111 +324,113 @@ const Profile = () => {
                 </Button>
               )}
             </CardHeader>
-            <CardContent>
-              <form onSubmit={handleChangePassword} className="space-y-4">
-                <div className="space-y-1.5">
-                  <Label
-                    htmlFor="current-password"
-                    className="text-xs font-medium text-muted-foreground uppercase tracking-wide"
-                  >
-                    {t("profilePage.currentPassword")}
-                  </Label>
-                  <PasswordInput
-                    id="current-password"
-                    value={newPassword.current}
-                    onChange={(e) =>
-                      setNewPassword({
-                        ...newPassword,
-                        current: e.target.value,
-                      })
-                    }
-                    field="current"
-                    disabled={!editingPassword}
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <Label
-                    htmlFor="new-password"
-                    className="text-xs font-medium text-muted-foreground uppercase tracking-wide"
-                  >
-                    {t("profilePage.newPassword")}
-                  </Label>
-                  <PasswordInput
-                    id="new-password"
-                    value={newPassword.new}
-                    onChange={(e) =>
-                      setNewPassword({ ...newPassword, new: e.target.value })
-                    }
-                    field="new"
-                    disabled={!editingPassword}
-                  />
-                  {editingPassword && newPassword.new && (
-                    <div className="flex items-center gap-2 pt-1">
-                      <div className="flex-1 flex gap-1">
-                        {[1, 2, 3, 4].map((i) => (
-                          <div
-                            key={i}
-                            className={twJoin(
-                              "h-1 flex-1 rounded-full transition-colors",
-                              i <= passwordStrength.score
-                                ? passwordStrength.color
-                                : "bg-muted",
-                            )}
-                          />
-                        ))}
+            {!isGoogleOnlyAccount && (
+              <CardContent>
+                <form onSubmit={handleChangePassword} className="space-y-4">
+                  <div className="space-y-1.5">
+                    <Label
+                      htmlFor="current-password"
+                      className="text-xs font-medium text-muted-foreground uppercase tracking-wide"
+                    >
+                      {t("profilePage.currentPassword")}
+                    </Label>
+                    <PasswordInput
+                      id="current-password"
+                      value={newPassword.current}
+                      onChange={(e) =>
+                        setNewPassword({
+                          ...newPassword,
+                          current: e.target.value,
+                        })
+                      }
+                      field="current"
+                      disabled={!editingPassword}
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label
+                      htmlFor="new-password"
+                      className="text-xs font-medium text-muted-foreground uppercase tracking-wide"
+                    >
+                      {t("profilePage.newPassword")}
+                    </Label>
+                    <PasswordInput
+                      id="new-password"
+                      value={newPassword.new}
+                      onChange={(e) =>
+                        setNewPassword({ ...newPassword, new: e.target.value })
+                      }
+                      field="new"
+                      disabled={!editingPassword}
+                    />
+                    {editingPassword && newPassword.new && (
+                      <div className="flex items-center gap-2 pt-1">
+                        <div className="flex-1 flex gap-1">
+                          {[1, 2, 3, 4].map((i) => (
+                            <div
+                              key={i}
+                              className={twJoin(
+                                "h-1 flex-1 rounded-full transition-colors",
+                                i <= passwordStrength.score
+                                  ? passwordStrength.color
+                                  : "bg-muted",
+                              )}
+                            />
+                          ))}
+                        </div>
+                        <span className="text-xs text-muted-foreground min-w-[45px] text-right">
+                          {passwordStrength.label}
+                        </span>
                       </div>
-                      <span className="text-xs text-muted-foreground min-w-[45px] text-right">
-                        {passwordStrength.label}
-                      </span>
-                    </div>
-                  )}
-                </div>
-                <div className="space-y-1.5">
-                  <Label
-                    htmlFor="confirm-password"
-                    className="text-xs font-medium text-muted-foreground uppercase tracking-wide"
-                  >
-                    {t("profilePage.confirmNewPassword")}
-                  </Label>
-                  <PasswordInput
-                    id="confirm-password"
-                    value={newPassword.confirm}
-                    onChange={(e) =>
-                      setNewPassword({
-                        ...newPassword,
-                        confirm: e.target.value,
-                      })
-                    }
-                    field="confirm"
-                    disabled={!editingPassword}
-                  />
-                  {confirmMismatch && (
-                    <p className="text-xs text-destructive pt-1">
-                      {t("profilePage.passwordsDoNotMatch")}
-                    </p>
-                  )}
-                </div>
-                {editingPassword && (
-                  <Button
-                    type="submit"
-                    disabled={
-                      savingPassword ||
-                      confirmMismatch ||
-                      !newPassword.current ||
-                      !newPassword.new
-                    }
-                    className="w-full sm:w-auto"
-                  >
-                    {savingPassword ? (
-                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    ) : (
-                      <Save className="w-4 h-4 mr-2" />
                     )}
-                    {t("profilePage.updatePassword")}
-                  </Button>
-                )}
-              </form>
-            </CardContent>
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label
+                      htmlFor="confirm-password"
+                      className="text-xs font-medium text-muted-foreground uppercase tracking-wide"
+                    >
+                      {t("profilePage.confirmNewPassword")}
+                    </Label>
+                    <PasswordInput
+                      id="confirm-password"
+                      value={newPassword.confirm}
+                      onChange={(e) =>
+                        setNewPassword({
+                          ...newPassword,
+                          confirm: e.target.value,
+                        })
+                      }
+                      field="confirm"
+                      disabled={!editingPassword}
+                    />
+                    {confirmMismatch && (
+                      <p className="text-xs text-destructive pt-1">
+                        {t("profilePage.passwordsDoNotMatch")}
+                      </p>
+                    )}
+                  </div>
+                  {editingPassword && (
+                    <Button
+                      type="submit"
+                      disabled={
+                        savingPassword ||
+                        confirmMismatch ||
+                        !newPassword.current ||
+                        !newPassword.new
+                      }
+                      className="w-full sm:w-auto"
+                    >
+                      {savingPassword ? (
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      ) : (
+                        <Save className="w-4 h-4 mr-2" />
+                      )}
+                      {t("profilePage.updatePassword")}
+                    </Button>
+                  )}
+                </form>
+              </CardContent>
+            )}
           </Card>
         </div>
       </div>

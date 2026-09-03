@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import { Mail, Lock, ArrowRight } from "lucide-react";
 import logo from "../../../public/logo1.png";
 import i18n from "@/i18n";
+import GoogleAuthButton from "@/components/google-auth-button";
 
 const Login = () => {
   const { t } = useTranslation();
@@ -144,6 +145,10 @@ const Login = () => {
               )}
             </Button>
           </form>
+
+          <div className="mt-6">
+            <GoogleAuthButton disabled={loading} />
+          </div>
         </div>
       </div>
     </div>

@@ -10,7 +10,8 @@
     "delete": "Delete",
     "cancel": "Cancel",
     "change": "Change",
-    "playAudio": "Play audio"
+    "playAudio": "Play audio",
+    "or": "or"
   },
   "comingSoon": {
     "comingSoon": "coming soon...",
@@ -37,7 +38,8 @@
     "credentialsRequired": "Email and password required!",
     "loggedIn": "Logged in succesfully!",
     "loggedOut": "Logged out succesfully!",
-    "needLogin": "You need to login for access the page!"
+    "needLogin": "You need to login for access the page!",
+    "googleFailed": "Google sign-in failed, please try again."
   },
   "signupPage": {
     "title": "Sign up",
@@ -121,7 +123,8 @@
     "userError": "There was an error updating your information. Please try again later.",
     "passwordChanged": "Your password has been changed successfully.",
     "passwordsDoNotMatch": "New passwords do not match.",
-    "passwordError": "There was an error changing your password. Please ensure your current password is correct and try again."
+    "passwordError": "There was an error changing your password. Please ensure your current password is correct and try again.",
+    "googleAccount": "You sign in with Google, so there is no password to change."
   },
   "collectionsPage": {
     "yourCollectionsTitle": "Your Collections",

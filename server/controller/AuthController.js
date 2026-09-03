@@ -1,5 +1,6 @@
 import { User } from "../models/UserModel.js";
 import { createSecretToken } from "../utils/SecretToken.js";
+import { verifyGoogleIdToken } from "../utils/GoogleClient.js";
 import bcrypt from "bcrypt"
 
 export const Login = async (req, res) => {
@@ -45,6 +46,45 @@ export const Signup = async (req, res) => {
     }
 };
 
+export const GoogleLogin = async (req, res) => {
+    try {
+        const { credential } = req.body;
+        if (!credential) {
+            return res.status(400).json({ message: 'Google credential is required' });
+        }
+
+        const payload = await verifyGoogleIdToken(credential);
+        if (!payload?.email_verified) {
+            return res.status(400).json({ message: 'Google account email is not verified' });
+        }
+
+        const email = payload.email.toLowerCase();
+        let user = await User.findOne({ $or: [{ googleId: payload.sub }, { email }] });
+
+        if (!user) {
+            user = await User.create({
+                email,
+                username: payload.name || email.split('@')[0],
+                googleId: payload.sub,
+                authProvider: 'google'
+            });
+        } else if (!user.googleId) {
+            // Existing email/password account: link it to the Google identity.
+            user.googleId = payload.sub;
+            await user.save();
+        }
+
+        const token = createSecretToken(user._id);
+        return res.status(200).json({ message: "User logged in successfully", success: true, user, token });
+    } catch (error) {
+        console.error('Error in GoogleLogin:', error);
+        if (error.code === 'INVALID_GOOGLE_TOKEN') {
+            return res.status(400).json({ message: 'Invalid Google credential' });
+        }
+        return res.status(500).json({ message: "Internal server error" });
+    }
+};
+
 export const UpdateUserCredentials = async (req, res) => {
     try {
         const { username, email, language } = req.body;
@@ -73,6 +113,10 @@ export const UpdatePassword = async (req, res) => {
         const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
+        }
+
+        if (!user.password) {
+            return res.status(400).json({ message: 'This account signs in with Google and has no password' });
         }
 
         const isPasswordCorrect = await bcrypt.compare(currentPassword, user.password);

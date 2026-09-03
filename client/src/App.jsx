@@ -1,4 +1,5 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom"
+import { GoogleOAuthProvider } from "@react-oauth/google"
 import AuthContextProvider from "./context/AuthContext"
 import ThemeContextProvider from "./context/ThemeContext"
 import Layout from "./components/layout"
@@ -60,8 +61,18 @@ const router = createBrowserRouter(
 )
 
 const App = () => {
+  const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
+
+  // Without a client id there is nothing for the Google SDK to initialise,
+  // so the app falls back to email/password authentication only.
+  if (!googleClientId) {
+    return <RouterProvider router={router} />
+  }
+
   return (
-    <RouterProvider router={router} />
+    <GoogleOAuthProvider clientId={googleClientId}>
+      <RouterProvider router={router} />
+    </GoogleOAuthProvider>
   )
 }
 

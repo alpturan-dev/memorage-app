@@ -10,6 +10,7 @@ A full-stack language learning application that helps users create and practice 
 - **Translation**: Integrated Google Translate API
 - **Text-to-Speech**: Pronunciation support via Google TTS
 - **Multi-language UI**: Internationalization with i18next
+- **Google Sign-In**: Sign in or register with a Google account
 
 ## Tech Stack
 
@@ -22,7 +23,7 @@ A full-stack language learning application that helps users create and practice 
 ### Backend
 - Node.js + Express
 - MongoDB + Mongoose
-- JWT Authentication
+- JWT Authentication (email/password and Google Sign-In)
 
 ### AI & APIs
 - Google Gemini (image-to-word extraction)
@@ -64,12 +65,21 @@ TOKEN_KEY=<jwt-secret>
 GEMINI_API_KEY=<google-gemini-api-key>
 GOOGLE_TRANSLATE_API_KEY=<translation-api-key>
 GOOGLE_TTS_API_KEY=<tts-api-key>
+GOOGLE_CLIENT_ID=<google-oauth-client-id>
 ```
 
 **Client (.env)**
 ```
 VITE_API_URL=<backend-api-url>
+VITE_GOOGLE_CLIENT_ID=<google-oauth-client-id>
 ```
+
+`GOOGLE_CLIENT_ID` and `VITE_GOOGLE_CLIENT_ID` are the same value: the OAuth 2.0
+**Web application** client id from the
+[Google Cloud console](https://console.cloud.google.com/apis/credentials). Add every
+origin the client runs on (e.g. `http://localhost:5173` and the production domain) to
+that client's *Authorised JavaScript origins*. When the variables are left empty the
+Google button is simply not rendered and email/password login keeps working.
 
 ### Running the Application
 

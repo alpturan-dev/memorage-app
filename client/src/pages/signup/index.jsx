@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import { User, Mail, Lock, ArrowRight } from "lucide-react";
 import logo from "../../../public/logo1.png";
+import GoogleAuthButton from "@/components/google-auth-button";
 
 const SignUp = () => {
   const { t } = useTranslation();
@@ -151,6 +152,10 @@ const SignUp = () => {
               )}
             </Button>
           </form>
+
+          <div className="mt-6">
+            <GoogleAuthButton disabled={loading} />
+          </div>
         </div>
       </div>
     </div>
