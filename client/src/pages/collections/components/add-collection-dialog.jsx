@@ -38,9 +38,18 @@ export const AddCollectionDialog = ({ getAllWordCollections }) => {
 
     const handleAddCollection = async (e) => {
         e.preventDefault();
+        const name = newCollection.name.trim();
+        if (!name) {
+            toast.error(t('collectionsPage.nameRequired'));
+            return;
+        }
+        if (!newCollection.targetLanguage.code) {
+            toast.error(t('collectionsPage.languageRequired'));
+            return;
+        }
         try {
             setLoading(true);
-            const response = await apiRequest.post('/api/wordCollections', newCollection);
+            const response = await apiRequest.post('/api/wordCollections', { ...newCollection, name });
             if (response.status === 201) {
                 await getAllWordCollections();
                 toast.success(t('collectionsPage.added'))
@@ -93,9 +102,8 @@ export const AddCollectionDialog = ({ getAllWordCollections }) => {
                                 {t('collectionsPage.languageYouWantToLearn')}
                             </Label>
                             <Select
-                                id="targetLanguage"
+                                name="targetLanguage"
                                 disabled={loading}
-                                required
                                 value={newCollection.targetLanguage.code}
                                 onValueChange={(value) => {
                                     const lang = languages.find((item) => item.code === value);
@@ -105,7 +113,7 @@ export const AddCollectionDialog = ({ getAllWordCollections }) => {
                                     })
                                 }}
                             >
-                                <SelectTrigger className="col-span-3">
+                                <SelectTrigger id="targetLanguage" className="col-span-3">
                                     <SelectValue placeholder={t('collectionsPage.selectLanguage')} />
                                 </SelectTrigger>
                                 <SelectContent className="h-56">

@@ -143,6 +143,8 @@
     "sourceLanguage": "Source Language",
     "languageYouWantToLearn": "Language you want to learn",
     "selectLanguage": "Select a language",
+    "nameRequired": "Please enter a collection name.",
+    "languageRequired": "Please select a language you want to learn.",
     "deleted": "Collection deleted succesfully!",
     "added": "New word collection added.",
     "beginner": "Beginner",

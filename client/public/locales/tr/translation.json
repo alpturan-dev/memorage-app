@@ -143,6 +143,8 @@
     "sourceLanguage": "Kaynak Dil",
     "languageYouWantToLearn": "Öğrenmek istediğin dil",
     "selectLanguage": "Bir dil seçin",
+    "nameRequired": "Lütfen bir koleksiyon adı girin.",
+    "languageRequired": "Lütfen öğrenmek istediğiniz dili seçin.",
     "deleted": "Koleksiyon başarıyla silindi!",
     "added": "Yeni kelime koleksiyonu eklendi.",
     "beginner": "Başlangıç",
